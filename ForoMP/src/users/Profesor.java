@@ -9,6 +9,10 @@ package users;
  *
  * @author Sara
  */
-public class Profesor {
+public class Profesor extends Usuario{
+    
+    public Profesor(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña) {
+        super(nombre, apellido1, apellido2, nick, email, contraseña);
+    }
     
 }

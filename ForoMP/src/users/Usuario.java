@@ -5,10 +5,29 @@
  */
 package users;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Sara
  */
-public class Usuario {
+public class Usuario implements Serializable {
+    private String nombre;
+    private String apellido1;
+    private String apellido2;
+    private String nick;
+    private String email;
+    private String contraseña;
+
+    public Usuario(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña) {
+        this.nombre = nombre;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
+        this.nick = nick;
+        this.email = email;
+        this.contraseña = contraseña;
+    }
     
+    public void recibirNotificacion(String not){
+    };
 }
