@@ -7,13 +7,13 @@ package Subforo_Entrada;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Scanner;
+
 
 /**
  *
  * @author alvarogonzalez
  */
-public class Encuesta  {
+public class Encuesta extends EntradaGenerica {
 
     private String nombre;
     private ArrayList<String> preguntas;
@@ -24,53 +24,54 @@ public class Encuesta  {
         preguntas = new ArrayList<String>();
         respuestas = new ArrayList<String>();
     }
-public void añadirPreguntas(String prg) {
-    preguntas.add(prg);
-}
 
-public void reponderPreguntas(String resp, int i){ // el numero de la pregunta debe ser mayor que cero
-    System.out.println("Ha respondido la pregunta: "+preguntas.get(i-1)+ " con "+ "<< "+ resp+ " >>");
-    respuestas.add(resp);
-    System.out.println("-------------");
-}
+    public void añadirPreguntas(String prg) {
+        preguntas.add(prg);
+    }
 
-   public String verRespuestas(){
-    System.out.println("RESPUESTAS DE LA ENCUESTA "+ nombre);
-    System.out.println();
-    String info = "Encuesta: " + this.nombre + "\n";
-    int n =1 ;
-    Iterator<String> c = preguntas.iterator();
-    Iterator<String> r = respuestas.iterator();
-    
-    while (c.hasNext() & r.hasNext()) {//mientas haya pregutnas que reponder estara en el bucle
-    String ans = c.next();
-    String res = r.next();
-    
-    System.out.println(n + "-" + ans);
-    System.out.println(res);
-    n++;
-    
+    public void reponderPreguntas(String resp, int i) { // el numero de la pregunta debe ser mayor que cero
+        System.out.println("Ha respondido la pregunta: " + preguntas.get(i - 1) + " con " + "<< " + resp + " >>");
+        respuestas.add(resp);
+        System.out.println("-------------");
     }
-    System.out.println("-------------");
-    return info;
-    
+
+    public String verRespuestas() {
+        System.out.println("RESPUESTAS DE LA ENCUESTA " + nombre);
+        System.out.println();
+        String info = "\n";
+        int n = 1;
+        Iterator<String> c = preguntas.iterator();
+        Iterator<String> r = respuestas.iterator();
+
+        while (c.hasNext() & r.hasNext()) {//mientas haya pregutnas que reponder estara en el bucle
+            String ans = c.next();
+            String res = r.next();
+
+            System.out.println(n + "-" + ans);
+            System.out.println(res);
+            n++;
+
+        }
+        System.out.println("-------------");
+        return info;
+
     }
-   
-   public String verPreguntas(){
-       String info = "\n";
-       
-      Iterator<String> c = preguntas.iterator(); 
-      int n= 1;
-      while (c.hasNext()) {//mientas haya pregutnas que reponder estara en el bucle
-    String ans = c.next();
-    
-    System.out.println(n + "-" + ans);
-    
-    n++;
-   }
-      System.out.println("-------------");
-     return info; 
-   }
+
+    public String verPreguntas() {
+        String info = "\n";
+
+        Iterator<String> c = preguntas.iterator();
+        int n = 1;
+        while (c.hasNext()) {//mientas haya pregutnas que reponder estara en el bucle
+            String ans = c.next();
+
+            System.out.println(n + "-" + ans);
+
+            n++;
+        }
+        System.out.println("-------------");
+        return info;
+    }
 
     /* public void añadirPreguntas() {
     int n = 1;
@@ -91,7 +92,7 @@ public void reponderPreguntas(String resp, int i){ // el numero de la pregunta d
     }
     }*/
 
-    /*public void responderPreguntas() {
+ /*public void responderPreguntas() {
     System.out.println("ENCUESTA " + nombre );
     int n = 1;
     Iterator<String> c = preguntas.iterator();
@@ -109,7 +110,5 @@ public void reponderPreguntas(String resp, int i){ // el numero de la pregunta d
     }
     
     }
-    */
- 
-    }
-
+     */
+}

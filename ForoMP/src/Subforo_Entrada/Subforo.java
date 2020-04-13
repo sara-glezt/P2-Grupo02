@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Subforo_Entrada;
+package reddit;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import users.*; //para importat el paquete users
 
 /**
  *
@@ -18,29 +19,30 @@ public class Subforo implements Serializable, Subject {
 
     private String nombre;
     private ArrayList<Usuario> usuario;//arrayList de usuario para saber quien se ha susbcrito
-    //private ArrayList<Entrada> entrada; arrayList de entrada para saber que entradas tiene el subforo
+    private ArrayList<Entrada> entrada; //arrayList de entrada para saber que entradas tiene el subforo
 
     public Subforo(String nombre) {  //constructor de Subforo
         this.nombre = nombre;
-        usuario = new ArrayList<Usuario>(); 
-        //entrada = new ArrayList<Entrada>(); 
+        usuario = new ArrayList<Usuario>();
+        entrada = new ArrayList<Entrada>();
     }
 
     public void añadirSubscritor(Usuario subs) {
         usuario.add(subs);
+        System.out.println("Nuevo usuario subscrito al subforo " + this.nombre);
+    }
+
+    public void notificar() {//no se que debe hacer exactemante
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void eliminarSubscritor(Usuario subs) {
         usuario.remove(subs);
+        System.out.println("Hasta luego.");
     }
 
-    /* public void addEntrada(Entrada ent) {
-    entrada.add(ent);
-    
-    }*/
+    public void addEntrada(Entrada ent) {
+        entrada.add(ent);
 
-    public void notificar() {//preguntar que hace exactamente notificar
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }
