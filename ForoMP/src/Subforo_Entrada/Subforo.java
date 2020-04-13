@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package reddit;
+package Subforo_Entrada;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,11 +28,15 @@ public class Subforo implements Serializable, Subject {
     }
 
     public void añadirSubscritor(Usuario subs) {
+
         usuario.add(subs);
-        System.out.println("Nuevo usuario subscrito al subforo " + this.nombre);
+        System.out.println("Nuevo usuario subscrito al subforo: <<" + this.nombre + " >>");
     }
 
     public void notificar() {//no se que debe hacer exactemante
+        // como en usuario debe haber un array de notificaciones, entiendo que cada vez que vez que se añade algo inmediatamente despues debe
+        //de haber un notificar() para que a todos los usuario suscrito se les guarde en este array y cuanto haga recibirnotificacion se le carge en 
+        //el array
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

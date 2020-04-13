@@ -26,7 +26,11 @@ public class Encuesta extends EntradaGenerica {
     }
 
     public void añadirPreguntas(String prg) {
+        if(!prg.isEmpty()){
         preguntas.add(prg);
+    }else{
+            System.out.println("Usted no ha metido ningun usuario");
+        }
     }
 
     public void reponderPreguntas(String resp, int i) { // el numero de la pregunta debe ser mayor que cero
