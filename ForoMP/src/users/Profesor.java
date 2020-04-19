@@ -5,11 +5,13 @@
  */
 package users;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Sara
  */
-public class Profesor extends Usuario{
+public class Profesor extends Usuario implements Serializable{
     
     public Profesor(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña) {
         super(nombre, apellido1, apellido2, nick, email, contraseña);

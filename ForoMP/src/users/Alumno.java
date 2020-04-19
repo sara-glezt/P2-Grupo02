@@ -5,23 +5,32 @@
  */
 package users;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+
 /**
  *
  * @author Sara
  */
-public class Alumno extends Usuario{
+public class Alumno extends Usuario implements Serializable{
+    private ArrayList<Penalizacion> penalizaciones = new ArrayList<>();
     
     public Alumno(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña) {
         super(nombre, apellido1, apellido2, nick, email, contraseña);
     }
-    
-    public boolean penalizar(){
+    ///HE CAMBIADO EL METODO A VOID
+    public void penalizar(){
+        Date fecha = new Date();
+        Penalizacion pena = new Penalizacion(fecha);
+        penalizaciones.add(pena);
         
-     return false;
 }
     
     public boolean penalizado(){
-        
+    if (penalizaciones.isEmpty())
      return false;
+    else
+        return true;
 }
 }
