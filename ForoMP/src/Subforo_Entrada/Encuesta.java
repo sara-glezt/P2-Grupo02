@@ -19,8 +19,8 @@ public class Encuesta extends EntradaGenerica {
     private ArrayList<String> preguntas;
     private ArrayList<String> respuestas;
 
-    public Encuesta(String Nombre) {
-        this.nombre = Nombre;
+    public Encuesta() {
+        super();
         preguntas = new ArrayList<String>();
         respuestas = new ArrayList<String>();
     }
