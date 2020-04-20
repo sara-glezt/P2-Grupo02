@@ -11,7 +11,8 @@ import java.io.Serializable;
  *
  * @author Sara
  */
-public class Usuario implements Serializable {
+public abstract class Usuario implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String nombre;
     private String apellido1;
     private String apellido2;
@@ -25,6 +26,55 @@ public class Usuario implements Serializable {
         this.apellido2 = apellido2;
         this.nick = nick;
         this.email = email;
+        this.contraseña = contraseña;
+    }
+
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido1() {
+        return apellido1;
+    }
+
+    public String getApellido2() {
+        return apellido2;
+    }
+
+    public String getNick() {
+        return nick;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido1(String apellido1) {
+        this.apellido1 = apellido1;
+    }
+
+    public void setApellido2(String apellido2) {
+        this.apellido2 = apellido2;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
     

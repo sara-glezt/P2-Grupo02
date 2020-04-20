@@ -14,6 +14,7 @@ import java.util.Date;
  * @author Sara
  */
 public class Alumno extends Usuario implements Serializable{
+    private static final long serialVersionUID = 1L;
     private ArrayList<Penalizacion> penalizaciones = new ArrayList<>();
     
     public Alumno(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña) {
