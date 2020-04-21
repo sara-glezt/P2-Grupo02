@@ -27,14 +27,21 @@ public class Subforo implements Serializable, Observable {
         usuario = new ArrayList<Observer>();
         entrada = new ArrayList<Entrada>();
     }
-
-    public void addSubscritor(Observer o) {
+    
+    
+    //
+    // COSAS DE OBSERVER (down)
+    //
+    
+    @Override
+    public void addSubscriptor(Observer o) {
 
         usuario.add(o);
         System.out.println("Nuevo usuario subscrito al subforo: <<" + this.nombre + " >>");
     }
 
-    public void notifyObserver() {//no se que debe hacer exactemante
+    @Override
+    public void notifySubscriptor() {//no se que debe hacer exactemante
         // como en usuario debe haber un array de notificaciones, entiendo que cada vez que vez que se añade algo inmediatamente despues debe
         //de haber un notificar() para que a todos los usuario suscrito se les guarde en este array y cuanto haga recibirnotificacion se le carge en 
         //el array
@@ -47,15 +54,20 @@ public class Subforo implements Serializable, Observable {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void deleteSubscritor(Observer o) {
+    @Override
+    public void deleteSubscriptor(Observer o) {
         usuario.remove(o);
         System.out.println("Hasta luego.");
     }
+    
+    //
+    // COSAS DE OBSERVER (up)
+    //
 
     public void addEntrada(Entrada ent) {
         entrada.add(ent);
         
-        notifyObserver();
+        notifySubscriptor();
 
     }
 }
