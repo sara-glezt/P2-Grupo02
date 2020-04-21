@@ -5,6 +5,7 @@
  */
 package Subforo_Entrada;
 
+import Observer.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import users.*; //para importar el paquete users

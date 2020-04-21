@@ -15,7 +15,7 @@ import java.util.Iterator;
  */
 public class Encuesta extends EntradaGenerica {
 
-    private String nombre;
+    
     private ArrayList<String> preguntas;
     private ArrayList<String> respuestas;
 
@@ -40,7 +40,7 @@ public class Encuesta extends EntradaGenerica {
     }
 
     public String verRespuestas() {
-        System.out.println("RESPUESTAS DE LA ENCUESTA " + nombre);
+        System.out.println("RESPUESTAS DE LA ENCUESTA ");
         System.out.println();
         String info = "\n";
         int n = 1;
