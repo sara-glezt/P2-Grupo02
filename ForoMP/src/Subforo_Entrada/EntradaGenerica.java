@@ -24,10 +24,10 @@ public class EntradaGenerica implements Serializable{
     private Usuario creador; //creador no está en el UML La flecha de es creada.
                             //deberia ser hacia EntradaGenerica.
     
-    public EntradaGenerica(){
-        this.valoracion = valoracion;
-        this.numTotalVal = numTotalVal;
-        this.fecha = fecha; //como obtener la fecha del new?
+    public EntradaGenerica(){//faltarias los parametros no?
+        this.valoracion = valoracion; //creo que esto no deberia estar en el constructor pues cuando la creas no la votas
+        this.numTotalVal = numTotalVal;// algo parecico con esto, en todo caso inicializar a 0 o algo asi
+        this.fecha = fecha; //como obtener la fecha del new? //this.fecha = new Date();
         this.titulo = titulo;
         this.publicada = publicada;
         this.verificado = verificado;
