@@ -5,12 +5,15 @@
  */
 package Observer;
 
+import Subforo_Entrada.Entrada;
+
+
 /**
  *
  * @author Miguel Angel
  */
 public interface Observable {
-    public void notifySubscriptor();
+    public void notifySubscriptor(Entrada ent);
     public void addSubscriptor(Observer o);
     public void deleteSubscriptor(Observer o);
     

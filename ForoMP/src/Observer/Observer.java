@@ -10,5 +10,5 @@ package Observer;
  * @author Miguel Angel
  */
 public interface Observer {
-    
+    public void recibirNotificacion(String noti);
 }
