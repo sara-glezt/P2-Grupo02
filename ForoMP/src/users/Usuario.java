@@ -5,13 +5,14 @@
  */
 package users;
 
+import Observer.Observer;
 import java.io.Serializable;
 
 /**
  *
  * @author Sara
  */
-public abstract class Usuario implements Serializable {
+public abstract class Usuario implements Serializable, Observer {
     private static final long serialVersionUID = 1L;
     private String nombre;
     private String apellido1;
@@ -78,6 +79,12 @@ public abstract class Usuario implements Serializable {
         this.contraseña = contraseña;
     }
     
-    public void recibirNotificacion(String not){
+    //
+    // COSAS DE OBSERVER (down)
+    //
+    
+    @Override
+    public void recibirNotificacion(String noti){
+        throw new UnsupportedOperationException("Not supported yet."); 
     };
 }
