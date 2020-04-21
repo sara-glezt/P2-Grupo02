@@ -9,6 +9,9 @@ package Observer;
  *
  * @author Miguel Angel
  */
-public interface Suscriptor {
-    //Observer
+public interface Observable {
+    public String notifySubscriptor();
+    public String addSubscriptor(Observer o);
+    public String deleteSubscriptor(Observer o);
+    
 }

@@ -9,7 +9,6 @@ package Observer;
  *
  * @author Miguel Angel
  */
-public interface Subject {
-    //Observable
+public interface Observer {
     
 }
