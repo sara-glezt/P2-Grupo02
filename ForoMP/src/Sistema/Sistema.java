@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import users.*;
 
 /**
@@ -31,11 +32,24 @@ public class Sistema {
 
     // primer problema, para registar hay que crear, habria que pasa el tipo pues usuario es abstracto y hacer unos ifes para verlo
     public boolean registrarse(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña) {
-
+        
+        Iterator <Usuario> i = usuario.iterator();
+        
+        boolean aceptar = true;
+        while(i.hasNext() & aceptar){ //comprobamos que el nick no se repita (se puede hacer con las demas propiedades)
+            Usuario u = i.next();
+                if(u.getNick().equals(nick)){
+                    System.out.println("El nick introducido ya esta usado, elija otro");
+                    aceptar = false;
+                }    
+        }
+        
+        if (aceptar){ //si no hay ninguna usuario con el mismo nick procedemos a crearlo
         Usuario u = new Usuario(nombre, apellido1, apellido2, nick, email, contraseña);
         usuario.add(u);
         System.out.println("Se ha añadido un nuevo usuario.");
-        return true;
+        }
+        return aceptar;
     }
 
     public boolean verificarNuevoUsuario() {//preguntar que hace exactamente
@@ -46,14 +60,23 @@ public class Sistema {
         for (Usuario us : usuario) { //primero busco el usuario por su nick(pues es unico)
             if (us.getNick().equals(nick)) {
                 usuario.remove(us);  //si lo encuenta lo borra
-                System.out.println("El usuario de Nick < " + us.getNick() + " > ha sido eliminado");
+                System.out.println("El usuario de Nick < " + nick + " > ha sido eliminado");
             }
         }
     }
 
     public void crearSubforo(String titulo) {
-        Subforo s = new Subforo(titulo); //creamos el subforo con el titulo (Ver que no se repitan el nombre?)
-        subforo.add(s);                  // lo añadido a la list a de subforos 
+        boolean bol = true;
+        for (Subforo sub : subforo) { //esto es eficiente cuando hay poco, si hay mucho seria mejor usar un iterator como en registrarse.
+            if (sub.getNombre().equals(titulo)) {
+                bol = false;
+                System.out.println("Esta subforo ya existe, elija otro titulo e intentelo de nuevo");
+            }
+        }
+        if (bol = true) { //si el nombre no esta usado entonces lo creamos
+            Subforo s = new Subforo(titulo); //creamos el subforo con el titulo (Ver que no se repitan el nombre?)
+            subforo.add(s); // lo añadido a la list a de subforos 
+        }                 
     }
 
     public void darDeBajaSubforo() {
@@ -80,32 +103,33 @@ public class Sistema {
 
     public boolean guardarSistema() {//asi guardaria la clase sistema entera, mejor guardar por separado usuarios y alumnos?
         try {
-           FileOutputStream f = new FileOutputStream("Sistema.obj");
-           ObjectOutputStream finalFile = new ObjectOutputStream(f);
-           finalFile.writeObject(this);
-           finalFile.close();
-           f.close();
-           return true;
+            FileOutputStream f = new FileOutputStream("Sistema.obj");
+            ObjectOutputStream finalFile = new ObjectOutputStream(f);
+            finalFile.writeObject(this);
+            finalFile.close();
+            f.close();
+            return true;
 
         } catch (IOException e) {
-           System.out.println(e.getMessage());
-           return false;
+            System.out.println(e.getMessage());
+            return false;
         }
     }
-       
-public static Sistema cargarSistema(){
+
+    public static Sistema cargarSistema() {
         Sistema u = null;
         try {
-            FileInputStream file =new FileInputStream("Sistema.obj");
+            FileInputStream file = new FileInputStream("Sistema.obj");
             ObjectInputStream inputFile = new ObjectInputStream(file);
             u = (Sistema) inputFile.readObject();
-            
+
             inputFile.close();
             file.close();
         } catch (Exception e) {
-                System.out.println(e.getMessage());
-                System.exit(-1);
+            System.out.println(e.getMessage());
+            System.exit(-1);
         }
         return u;
     }
 }
+//faltarian mas
