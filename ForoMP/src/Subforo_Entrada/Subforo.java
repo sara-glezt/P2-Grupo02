@@ -5,7 +5,7 @@
  */
 package Subforo_Entrada;
 
-import Observer.*;
+import Observer.Observable;
 import java.io.Serializable;
 import java.util.ArrayList;
 import users.*; //para importar el paquete users
@@ -19,12 +19,12 @@ public class Subforo implements Serializable, Observable {
     private static final long serialVersionUID = 1L;
 
     private String nombre;
-    private ArrayList<Observer> usuario;//arrayList de usuario para saber quien se ha susbcrito NECESARIO EN OBSERVABLE
+    private ArrayList<Observer> usuarios;//arrayList de usuario para saber quien se ha susbcrito NECESARIO EN OBSERVABLE
     private ArrayList<Entrada> entrada; //arrayList de entrada para saber que entradas tiene el subforo
 
     public Subforo(String nombre) {  //constructor de Subforo
         this.nombre = nombre;
-        usuario = new ArrayList<Observer>();
+        usuarios = new ArrayList<Observer>();
         entrada = new ArrayList<Entrada>();
     }
     
@@ -36,27 +36,25 @@ public class Subforo implements Serializable, Observable {
     @Override
     public void addSubscriptor(Observer o) {
 
-        usuario.add(o);
+        usuarios.add(o);
         System.out.println("Nuevo usuario subscrito al subforo: <<" + this.nombre + " >>");
     }
 
     @Override
-    public void notifySubscriptor() {//no se que debe hacer exactemante
+    public void notifySubscriptor(Entrada ent) {//no se que debe hacer exactemante
         // como en usuario debe haber un array de notificaciones, entiendo que cada vez que vez que se añade algo inmediatamente despues debe
         //de haber un notificar() para que a todos los usuario suscrito se les guarde en este array y cuanto haga recibirnotificacion se le carge en 
         //el array
-        
-        //Cosas de Rubén:
-        //
-        //for (Observer usuario: usuarios){
-        //      usuario.update
-        //
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String s = "notificacion";
+        //generarNotificacion(ent);
+        usuarios.forEach((usuario) -> {
+            usuario.recibirNotificacion(s);
+        });
     }
 
     @Override
     public void deleteSubscriptor(Observer o) {
-        usuario.remove(o);
+        usuarios.remove(o);
         System.out.println("Hasta luego.");
     }
     
@@ -67,7 +65,7 @@ public class Subforo implements Serializable, Observable {
     public void addEntrada(Entrada ent) {
         entrada.add(ent);
         
-        notifySubscriptor();
+        notifySubscriptor(ent);
 
     }
 }
