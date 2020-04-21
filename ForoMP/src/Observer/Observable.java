@@ -10,8 +10,8 @@ package Observer;
  * @author Miguel Angel
  */
 public interface Observable {
-    public String notifySubscriptor();
-    public String addSubscriptor(Observer o);
-    public String deleteSubscriptor(Observer o);
+    public void notifySubscriptor();
+    public void addSubscriptor(Observer o);
+    public void deleteSubscriptor(Observer o);
     
 }
