@@ -7,7 +7,8 @@ package users;
 
 import Observer.Observer;
 import java.io.Serializable;
-
+import Subforo_Entrada.Subforo;
+import java.util.ArrayList;
 /**
  *
  * @author Sara
@@ -20,6 +21,7 @@ public abstract class Usuario implements Serializable, Observer {
     private String nick;
     private String email;
     private String contraseña;
+    private ArrayList<Subforo> subforos;
 
     public Usuario(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña) {
         this.nombre = nombre;
@@ -28,6 +30,7 @@ public abstract class Usuario implements Serializable, Observer {
         this.nick = nick;
         this.email = email;
         this.contraseña = contraseña;
+        this.subforos = null;
     }
 
 
@@ -77,6 +80,20 @@ public abstract class Usuario implements Serializable, Observer {
 
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
+    }
+    
+    public void darDeBajaSubforo(String nombre){
+        subforos.forEach((subforo) -> {
+            if (subforo.getNombre().equals(nombre)){
+                subforo.deleteSubscriptor(this);
+                subforos.remove(subforo);
+            }
+        });
+    }
+    
+    public void darDeAltaSubforo(Subforo sub){
+        subforos.add(sub);
+        sub.addSubscriptor(this);
     }
     
     //

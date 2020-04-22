@@ -27,6 +27,14 @@ public class Subforo implements Serializable, Observable {
         usuarios = new ArrayList<Observer>();
         entrada = new ArrayList<Entrada>();
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public ArrayList<Entrada> getEntrada() {
+        return entrada;
+    }
     
     
     //
