@@ -5,6 +5,7 @@
  */
 package Sistema;
 
+import Subforo_Entrada.Entrada;
 import Subforo_Entrada.Subforo;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -13,6 +14,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Scanner;
 import users.*;
 
 /**
@@ -31,23 +33,35 @@ public class Sistema {
     }
 
     // primer problema, para registar hay que crear, habria que pasa el tipo pues usuario es abstracto y hacer unos ifes para verlo
+    //solucion, como los profesores no ponen ...@alumnos.urjc.es usar eso (administrador se considera usuario como tal?)
     public boolean registrarse(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña) {
         
-        Iterator <Usuario> i = usuario.iterator();
-        
+        Iterator<Usuario> i = usuario.iterator();
+
         boolean aceptar = true;
-        while(i.hasNext() & aceptar){ //comprobamos que el nick no se repita (se puede hacer con las demas propiedades)
+        while (i.hasNext() & aceptar) { //comprobamos que el nick no se repita (se puede hacer con las demas propiedades)
             Usuario u = i.next();
-                if(u.getNick().equals(nick)){
-                    System.out.println("El nick introducido ya esta usado, elija otro");
-                    aceptar = false;
-                }    
+            if (u.getNick().equals(nick)) {
+                System.out.println("El nick introducido ya esta usado, elija otro");
+                aceptar = false;
+            }
         }
         
-        if (aceptar){ //si no hay ninguna usuario con el mismo nick procedemos a crearlo
-        Usuario u = new Usuario(nombre, apellido1, apellido2, nick, email, contraseña);
-        usuario.add(u);
-        System.out.println("Se ha añadido un nuevo usuario.");
+        Scanner sc = new Scanner(email); //en las siguientes lineas vamos a verificar que es de la urjc mirando su email
+        sc.useDelimiter("@");
+        sc.next();
+        String e = sc.next();
+        
+        if (!e.equals("alumnos.urjc.es") || !e.equals("urcj.es")){
+            System.out.println("No se puede registar si no es de la URJC");
+            aceptar=false;
+        }
+        
+
+        if (aceptar) { //si no hay ninguna usuario con el mismo nick procedemos a crearlo
+            Usuario u = new Usuario(nombre, apellido1, apellido2, nick, email, contraseña);
+            usuario.add(u);
+            System.out.println("Se ha añadido un nuevo usuario.");
         }
         return aceptar;
     }
@@ -76,7 +90,7 @@ public class Sistema {
         if (bol = true) { //si el nombre no esta usado entonces lo creamos
             Subforo s = new Subforo(titulo); //creamos el subforo con el titulo (Ver que no se repitan el nombre?)
             subforo.add(s); // lo añadido a la list a de subforos 
-        }                 
+        }
     }
 
     public void darDeBajaSubforo() {
@@ -100,6 +114,13 @@ public class Sistema {
     public boolean logOut() {//que es exactamente lo que debe hacer?? osea, como oriento la programacion
         return true;
     }
+    
+    /*public ArrayList<Entrada> getEntradasMasVotada(){
+    for(Subforo s: subforo){
+    //IDEA: cuando este Entrada, ir recorriendo las entradas de los subforos y hacer xxx.getPuntuacion si es mayor que cierto valor me la quedo
+    
+    }
+    }*/
 
     public boolean guardarSistema() {//asi guardaria la clase sistema entera, mejor guardar por separado usuarios y alumnos?
         try {
@@ -131,5 +152,7 @@ public class Sistema {
         }
         return u;
     }
+    
+    
 }
 //faltarian mas
