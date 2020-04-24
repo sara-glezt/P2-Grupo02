@@ -20,6 +20,8 @@ public class Entrada extends EntradaGenerica{
         super();
         comentarios = new ArrayList<Comentario>();
         componentes = new ArrayList<EntradaGenerica>();
+        //metodos crear ejercicios, textoplano, encuesta
+        
     }
             
 }
