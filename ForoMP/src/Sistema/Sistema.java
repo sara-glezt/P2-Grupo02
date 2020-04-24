@@ -26,72 +26,98 @@ public class Sistema {
     private ArrayList<Usuario> usuario;
     private ArrayList<Subforo> subforo;
     private static Sistema instancia; //creo que el singleton con esto valdria y el constructor
-    //private Usuario u; para saber que usuaario esta conectado(hacer login y logout con este usuario
+    private Usuario u; //para saber que usuaario esta conectado(hacer login y logout con este usuario
 
     private void Sistema() { //declarado de esta forma el constructor hacemos el singleton
         usuario = new ArrayList<Usuario>();
         subforo = new ArrayList<Subforo>();
     }
 
-    // primer problema, para registar hay que crear, habria que pasa el tipo pues usuario es abstracto y hacer unos ifes para verlo
-    //solucion, como los profesores no ponen ...@alumnos.urjc.es usar eso (administrador se considera usuario como tal?)
-    public boolean registrarse(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña) {
+    public boolean registrarse(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña, String tipo) {
+        boolean valido = verificarNuevoUsuario(nombre, apellido1, apellido2, nick, email, contraseña, tipo);
 
-        Iterator<Usuario> i = usuario.iterator();
-
-        boolean aceptar = true;
-        while (i.hasNext() & aceptar) { //comprobamos que el nick no se repita (se puede hacer con las demas propiedades)
-            Usuario u = i.next();
-            if (u.getNick().equals(nick)) {
-                System.out.println("El nick introducido ya esta usado, elija otro");
-                aceptar = false;
+        if (valido) {
+            if (tipo.equals("alumno") || tipo.equals("Alumno")) {
+                Usuario u = new Alumno(nombre, apellido1, apellido2, nick, email, contraseña);//poner ifes dependiendo del tipo users
+                usuario.add(u);
+                System.out.println("Se ha añadido un nuevo alumno.");
+            } else if (tipo.equals("profesor") || tipo.equals("Profesor")) {
+                Usuario u = new Profesor(nombre, apellido1, apellido2, nick, email, contraseña);//poner ifes dependiendo del tipo users
+                usuario.add(u);
+                System.out.println("Se ha añadido un nuevo profesor.");
+            } else { //si no es profe ni alummn como he verificado le queda solo ser admin
+                Usuario u = new Administrador(nombre, apellido1, apellido2, nick, email, contraseña);//poner ifes dependiendo del tipo users
+                usuario.add(u);
+                System.out.println("Se ha añadido un nuevo profesor.");
             }
         }
+        return valido;
+    }
 
-        Scanner sc = new Scanner(email); //en las siguientes lineas vamos a verificar que es de la urjc mirando su email
+    //creo que verifico todo lo que se deberia, pero echarle un ojo por si acaso
+    public boolean verificarNuevoUsuario(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña, String tipo) {//preguntar que hace exactamente
+        Iterator<Usuario> i = usuario.iterator();
+
+        Scanner sc = new Scanner(email); //cogemos la parte del @ en adelante del email
         sc.useDelimiter("@");
         sc.next();
         String e = sc.next();
 
-        if (!e.equals("alumnos.urjc.es") || !e.equals("urcj.es")) {
-            System.out.println("No se puede registar si no es de la URJC");
-            aceptar = false;
+        boolean aceptar = true;
+        while (i.hasNext() & aceptar) { //comprobamos que el nick no se repita (se puede hacer con las demas propiedades)
+            Usuario u = i.next();
+            if (u.getEmail().equals(email)) {
+                System.out.println("El nick introducido  ya esta usado, elija otro");
+                aceptar = false;
+            }
+            if (u.getEmail().equals(email) || !e.equals("alumnos.urjc.es") || !e.equals("urcj.es")) { //verificamos el email
+                System.out.println("El email introducido  ya esta usado o no es valido, elija otro");
+                aceptar = false;
+            }
         }
 
-        if (aceptar) { //si no hay ninguna usuario con el mismo nick procedemos a crearlo
-            Usuario u = new Usuario (nombre, apellido1, apellido2, nick, email, contraseña);//poner ifes dependiendo del tipo users
-            usuario.add(u);
-            System.out.println("Se ha añadido un nuevo usuario.");
+        if (!tipo.equals("Alumno") || !tipo.equals("Profesor") || !tipo.equals("Administrados")
+                || !tipo.equals("alumno") || !tipo.equals("profesor") || !tipo.equals("administrados")) {
+            System.out.println("El tipo de usuario no es valido. Asegurese de que sea A/alumno, P/profesor o A/administrados");
+            aceptar = false;
         }
         return aceptar;
     }
 
-    public boolean verificarNuevoUsuario() {//preguntar que hace exactamente
-        return true;
-    }
+    public void eliminarUsuario(String nick) {
 
-    public void eliminarUsuario(String nick) {//contemplar borrar todo lo relaccionado con usuario
-        //recorrer array subforo y hacer delete susbcritor
-        for (Usuario us : usuario) { //primero busco el usuario por su nick(pues es unico) se pueden incluir mas cosas como el correo
-            if (us.getNick().equals(nick)) {
-                //bulce de bucle recorriendo todo s los subforos//us.darDeAltaSubforo(sub);
+        Iterator<Usuario> i = usuario.iterator();
+        boolean aceptar = true;
+
+        while (i.hasNext() & aceptar) { //bulce para recorrer a todos los usuarios
+            Usuario us = i.next();
+            if (us.getNick().equals(nick)) { //miro si existe ese usuario
+                for (Subforo sub : subforo) {  // si existe, entonces voy recorriendo lo subforos
+                    sub.deleteSubscriptor(us);   //voy eliminando ese usuarui de los subforos
+                }
                 usuario.remove(us);  //si lo encuenta lo borra
                 System.out.println("El usuario de Nick < " + nick + " > ha sido eliminado");
+                aceptar = false; //lo pongo a false para que se salga del bucle una vez se ha borrado
             }
         }
     }
 
     public void crearSubforo(String titulo) {
         boolean bol = true;
-        for (Subforo sub : subforo) { //esto es eficiente cuando hay poco, si hay mucho seria mejor usar un iterator como en registrarse.
-            if (sub.getNombre().equals(titulo)) {//compruebo que el nobmre no esta usado 
-                bol = false;
+        Iterator<Subforo> i = subforo.iterator();
+
+        while (i.hasNext() & bol) { //iterator para si lo encuento antes poder salirme
+            Subforo sub = i.next();
+            if (sub.getNombre().equals(titulo)) {//compruebo que el nobmre no esta usado
                 System.out.println("Esta subforo ya existe, elija otro titulo e intentelo de nuevo");
+                bol = false;
+
             }
         }
+
         if (bol = true) { //si el nombre no esta usado entonces lo creamos
             Subforo s = new Subforo(titulo); //creamos el subforo con el titulo (Ver que no se repitan el nombre?)
-            subforo.add(s); // lo añadido a la list a de subforos 
+            subforo.add(s); // lo añadido a la list a de subforos
         }
     }
 
@@ -100,34 +126,33 @@ public class Sistema {
         subforo.remove(s); //borro el subforo  s que ponga s.darDeBajaSubforo(); comprobar (hacer eliminacion segura?)
     }
 
-    public boolean logIn(String email, String nick, String password) {
+    public boolean logIn(String email, String nick, String password) {//usar el usuario de las variables de arriba (asignarlo)
         boolean bool = false;
 
-        for (Usuario us : usuario) { // busco el usuario con su caracterisitcas
+        for (Usuario us : usuario) { // busco el usuario con su caracterisitcas(cambiar por iterator)
             if (us.getNick().equals(nick) & us.getEmail().equals(email) & us.getContraseña().equals(password)) {
                 System.out.println("Usuario Correcto");
                 bool = true;
-                
+
             } else {
                 System.out.println("Usuario no registrado, asegurese de introducir bien los datos");
             }
         }
-        
+
         return bool;
     }
 
     public boolean logOut() {//que es exactamente lo que debe hacer?? osea, como oriento la programacion
-        
+        u = null;
         return true;
     }
 
     /*public ArrayList<Entrada> getEntradasMasVotada(){
     for(Subforo s: subforo){
     //IDEA: cuando este Entrada, ir recorriendo las entradas de los subforos y hacer xxx.getPuntuacion si es mayor que cierto valor me la quedo
-    
+
     }
     }*/
-    
     public boolean guardarSistema() {//asi guardaria la clase sistema entera, mejor guardar por separado usuarios y alumnos?
         try {
             FileOutputStream f = new FileOutputStream("Sistema.obj");
