@@ -49,10 +49,7 @@ public class Subforo implements Serializable, Observable {
     }
 
     @Override
-    public void notifySubscriptor(Entrada ent) {//no se que debe hacer exactemante
-        // como en usuario debe haber un array de notificaciones, entiendo que cada vez que vez que se añade algo inmediatamente despues debe
-        //de haber un notificar() para que a todos los usuario suscrito se les guarde en este array y cuanto haga recibirnotificacion se le carge en 
-        //el array
+    public void notifySubscriptor(Entrada ent) {
         String s = "notificacion";
         //generarNotificacion(ent);
         usuarios.forEach((usuario) -> {
@@ -74,6 +71,5 @@ public class Subforo implements Serializable, Observable {
         entrada.add(ent);
         
         notifySubscriptor(ent);
-
     }
 }
