@@ -6,6 +6,7 @@
 package Subforo_Entrada;
 
 import java.util.ArrayList;
+import users.Profesor;
 
 /**
  *
@@ -21,6 +22,27 @@ public class Entrada extends EntradaGenerica{
         comentarios = new ArrayList<Comentario>();
         componentes = new ArrayList<EntradaGenerica>();
         //metodos crear ejercicios, textoplano, encuesta
+        
+    }
+    
+    //Duda, realmente los comentarios solo los tienen las entradas, al margen
+    // de su tipo. ¿comentar() estaria en entrada o EntradaGenerica?
+    
+    public void addTextoPlano(){
+        TextoPlano texto = new TextoPlano();
+        componentes.add(texto);
+    }
+    
+    //Duda, para controlar que es un profesor, esta bien pasarlo como argumento?
+    public void addEncuesta(Profesor p){
+        Encuesta encuesta = new Encuesta();
+        componentes.add(encuesta);
+    }
+    
+    //Duda, para controlar que es un profesor, esta bien pasarlo como argumento?
+    public void addEjercicio (Profesor prof, String p, String r){
+        Ejercicio ejercicio = new Ejercicio(p, r);
+        componentes.add (ejercicio);
         
     }
             
