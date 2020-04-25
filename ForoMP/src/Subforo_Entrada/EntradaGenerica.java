@@ -56,9 +56,9 @@ public abstract class EntradaGenerica implements Serializable {
     public void votar(Usuario u, int val) {
 
         //Comprobamos que el valor numerico del voto es valido (-1 o 1)        
-        if (comprobarVoto(val)) {
+        if (comprobarVoto(val) && u != creador) {
 
-            //Si no ha votado aun, almacenamos y procesamos su voto
+            //Si no ha votado aun y no es el creador almacenamos y procesamos su voto
             if (!usuVoto.containsKey(u.getEmail())) {
                 usuVoto.put(u.getEmail(), val);
 
@@ -80,6 +80,7 @@ public abstract class EntradaGenerica implements Serializable {
      * entrada
      *
      * @param u
+     *
      * @return
      */
     private boolean comprobarVoto(int val) {
