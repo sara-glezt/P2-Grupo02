@@ -22,6 +22,7 @@ public abstract class Usuario implements Serializable, Observer {
     private String email;
     private String contraseña;
     private ArrayList<Subforo> subforos;
+    private ArrayList<String> notificaciones;
 
     public Usuario(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña) {
         this.nombre = nombre;
@@ -31,6 +32,7 @@ public abstract class Usuario implements Serializable, Observer {
         this.email = email;
         this.contraseña = contraseña;
         this.subforos = null;
+        this.notificaciones = null;
     }
 
 
@@ -102,6 +104,6 @@ public abstract class Usuario implements Serializable, Observer {
     
     @Override
     public void recibirNotificacion(String noti){
-        throw new UnsupportedOperationException("Not supported yet."); 
+        notificaciones.add(noti); 
     };
 }

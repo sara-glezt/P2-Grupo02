@@ -40,6 +40,10 @@ public abstract class EntradaGenerica implements Serializable {
 
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+    
     /**
      * votar() modifica la valoracion de la entrada. Recibe una valoracion por
      * parte de un usuario. Esta puede ser positiva (voto de 1) o negativa (voto

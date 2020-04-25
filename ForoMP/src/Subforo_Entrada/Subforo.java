@@ -43,17 +43,15 @@ public class Subforo implements Serializable, Observable {
     
     @Override
     public void addSubscriptor(Observer o) {
-
         usuarios.add(o);
         System.out.println("Nuevo usuario subscrito al subforo: <<" + this.nombre + " >>");
     }
 
     @Override
-    public void notifySubscriptor(Entrada ent) {
-        String s = "notificacion";
-        //generarNotificacion(ent);
+    public void notifySubscriptor(EntradaGenerica ent) {
+        String noti = "Se ha creado una nueva entrada " + ent.getTitulo() + " en el Subforo " + this.nombre;
         usuarios.forEach((usuario) -> {
-            usuario.recibirNotificacion(s);
+            usuario.recibirNotificacion(noti);
         });
     }
 
@@ -69,7 +67,6 @@ public class Subforo implements Serializable, Observable {
 
     public void addEntrada(Entrada ent) {
         entrada.add(ent);
-        
         notifySubscriptor(ent);
     }
 }
