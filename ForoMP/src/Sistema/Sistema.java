@@ -6,6 +6,7 @@
 package Sistema;
 
 import Subforo_Entrada.Entrada;
+import Subforo_Entrada.EntradaGenerica;
 import Subforo_Entrada.Subforo;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -29,8 +30,8 @@ public class Sistema {
     private Usuario u; //para saber que usuaario esta conectado(hacer login y logout con este usuario
 
     private void Sistema() { //declarado de esta forma el constructor hacemos el singleton
-        usuario = new ArrayList<Usuario>();
-        subforo = new ArrayList<Subforo>();
+        usuario = new ArrayList<>();
+        subforo = new ArrayList<>();
     }
 
     public boolean registrarse(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña, String tipo) {
@@ -38,16 +39,16 @@ public class Sistema {
 
         if (valido) {
             if (tipo.equals("alumno") || tipo.equals("Alumno")) {
-                Usuario u = new Alumno(nombre, apellido1, apellido2, nick, email, contraseña);//poner ifes dependiendo del tipo users
-                usuario.add(u);
+                Usuario us = new Alumno(nombre, apellido1, apellido2, nick, email, contraseña);//poner ifes dependiendo del tipo users
+                usuario.add(us);
                 System.out.println("Se ha añadido un nuevo alumno.");
             } else if (tipo.equals("profesor") || tipo.equals("Profesor")) {
-                Usuario u = new Profesor(nombre, apellido1, apellido2, nick, email, contraseña);//poner ifes dependiendo del tipo users
-                usuario.add(u);
+                Usuario us = new Profesor(nombre, apellido1, apellido2, nick, email, contraseña);//poner ifes dependiendo del tipo users
+                usuario.add(us);
                 System.out.println("Se ha añadido un nuevo profesor.");
-            } else { //si no es profe ni alummn como he verificado le queda solo ser admin
-                Usuario u = new Administrador(nombre, apellido1, apellido2, nick, email, contraseña);//poner ifes dependiendo del tipo users
-                usuario.add(u);
+            } else { //si no es profe ni alummn como he verificado, le queda solo ser admin
+                Usuario us = new Administrador(nombre, apellido1, apellido2, nick, email, contraseña);//poner ifes dependiendo del tipo users
+                usuario.add(us);
                 System.out.println("Se ha añadido un nuevo profesor.");
             }
         }
@@ -122,16 +123,24 @@ public class Sistema {
     }
 
     public void eliminarSubforo(Subforo s) {
-        //array usuario, y hacer dardealtasubforo
+        //array usuario, y hacer dardealtasubforo (comprobar si esta bien)
+        for (Usuario us : usuario) {
+            us.darDeBajaSubforo(s.getNombre());
+        }
         subforo.remove(s); //borro el subforo  s que ponga s.darDeBajaSubforo(); comprobar (hacer eliminacion segura?)
     }
 
     public boolean logIn(String email, String nick, String password) {//usar el usuario de las variables de arriba (asignarlo)
         boolean bool = false;
+        Iterator<Usuario> i = usuario.iterator();
 
-        for (Usuario us : usuario) { // busco el usuario con su caracterisitcas(cambiar por iterator)
+        boolean aceptar = true;
+
+        while (i.hasNext() & aceptar) { // busco el usuario con su caracterisitcas(cambiar por iterator)
+            Usuario us = i.next();
             if (us.getNick().equals(nick) & us.getEmail().equals(email) & us.getContraseña().equals(password)) {
                 System.out.println("Usuario Correcto");
+                u = us; //asignamos ese usuario para saber con cual estamos.
                 bool = true;
 
             } else {
@@ -144,15 +153,29 @@ public class Sistema {
 
     public boolean logOut() {//que es exactamente lo que debe hacer?? osea, como oriento la programacion
         u = null;
+        System.out.println("Hasta luego; fin de la conexion");
         return true;
     }
 
-    /*public ArrayList<Entrada> getEntradasMasVotada(){
-    for(Subforo s: subforo){
-    //IDEA: cuando este Entrada, ir recorriendo las entradas de los subforos y hacer xxx.getPuntuacion si es mayor que cierto valor me la quedo
-
+    /*    public ArrayList<Entrada> getEntradasMasVotada(){
+    ArrayList<Entrada> e = new ArrayList<Entrada>();
+    ArrayList<Entrada> entradasMasVotada = new ArrayList<Entrada>();
+    int max = 0;
+    for (Subforo s : subforo){//voy recorriendo todos los subforos
+    e = s.getEntrada(); //le asigno a e las entradas que tiene el subforo
+    for(int j=0; j<=e.size();j++){ //voy recorriendo hasta que llego al final del array de entradas
+    if(e.get(j).getValoracion()>=e.get(max).getValoracion){//miro que sea mayor que el que ya tenia, se podria poner mayor que la media
+    max = j; //si es asi, me quedo con la posicion  del de mayor valoracion
     }
+    }
+    entradasMasVotada.add(e.get(max));//meto la entrada mas votada
+    e=null;//dejo el array limpio para la siguiente rondas de subforos
+    }
+    
+    return entradasMasVotada;
+    
     }*/
+
     public boolean guardarSistema() {//asi guardaria la clase sistema entera, mejor guardar por separado usuarios y alumnos?
         try {
             FileOutputStream f = new FileOutputStream("Sistema.obj");
