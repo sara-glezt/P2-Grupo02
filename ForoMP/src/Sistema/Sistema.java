@@ -8,6 +8,7 @@ package Sistema;
 import Subforo_Entrada.Entrada;
 import Subforo_Entrada.EntradaGenerica;
 import Subforo_Entrada.Subforo;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -26,12 +27,29 @@ public class Sistema {
 
     private ArrayList<Usuario> usuario;
     private ArrayList<Subforo> subforo;
-    private static Sistema instancia; //creo que el singleton con esto valdria y el constructor
-    private Usuario u; //para saber que usuaario esta conectado(hacer login y logout con este usuario
+    private static Sistema instancia = null; //creo que el singleton con esto valdria y el constructor
+    private Usuario conectado; //para saber que usuaario esta conectado(hacer login y logout con este usuario
 
     private void Sistema() { //declarado de esta forma el constructor hacemos el singleton
         usuario = new ArrayList<>();
         subforo = new ArrayList<>();
+    }
+
+    public static Sistema getInstance() {
+        if (instancia == null) {
+            File bbdd = new File("Sistema.obj");
+            if (bbdd.exists()) {
+                instancia = cargarSistema();
+
+            } else {
+                instancia = new Sistema();
+            }
+        }
+        return instancia;
+    }
+
+    public Usuario getConectado() {
+        return conectado;
     }
 
     public boolean registrarse(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña, String tipo) {
@@ -123,28 +141,38 @@ public class Sistema {
     }
 
     public void eliminarSubforo(Subforo s) {
-        //array usuario, y hacer dardealtasubforo (comprobar si esta bien)
-        for (Usuario us : usuario) {
+        for (Usuario us : usuario) { //recorro los usuarios y lo voy dando de baja del subforo que quiero eliminar
             us.darDeBajaSubforo(s.getNombre());
         }
-        subforo.remove(s); //borro el subforo  s que ponga s.darDeBajaSubforo(); comprobar (hacer eliminacion segura?)
+        subforo.remove(s); //borro el subforo  s 
     }
 
-    public boolean logIn(String email, String nick, String password) {//usar el usuario de las variables de arriba (asignarlo)
+    public boolean logIn(String email, String nick, String password) {
         boolean bool = false;
+        boolean aceptar = true;
         Iterator<Usuario> i = usuario.iterator();
 
-        boolean aceptar = true;
+        if (conectado == null) { //miro que no haya ningun usuario conectado
+            while (i.hasNext() & aceptar) { // busco el usuario con su caracterisitcas(cambiar por iterator)
+                Usuario us = i.next();
+                if (us.getNick().equals(nick) & us.getEmail().equals(email) & us.getContraseña().equals(password)) {
 
-        while (i.hasNext() & aceptar) { // busco el usuario con su caracterisitcas(cambiar por iterator)
-            Usuario us = i.next();
-            if (us.getNick().equals(nick) & us.getEmail().equals(email) & us.getContraseña().equals(password)) {
-                System.out.println("Usuario Correcto");
-                u = us; //asignamos ese usuario para saber con cual estamos.
-                bool = true;
-
-            } else {
-                System.out.println("Usuario no registrado, asegurese de introducir bien los datos");
+                    if (us instanceof Alumno) {   //miro si es un alumno para comprobar si esta penalizado
+                        if (((Alumno) us).penalizado()) {
+                            System.out.println("Este usuario se encuentra baneado");
+                        } else {  //si no esta penalizado entonces hace login
+                            System.out.println("Usuario Correcto");
+                            conectado = us; //asignamos ese usuario para saber con cual estamos.
+                            bool = true;
+                        }
+                    } else { //si no es alumno, entonces es profe o admin y hace login pues no se pueden banear
+                        System.out.println("Usuario Correcto");
+                        conectado = us; //asignamos ese usuario para saber con cual estamos.
+                        bool = true;
+                    }
+                } else { //si no encuentro el usuario digo que no esta registrado
+                    System.out.println("Usuario no registrado, asegurese de introducir bien los datos");
+                }
             }
         }
 
@@ -152,8 +180,13 @@ public class Sistema {
     }
 
     public boolean logOut() {//que es exactamente lo que debe hacer?? osea, como oriento la programacion
-        u = null;
-        System.out.println("Hasta luego; fin de la conexion");
+        if (conectado != null) {
+            conectado = null;
+            System.out.println("Hasta luego; fin de la conexion"); // hacer el guardar sistema
+            guardarSistema();
+        } else {
+            System.out.println("No hay ningun usuario conectado");
+        }
         return true;
     }
 
@@ -175,7 +208,6 @@ public class Sistema {
     return entradasMasVotada;
     
     }*/
-
     public boolean guardarSistema() {//asi guardaria la clase sistema entera, mejor guardar por separado usuarios y alumnos?
         try {
             FileOutputStream f = new FileOutputStream("Sistema.obj");
