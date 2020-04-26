@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import users.*; //para importar el paquete users
 import Observer.*;//para importar el paquete Observer
+
 /**
  *
  * @author alvarogonzalez
@@ -20,14 +21,14 @@ public class Subforo implements Serializable, Observable {
 
     private String nombre;
     private ArrayList<Observer> usuarios;//arrayList de usuario para saber quien se ha susbcrito NECESARIO EN OBSERVABLE
-    private ArrayList<Entrada> entrada; //arrayList de entrada para saber que entradas tiene el subforo
-    private Entrada masVotada[];
-    
+    private ArrayList<Entrada> entradas; //arrayList de entrada para saber que entradas tiene el subforo
+    private Entrada masVotadas[];
+
     public Subforo(String nombre) {  //constructor de Subforo
         this.nombre = nombre;
         usuarios = new ArrayList<Observer>();
-        entrada = new ArrayList<Entrada>();
-        masVotada = new Entrada[3];
+        entradas = new ArrayList<Entrada>();
+        masVotadas = new Entrada[3];
     }
 
     public String getNombre() {
@@ -35,14 +36,12 @@ public class Subforo implements Serializable, Observable {
     }
 
     public ArrayList<Entrada> getEntrada() {
-        return entrada;
+        return entradas;
     }
-    
-    
+
     //
     // COSAS DE OBSERVER (down)
     //
-    
     @Override
     public void addSubscriptor(Observer o) {
         usuarios.add(o);
@@ -62,39 +61,45 @@ public class Subforo implements Serializable, Observable {
         usuarios.remove(o);
         System.out.println("Hasta luego.");
     }
-    
+
     //
     // COSAS DE OBSERVER (up)
     //
-
-    public void addEntrada(Entrada ent) {
-        entrada.add(ent);
+    public void crearEntrada(Usuario u, String titulo) {
+        Entrada ent = new Entrada(u, titulo);
+        entradas.add(ent);
         notifySubscriptor(ent);
-        
-        /*  int min=0; //Esto lo que haria seria conforme metemos entradas compara con las demas para ver si su puntuacion es mas alta
-        if(masVotada[0]== null)
-        masVotada[0] = ent;
-        else if(masVotada[1]== null)
-        masVotada[1] = ent;
-        else if(masVotada[2]== null)
-        masVotada[2] = ent;
-        else{
-        
-        for (int i = 0; i<3 ; i++){
-        if (masVotada[i].getValor()<= masVotada[min].getValor()) //faltaria el metodo que me devolviese el valor de cada enrtada
-        min = i;                                                 // ese metodo deberia de ir en entrada
-        
-        
-        }
-        if(masVotada[min].getValor() < ent.getValor())
-        masVotada[min] = ent.valor;
-        
-        }*/
+
     }
 
-    public Entrada[] getMasVotada() {
-        return masVotada;
+//    public Entrada[] actualizarMasVotadas() {
+//        int min = 0;
+//        Entrada ent;
+//        //Esto lo que haria seria conforme metemos entradas compara con las demas para ver si su puntuacion es mas alta
+//        if (masVotadas[0] == null) {
+//            masVotadas[0] = ent;
+//        } else if (masVotadas[1] == null) {
+//            masVotadas[1] = ent;
+//        } else if (masVotadas[2] == null) {
+//            masVotadas[2] = ent;
+//        } else {
+//
+//            for (int i = 0; i < 3; i++) {
+//                if (masVotadas[i].getValoracion() <= masVotadas[min].getValoracion()) 
+//                {
+//                    min = i;                                                 
+//                }
+//
+//            }
+//            if (masVotadas[min].getValoracion() < ent.getValoracion()) {
+//                masVotadas[min] = ent.getValoracion();
+//            }
+//
+//        }     
+//    }
+
+    public Entrada[] getMasVotadas() {
+        return masVotadas;
     }
-    
-    
+
 }

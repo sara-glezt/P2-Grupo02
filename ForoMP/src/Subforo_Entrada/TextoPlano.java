@@ -5,6 +5,8 @@
  */
 package Subforo_Entrada;
 
+import users.Usuario;
+
 /**
  *
  * @author alvarogonzalez
@@ -12,10 +14,22 @@ package Subforo_Entrada;
 public class TextoPlano extends EntradaGenerica { // para hacer el patron composite faltaria crear la entradagenerica y crear la clase entrada
                                                   // una vez eso, definir en la clase entrada un arrayList de EntradaGenerica
     
-    
+    private String cuerpo;
 
-    public TextoPlano() {
-        super();
+    public TextoPlano(Usuario u, String titulo, String cuerpo) {
+        super(u, titulo);
+        this.cuerpo = cuerpo;
+    }
+    
+    public String getCuerpo() {
+        return cuerpo;
+    }
+
+    @Override
+    public void mostrar() {
+        System.out.println("Ejercicio creado por"  + getCreador());
+        System.out.println("Título " + getTitulo());
+        System.out.println("Texto: " + getCuerpo());
     }
     
     

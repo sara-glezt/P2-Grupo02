@@ -5,8 +5,10 @@
  */
 package Subforo_Entrada;
 
+import Sistema.Sistema;
 import java.util.ArrayList;
 import users.Profesor;
+import users.Usuario;
 
 /**
  *
@@ -16,37 +18,50 @@ public class Entrada extends EntradaGenerica{
     
     private ArrayList<Comentario> comentarios;
     private ArrayList<EntradaGenerica> componentes;
+    Sistema s = Sistema.getInstance();
     
-    public Entrada(String titulo){ //Debug exactamente que metemos por constructor
-        super();
+    public Entrada(Usuario u, String titulo){ //Debug exactamente que metemos por constructor
+        super(u, titulo);
         comentarios = new ArrayList<Comentario>();
         componentes = new ArrayList<EntradaGenerica>();
         //metodos crear ejercicios, textoplano, encuesta
         
     }
     
-    //Duda, realmente los comentarios solo los tienen las entradas, al margen
-    // de su tipo. ¿comentar() estaria en entrada o EntradaGenerica?
-  
+ 
     
   //Sistema instancia = Sistema.getInstance(); con esto para controlar quien hace el que, si profe...
   //if(instancia.getConectado() instanceof Profesor) 
     
-    public void addTextoPlano(){
-        TextoPlano texto = new TextoPlano();
-        componentes.add(texto);
-    }
-    
-    //Duda, para controlar que es un profesor, esta bien pasarlo como argumento?
-    public void addEncuesta(Profesor p){
-        Encuesta encuesta = new Encuesta();
-    }
-    
-    //Duda, para controlar que es un profesor, esta bien pasarlo como argumento?
-    public void addEjercicio (Profesor prof, String p, String r){
-        Ejercicio ejercicio = new Ejercicio(p, r);
-        componentes.add (ejercicio);
+    public void addTextoPlano(Usuario u, String titulo, String cuerpo){
         
+            TextoPlano texto = new TextoPlano(u, titulo, cuerpo);
+            componentes.add(texto);
+        
+        
+    }
+    
+    //Duda, para controlar que es un profesor, esta bien pasarlo como argumento?
+    public void addEncuesta(Usuario u, String titulo){
+        if(s.getConectado() instanceof Profesor){
+            Encuesta encuesta = new Encuesta(u, titulo);
+            componentes.add(encuesta);
+        }
+    }
+    
+    //Duda, para controlar que es un profesor, esta bien pasarlo como argumento?
+    public void addEjercicio (Usuario u, String titulo, String p, String r){
+        if(s.getConectado() instanceof Profesor){
+        Ejercicio ejercicio = new Ejercicio(u, titulo, p, r);
+        componentes.add (ejercicio);
+        }
+    }
+
+    @Override
+    public void mostrar() {
+        for(int i = 0; i <= componentes.size(); i++){
+            componentes.get(i).mostrar();
+        }
     }
             
 }

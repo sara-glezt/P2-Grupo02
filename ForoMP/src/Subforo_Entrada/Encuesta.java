@@ -7,6 +7,7 @@ package Subforo_Entrada;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import users.Usuario;
 
 
 /**
@@ -19,8 +20,8 @@ public class Encuesta extends EntradaGenerica {
     private ArrayList<String> preguntas;
     private ArrayList<String> respuestas;
 
-    public Encuesta() {
-        super();
+    public Encuesta(Usuario u, String titulo) {
+        super(u, titulo);
         preguntas = new ArrayList<String>();
         respuestas = new ArrayList<String>();
     }
@@ -115,4 +116,13 @@ public class Encuesta extends EntradaGenerica {
     
     }
      */
+
+    @Override
+    public void mostrar() {
+        System.out.println("Encuesta creada por"  + getCreador());
+        System.out.println("Título " + getTitulo());
+        System.out.println("Preguntas: " + verPreguntas());
+        System.out.println("Respuestas: " + verRespuestas());
+    }
+    
 }

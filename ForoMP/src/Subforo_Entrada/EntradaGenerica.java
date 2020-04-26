@@ -5,6 +5,7 @@
  */
 package Subforo_Entrada;
 
+import Sistema.Sistema;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Enumeration;
@@ -27,8 +28,10 @@ public abstract class EntradaGenerica implements Serializable {
     private Usuario creador; //creador no está en el UML La flecha de es creada.
     //deberia ser hacia EntradaGenerica.
     private Hashtable<String, Integer> usuVoto;
+    Sistema s = Sistema.getInstance();
+    
 
-    public EntradaGenerica() {//faltarias los parametros no?
+    public EntradaGenerica(Usuario creador, String titulo) {//faltarias los parametros no?
         this.valoracion = valoracion; //creo que esto no deberia estar en el constructor pues cuando la creas no la votas
         this.numTotalVal = numTotalVal;// algo parecico con esto, en todo caso inicializar a 0 o algo asi
         this.fecha = fecha; //como obtener la fecha del new? //this.fecha = new Date();
@@ -44,6 +47,10 @@ public abstract class EntradaGenerica implements Serializable {
         return titulo;
     }
     
+    public int getValoracion(){
+        return valoracion;
+    }
+
     /**
      * votar() modifica la valoracion de la entrada. Recibe una valoracion por
      * parte de un usuario. Esta puede ser positiva (voto de 1) o negativa (voto
@@ -96,14 +103,15 @@ public abstract class EntradaGenerica implements Serializable {
         }
 
     }
-    
+
     /**
-     * sumarValoracion devuelve la suma de los valores de la tabla
-     * donde se almacenan los usuarios que han votado y su voto
+     * sumarValoracion devuelve la suma de los valores de la tabla donde se
+     * almacenan los usuarios que han votado y su voto
+     *
      * @param usuVoto
-     * @return 
+     * @return
      */
-    private int sumarValoracion(Hashtable usuVoto){
+    private int sumarValoracion(Hashtable usuVoto) {
         Enumeration e = usuVoto.elements();
         Object valor;
         while (e.hasMoreElements()) {
@@ -111,17 +119,25 @@ public abstract class EntradaGenerica implements Serializable {
             System.out.println("Valor : " + valor);
             // Hacemos un cast, pero antes nos hemos assegurado de que
             //el valor es numerico
-            valoracion = valoracion + (Integer)valor;
+            valoracion = valoracion + (Integer) valor;
         }
         return valoracion;
     }
 
-    public boolean verificar(Administrador a) {
-        /*Se le pasa una lista de palabras y si no las encuentra en el texto de
-        la entrada, entonces verificado a true
-         */
-
+    public boolean verificar(Usuario u, boolean bool) {
+                
+        if (s.getConectado() instanceof Administrador) {
+            verificado = bool;
+        }
         return verificado;
     }
+
+    public Usuario getCreador() {
+        return creador;
+    }
+    
+    
+    
+    public abstract void mostrar();
 
 }

@@ -5,6 +5,8 @@
  */
 package Subforo_Entrada;
 
+import users.Usuario;
+
 
 
 /**
@@ -17,8 +19,9 @@ public class Ejercicio extends EntradaGenerica  {
     private String solucion;
     
 
-    public Ejercicio( String enunciado, String solucion) {
-        super();
+    public Ejercicio(Usuario u, String titulo, String enunciado, String solucion) {
+        super(u, titulo);
+        
         this.enunciado = enunciado;
         this.solucion = solucion;
     }
@@ -34,6 +37,14 @@ public class Ejercicio extends EntradaGenerica  {
 
     public void setSolucion(String solucion) {
         this.solucion = solucion;
+    }
+
+    @Override
+    public void mostrar() {
+        System.out.println("Ejercicio creado por"  + getCreador());
+        System.out.println("Título " + getTitulo());
+        System.out.println("Enunciado: " + getEnunciado());
+        System.out.println("Solucion: " + getSolucion());
     }
      
     
