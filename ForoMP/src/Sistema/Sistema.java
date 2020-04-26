@@ -29,10 +29,13 @@ public class Sistema {
     private ArrayList<Subforo> subforo;
     private static Sistema instancia = null; //creo que el singleton con esto valdria y el constructor
     private Usuario conectado; //para saber que usuaario esta conectado(hacer login y logout con este usuario
+    private ArrayList<Entrada> masVotadas;
+
 
     private void Sistema() { //declarado de esta forma el constructor hacemos el singleton
         usuario = new ArrayList<>();
         subforo = new ArrayList<>();
+        masVotadas = new ArrayList<>();
     }
 
     public static Sistema getInstance() {
@@ -190,24 +193,19 @@ public class Sistema {
         return true;
     }
 
-    /*    public ArrayList<Entrada> getEntradasMasVotada(){
-    ArrayList<Entrada> e = new ArrayList<Entrada>();
-    ArrayList<Entrada> entradasMasVotada = new ArrayList<Entrada>();
-    int max = 0;
-    for (Subforo s : subforo){//voy recorriendo todos los subforos
-    e = s.getEntrada(); //le asigno a e las entradas que tiene el subforo
-    for(int j=0; j<=e.size();j++){ //voy recorriendo hasta que llego al final del array de entradas
-    if(e.get(j).getValoracion()>=e.get(max).getValoracion){//miro que sea mayor que el que ya tenia, se podria poner mayor que la media
-    max = j; //si es asi, me quedo con la posicion  del de mayor valoracion
+    /*public ArrayList<Entrada> getEntradaMasVotadas(){ //obtengo de cada suforo las entradas mas votadas
+    Entrada[] ent = new Entrada[3];
+    for(Subforo s : subforo)
+    ent = s.getMasVotada();
+    for (int i = 0; i<3; i++){
+    if(ent[i] != null){
+    masVotadas.add(ent[i]);
     }
     }
-    entradasMasVotada.add(e.get(max));//meto la entrada mas votada
-    e=null;//dejo el array limpio para la siguiente rondas de subforos
-    }
-    
-    return entradasMasVotada;
+    return masVotadas;
     
     }*/
+
     public boolean guardarSistema() {//asi guardaria la clase sistema entera, mejor guardar por separado usuarios y alumnos?
         try {
             FileOutputStream f = new FileOutputStream("Sistema.obj");

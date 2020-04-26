@@ -27,6 +27,10 @@ public class Entrada extends EntradaGenerica{
     
     //Duda, realmente los comentarios solo los tienen las entradas, al margen
     // de su tipo. ¿comentar() estaria en entrada o EntradaGenerica?
+  
+    
+  //Sistema instancia = Sistema.getInstance(); con esto para controlar quien hace el que, si profe...
+  //if(instancia.getConectado() instanceof Profesor) 
     
     public void addTextoPlano(){
         TextoPlano texto = new TextoPlano();
@@ -36,7 +40,6 @@ public class Entrada extends EntradaGenerica{
     //Duda, para controlar que es un profesor, esta bien pasarlo como argumento?
     public void addEncuesta(Profesor p){
         Encuesta encuesta = new Encuesta();
-        componentes.add(encuesta);
     }
     
     //Duda, para controlar que es un profesor, esta bien pasarlo como argumento?
