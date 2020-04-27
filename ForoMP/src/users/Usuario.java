@@ -106,4 +106,6 @@ public abstract class Usuario implements Serializable, Observer {
     public void recibirNotificacion(String noti){
         notificaciones.add(noti); 
     };
+
+    public void actualizarPenalizacion(int dias) {}
 }

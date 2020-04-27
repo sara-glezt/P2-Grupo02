@@ -236,5 +236,11 @@ public class Sistema {
         }
         return u;
     }
+    
+    public void saltarDias(int dias){
+    for (Usuario u: usuario){
+     if (u instanceof Alumno){
+        u.actualizarPenalizacion(dias);}}
+    }
 }
 //faltarian mas
