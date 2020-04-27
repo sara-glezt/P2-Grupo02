@@ -5,7 +5,10 @@
  */
 package Sistema;
 
-import Subforo_Entrada.Entrada;
+import Subforo_Entrada.*;
+import users.*;
+import Observer.*;
+
 import Subforo_Entrada.EntradaGenerica;
 import Subforo_Entrada.Subforo;
 import java.io.File;
@@ -14,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -23,19 +27,20 @@ import users.*;
  *
  * @author alvarogonzalez
  */
-public class Sistema {
+public class Sistema implements Serializable {
 
-    private ArrayList<Usuario> usuario;
-    private ArrayList<Subforo> subforo;
+    private ArrayList<Usuario> usuario = new ArrayList<>();
+    private ArrayList<Subforo> subforo = new ArrayList<>();
     private static Sistema instancia = null; //creo que el singleton con esto valdria y el constructor
-    private Usuario conectado; //para saber que usuaario esta conectado(hacer login y logout con este usuario
-    private ArrayList<Entrada> masVotadas;
-
+    private Usuario conectado;//= null; //para saber que usuaario esta conectado(hacer login y logout con este usuario
+    private ArrayList<Entrada> masVotadas = new ArrayList<>();
+    private static final long serialVersionUID = 1L;
 
     private void Sistema() { //declarado de esta forma el constructor hacemos el singleton
-        usuario = new ArrayList<>();
+        /* usuario = new ArrayList<>();
         subforo = new ArrayList<>();
         masVotadas = new ArrayList<>();
+        conectado = null;*/
     }
 
     public static Sistema getInstance() {
@@ -70,14 +75,14 @@ public class Sistema {
             } else { //si no es profe ni alummn como he verificado, le queda solo ser admin
                 Usuario us = new Administrador(nombre, apellido1, apellido2, nick, email, contraseña);//poner ifes dependiendo del tipo users
                 usuario.add(us);
-                System.out.println("Se ha añadido un nuevo profesor.");
+                System.out.println("Se ha añadido un nuevo Administrador.");
             }
         }
         return valido;
     }
 
     //creo que verifico todo lo que se deberia, pero echarle un ojo por si acaso
-    public boolean verificarNuevoUsuario(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña, String tipo) {//preguntar que hace exactamente
+    private boolean verificarNuevoUsuario(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña, String tipo) {//preguntar que hace exactamente
         Iterator<Usuario> i = usuario.iterator();
 
         Scanner sc = new Scanner(email); //cogemos la parte del @ en adelante del email
@@ -88,18 +93,18 @@ public class Sistema {
         boolean aceptar = true;
         while (i.hasNext() & aceptar) { //comprobamos que el nick no se repita (se puede hacer con las demas propiedades)
             Usuario u = i.next();
-            if (u.getEmail().equals(email)) {
+            if (u.getNick().equals(nick)) {
                 System.out.println("El nick introducido  ya esta usado, elija otro");
                 aceptar = false;
             }
-            if (u.getEmail().equals(email) || !e.equals("alumnos.urjc.es") || !e.equals("urcj.es")) { //verificamos el email
+            if (u.getEmail().equals(email) || (!e.equals("alumnos.urjc.es") & !e.equals("urjc.es"))) { //verificamos el email
                 System.out.println("El email introducido  ya esta usado o no es valido, elija otro");
                 aceptar = false;
             }
         }
 
-        if (!tipo.equals("Alumno") || !tipo.equals("Profesor") || !tipo.equals("Administrados")
-                || !tipo.equals("alumno") || !tipo.equals("profesor") || !tipo.equals("administrados")) {
+        if (!tipo.equals("Alumno") & !tipo.equals("Profesor") & !tipo.equals("Administrador")
+                & !tipo.equals("alumno") & !tipo.equals("profesor") & !tipo.equals("administrador")) {
             System.out.println("El tipo de usuario no es valido. Asegurese de que sea A/alumno, P/profesor o A/administrados");
             aceptar = false;
         }
@@ -124,30 +129,47 @@ public class Sistema {
         }
     }
 
-    public void crearSubforo(String titulo) {
-        boolean bol = true;
-        Iterator<Subforo> i = subforo.iterator();
+    public void crearSubforo(String sr) {
+        if (getConectado() instanceof Profesor) {
+            boolean bol = true;
 
-        while (i.hasNext() & bol) { //iterator para si lo encuento antes poder salirme
-            Subforo sub = i.next();
-            if (sub.getNombre().equals(titulo)) {//compruebo que el nobmre no esta usado
-                System.out.println("Esta subforo ya existe, elija otro titulo e intentelo de nuevo");
-                bol = false;
+            Iterator<Subforo> i = subforo.iterator();
+            while (i.hasNext() & bol) { //iterator para si lo encuento antes poder salirme
+                Subforo sub = i.next();
+                if (sub.getNombre().equals(sr)) {//compruebo que el nobmre no esta usado
+                    System.out.println("Esta subforo ya existe, elija otro titulo e intentelo de nuevo");
+                    bol = false;
 
+                }
             }
-        }
 
-        if (bol = true) { //si el nombre no esta usado entonces lo creamos
-            Subforo s = new Subforo(titulo); //creamos el subforo con el titulo (Ver que no se repitan el nombre?)
-            subforo.add(s); // lo añadido a la list a de subforos
+            if (bol) { //si el nombre no esta usado entonces lo creamos
+                Subforo s1 = new Subforo(sr);
+                subforo.add(s1); // lo añadido a la list a de subforos
+                System.out.println("Se ha añadido un nuevo subforo; el subforo: " + s1.getNombre());
+            }
+        } else {
+            System.out.println("Usted no tiene los permisos para crear subforos.");
         }
     }
 
-    public void eliminarSubforo(Subforo s) {
-        for (Usuario us : usuario) { //recorro los usuarios y lo voy dando de baja del subforo que quiero eliminar
-            us.darDeBajaSubforo(s.getNombre());
+    public void eliminarSubforo(String s) {
+        boolean bol = true;
+        Subforo aux = null;
+        Iterator<Subforo> i = subforo.iterator();
+        while (i.hasNext() & bol) {
+            aux = i.next();
+            if (aux.getNombre().equals(s)) {
+                bol = false;
+            }
         }
-        subforo.remove(s); //borro el subforo  s 
+        if (!bol) {
+            for (Usuario us : usuario) { //recorro los usuarios y lo voy dando de baja del subforo que quiero eliminar
+                us.darDeBajaSubforo(aux.getNombre());
+            }
+            subforo.remove(aux); //borro el subforo  s 
+            System.out.println("El subforo " + aux.getNombre() + " ha sido borrado.");
+        }
     }
 
     public boolean logIn(String email, String nick, String password) {
@@ -166,17 +188,25 @@ public class Sistema {
                         } else {  //si no esta penalizado entonces hace login
                             System.out.println("Usuario Correcto");
                             conectado = us; //asignamos ese usuario para saber con cual estamos.
+                            aceptar = false;
                             bool = true;
                         }
                     } else { //si no es alumno, entonces es profe o admin y hace login pues no se pueden banear
                         System.out.println("Usuario Correcto");
                         conectado = us; //asignamos ese usuario para saber con cual estamos.
                         bool = true;
+                        aceptar = false;
                     }
-                } else { //si no encuentro el usuario digo que no esta registrado
-                    System.out.println("Usuario no registrado, asegurese de introducir bien los datos");
-                }
+                } //si no encuentro el usuario digo que no esta registrado
+
             }
+            if (aceptar) //si no encuento el usuario lo notifico
+            {
+                System.out.println("Usuario no registrado, asegurese de introducir bien los datos");
+            }
+
+        } else { //si hay alguien conectado no podre hacer login
+            System.out.println("Ya hay un usuario conectado");
         }
 
         return bool;
@@ -205,7 +235,6 @@ public class Sistema {
     return masVotadas;
     
     }*/
-
     public boolean guardarSistema() {//asi guardaria la clase sistema entera, mejor guardar por separado usuarios y alumnos?
         try {
             FileOutputStream f = new FileOutputStream("Sistema.obj");
@@ -235,6 +264,27 @@ public class Sistema {
             System.exit(-1);
         }
         return u;
+    }
+
+    public String ListaSubforo() {
+        String info = "Subforos " + "\n";
+        for (Subforo s : subforo) {
+            info += "\t" + s.getNombre() + "\n";
+        }
+        return info;
+    }
+
+    public String ListaUsuario() {
+         String info =  "\t" +"\t"+"\t"+ "Usuarios Registrados " + "\n";
+        if (getConectado() instanceof Administrador || getConectado() instanceof Profesor) {
+           
+            for (Usuario us : usuario) {
+                info += "\t" +"Nombre: "+us.getNombre()+"  "+us.getApellido1()+" "+ us.getApellido2() 
+                        +" Nick: "+ us.getNick()+ " Email: "+ us.getEmail()+"\n";
+            }
+        }
+        return info;
+
     }
     
     public void saltarDias(int dias){
