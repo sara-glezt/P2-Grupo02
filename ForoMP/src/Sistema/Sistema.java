@@ -30,7 +30,7 @@ import users.*;
  */
 public class Sistema implements Serializable {
 
-    private ArrayList<Usuario> usuario = new ArrayList<>();
+    private ArrayList<Usuario> usuarios = new ArrayList<>();
     private ArrayList<Subforo> subforo = new ArrayList<>();
     private static Sistema instancia = null; //creo que el singleton con esto valdria y el constructor
     private Usuario conectado;//= null; //para saber que usuaario esta conectado(hacer login y logout con este usuario
@@ -67,15 +67,15 @@ public class Sistema implements Serializable {
         if (valido) {
             if (tipo.equals("alumno") || tipo.equals("Alumno")) {
                 Usuario us = new Alumno(nombre, apellido1, apellido2, nick, email, contraseña);//poner ifes dependiendo del tipo users
-                usuario.add(us);
+                usuarios.add(us);
                 System.out.println("Se ha añadido un nuevo alumno.");
             } else if (tipo.equals("profesor") || tipo.equals("Profesor")) {
                 Usuario us = new Profesor(nombre, apellido1, apellido2, nick, email, contraseña);//poner ifes dependiendo del tipo users
-                usuario.add(us);
+                usuarios.add(us);
                 System.out.println("Se ha añadido un nuevo profesor.");
             } else { //si no es profe ni alummn como he verificado, le queda solo ser admin
                 Usuario us = new Administrador(nombre, apellido1, apellido2, nick, email, contraseña);//poner ifes dependiendo del tipo users
-                usuario.add(us);
+                usuarios.add(us);
                 System.out.println("Se ha añadido un nuevo Administrador.");
             }
         }
@@ -84,7 +84,7 @@ public class Sistema implements Serializable {
 
     //creo que verifico todo lo que se deberia, pero echarle un ojo por si acaso
     private boolean verificarNuevoUsuario(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña, String tipo) {//preguntar que hace exactamente
-        Iterator<Usuario> i = usuario.iterator();
+        Iterator<Usuario> i = usuarios.iterator();
 
         Scanner sc = new Scanner(email); //cogemos la parte del @ en adelante del email
         sc.useDelimiter("@");
@@ -114,7 +114,7 @@ public class Sistema implements Serializable {
 
     public void eliminarUsuario(String nick) {
 
-        Iterator<Usuario> i = usuario.iterator();
+        Iterator<Usuario> i = usuarios.iterator();
         boolean aceptar = true;
 
         while (i.hasNext() & aceptar) { //bulce para recorrer a todos los usuarios
@@ -123,7 +123,7 @@ public class Sistema implements Serializable {
                 for (Subforo sub : subforo) {  // si existe, entonces voy recorriendo lo subforos
                     sub.deleteSubscriptor(us);   //voy eliminando ese usuarui de los subforos
                 }
-                usuario.remove(us);  //si lo encuenta lo borra
+                usuarios.remove(us);  //si lo encuenta lo borra
                 System.out.println("El usuario de Nick < " + nick + " > ha sido eliminado");
                 aceptar = false; //lo pongo a false para que se salga del bucle una vez se ha borrado
             }
@@ -165,7 +165,7 @@ public class Sistema implements Serializable {
             }
         }
         if (!bol) {
-            for (Usuario us : usuario) { //recorro los usuarios y lo voy dando de baja del subforo que quiero eliminar
+            for (Usuario us : usuarios) { //recorro los usuarios y lo voy dando de baja del subforo que quiero eliminar
                 us.darDeBajaSubforo(aux.getNombre());
             }
             subforo.remove(aux); //borro el subforo  s 
@@ -176,7 +176,7 @@ public class Sistema implements Serializable {
     public boolean logIn(String email, String nick, String password) {
         boolean bool = false;
         boolean aceptar = true;
-        Iterator<Usuario> i = usuario.iterator();
+        Iterator<Usuario> i = usuarios.iterator();
 
         if (conectado == null) { //miro que no haya ningun usuario conectado
             while (i.hasNext() & aceptar) { // busco el usuario con su caracterisitcas(cambiar por iterator)
@@ -287,19 +287,19 @@ public class Sistema implements Serializable {
 
     public String ListaUsuario() {
         String info = "\t" + "\t" + "\t" + "Usuarios Registrados " + "\n";
-        if (getConectado() instanceof Administrador || getConectado() instanceof Profesor) {
+        //if (getConectado() instanceof Administrador || getConectado() instanceof Profesor) {
 
-            for (Usuario us : usuario) {
+            for (Usuario us : usuarios) {
                 info += "\t" + "Nombre: " + us.getNombre() + "  " + us.getApellido1() + " " + us.getApellido2()
                         + " Nick: " + us.getNick() + " Email: " + us.getEmail() + "\n";
             }
-        }
+        //}
         return info;
 
     }
 
     public void saltarDias(int dias) {
-        for (Usuario u : usuario) {
+        for (Usuario u : usuarios) {
             if (u instanceof Alumno) {
                 u.actualizarPenalizacion(dias);
             }
