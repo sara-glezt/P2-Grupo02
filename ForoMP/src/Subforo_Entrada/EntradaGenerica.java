@@ -17,7 +17,7 @@ import users.Usuario;
  *
  * @author Dani
  */
-public abstract class EntradaGenerica implements Serializable {
+public abstract class EntradaGenerica implements Serializable, Comparable <EntradaGenerica> {
 
     private int valoracion;
     private int numTotalVal; // No añadido en UML. Necesario para le media
@@ -140,4 +140,15 @@ public abstract class EntradaGenerica implements Serializable {
     
     public abstract void mostrar();
 
+    @Override
+    public int compareTo(EntradaGenerica e) {
+      int val = e.getValoracion();
+      
+     //Compara para que devuelva en orden descendente
+        return  val - this.valoracion;
+        
+    }
+
+        
+    
 }

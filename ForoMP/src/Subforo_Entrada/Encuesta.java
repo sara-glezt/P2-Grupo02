@@ -124,5 +124,7 @@ public class Encuesta extends EntradaGenerica {
         System.out.println("Preguntas: " + verPreguntas());
         System.out.println("Respuestas: " + verRespuestas());
     }
+
+
     
 }

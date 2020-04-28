@@ -14,7 +14,7 @@ import users.Usuario;
  *
  * @author Equipo
  */
-public class Entrada extends EntradaGenerica{
+public class Entrada extends EntradaGenerica {
     
     private ArrayList<Comentario> comentarios;
     private ArrayList<EntradaGenerica> componentes;
@@ -62,6 +62,7 @@ public class Entrada extends EntradaGenerica{
         for(int i = 0; i <= componentes.size(); i++){
             componentes.get(i).mostrar();
         }
+        
     }
             
 }

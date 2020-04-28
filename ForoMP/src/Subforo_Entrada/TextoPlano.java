@@ -11,7 +11,7 @@ import users.Usuario;
  *
  * @author alvarogonzalez
  */
-public class TextoPlano extends EntradaGenerica { // para hacer el patron composite faltaria crear la entradagenerica y crear la clase entrada
+public class TextoPlano extends EntradaGenerica  { // para hacer el patron composite faltaria crear la entradagenerica y crear la clase entrada
                                                   // una vez eso, definir en la clase entrada un arrayList de EntradaGenerica
     
     private String cuerpo;
