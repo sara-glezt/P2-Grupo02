@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import users.*; //para importar el paquete users
 import Observer.*;//para importar el paquete Observer
+import java.util.Iterator;
 
 /**
  *
@@ -22,13 +23,12 @@ public class Subforo implements Serializable, Observable {
     private String nombre;
     private ArrayList<Observer> usuarios;//arrayList de usuario para saber quien se ha susbcrito NECESARIO EN OBSERVABLE
     private ArrayList<Entrada> entradas; //arrayList de entrada para saber que entradas tiene el subforo
-    
 
     public Subforo(String nombre) {  //constructor de Subforo
         this.nombre = nombre;
         usuarios = new ArrayList<Observer>();
         entradas = new ArrayList<Entrada>();
-        
+
     }
 
     public String getNombre() {
@@ -66,13 +66,24 @@ public class Subforo implements Serializable, Observable {
     // COSAS DE OBSERVER (up)
     //
     public void crearEntrada(Usuario u, String titulo) {
-        Entrada ent = new Entrada(u, titulo);
-        entradas.add(ent);
-        System.out.println("Entada creada: "+ titulo);
-        notifySubscriptor(ent);
+        boolean encontrado = false;
+        Iterator<Entrada> i = entradas.iterator();
+
+        while (!encontrado && i.hasNext()) {
+            Entrada ent = i.next();
+            if (ent.getTitulo().equals(titulo)) {
+                encontrado = true;
+            }
+
+        }
+        if (!encontrado) {
+            Entrada e = new Entrada(u, titulo);
+            entradas.add(e);
+            System.out.println("Entada creada: " + titulo);
+            notifySubscriptor(e);
+
+        }
 
     }
-
-
 
 }
