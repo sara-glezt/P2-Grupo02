@@ -19,11 +19,13 @@ public class Entrada extends EntradaGenerica {
     private ArrayList<Comentario> comentarios;
     private ArrayList<EntradaGenerica> componentes;
     Sistema s = Sistema.getInstance();
+    private int valoracion;
     
     public Entrada(Usuario u, String titulo){ //Debug exactamente que metemos por constructor
         super(u, titulo);
         comentarios = new ArrayList<Comentario>();
         componentes = new ArrayList<EntradaGenerica>();
+        this.valoracion = super.getValoracion();
         //metodos crear ejercicios, textoplano, encuesta
         
     }
@@ -64,5 +66,12 @@ public class Entrada extends EntradaGenerica {
         }
         
     }
+
+    @Override
+    public String toString() {
+        return "Entrada{" + "comentarios=" + comentarios + ", componentes=" + componentes + ", s=" + s + ", valoracion=" + valoracion + '}';
+    }
+    
+    
             
 }

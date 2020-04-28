@@ -96,6 +96,7 @@ public class Sistema implements Serializable {
             System.out.println("El email introducido no cumple las condiciones necesarias");
         }
         Scanner sc2 = new Scanner(email);
+        sc2.useDelimiter("@");
         sc2.next();
         String fin = sc2.next();
         try{
@@ -320,5 +321,11 @@ public class Sistema implements Serializable {
         public RunTimeException(String el_nick_introducido__ya_esta_usado_elija_) {
         }
     }
+
+    public ArrayList<Subforo> getSubforo() {
+        return subforo;
+    }
+    
+    
 }
 //faltarian mas

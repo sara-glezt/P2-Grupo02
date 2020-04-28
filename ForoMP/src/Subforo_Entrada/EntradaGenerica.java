@@ -116,7 +116,7 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
         Object valor;
         while (e.hasMoreElements()) {
             valor = e.nextElement();
-            System.out.println("Valor : " + valor);
+            System.out.println("Valoracion: " + valor);
             // Hacemos un cast, pero antes nos hemos assegurado de que
             //el valor es numerico
             valoracion = valoracion + (Integer) valor;

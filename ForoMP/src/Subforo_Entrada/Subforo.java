@@ -68,6 +68,7 @@ public class Subforo implements Serializable, Observable {
     public void crearEntrada(Usuario u, String titulo) {
         Entrada ent = new Entrada(u, titulo);
         entradas.add(ent);
+        System.out.println("Entada creada: "+ titulo);
         notifySubscriptor(ent);
 
     }
