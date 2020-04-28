@@ -120,7 +120,7 @@ public class Sistema implements Serializable {
                     System.out.println("El tipo de usuario no es valido. Asegurese de que sea A/alumno, P/profesor o A/administrados");
                     throw new RunTimeException("El tipo de usuario no es valido. Asegurese de que sea A/alumno, P/profesor o A/administrados");
                 }
-            } catch (Exception e){
+            } catch (RunTimeException e){
                 aceptar = false;
             } 
         }

@@ -140,7 +140,7 @@ public class MainDemostrador {
         
         System.out.println("7. Hacemos logout, conectamos a otro usuario y la vota");
         s.logOut();        
-        s.logIn("ruben@alumnos.urjc.es", "grillos1", "1122");
+        s.logIn("ruben@alumnos.urjc.es", "grillos", "1122");
         s.getSubforo().get(0).getEntrada().get(0).votar(s.getConectado(), 1);
         System.out.println("");
         
