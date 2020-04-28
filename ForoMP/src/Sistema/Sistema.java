@@ -86,29 +86,38 @@ public class Sistema implements Serializable {
     private boolean verificarNuevoUsuario(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña, String tipo) {//preguntar que hace exactamente
         Iterator<Usuario> i = usuarios.iterator();
 
+        boolean aceptar = true;
         Scanner sc = new Scanner(email); //cogemos la parte del @ en adelante del email
         sc.useDelimiter("@");
         sc.next();
-        String e = sc.next();
-
-        boolean aceptar = true;
-        while (i.hasNext() & aceptar) { //comprobamos que el nick no se repita (se puede hacer con las demas propiedades)
-            Usuario u = i.next();
-            if (u.getNick().equals(nick)) {
-                System.out.println("El nick introducido  ya esta usado, elija otro");
-                aceptar = false;
-            }
-            if (u.getEmail().equals(email) || (!e.equals("alumnos.urjc.es") & !e.equals("urjc.es"))) { //verificamos el email
-                System.out.println("El email introducido  ya esta usado o no es valido, elija otro");
-                aceptar = false;
-            }
+        try{
+            sc.next();
+        } catch (Exception e){
+            System.out.println("El email introducido no cumple las condiciones necesarias");
         }
+        Scanner sc2 = new Scanner(email);
+        sc2.next();
+        String fin = sc2.next();
+        try{
+            while (i.hasNext()) { //comprobamos que el nick no se repita (se puede hacer con las demas propiedades)
+                Usuario u = i.next();
+                if (u.getNick().equals(nick)) {
+                    throw new RunTimeException("El nick introducido  ya esta usado, elija otro");
+                }
 
-        if (!tipo.equals("Alumno") & !tipo.equals("Profesor") & !tipo.equals("Administrador")
-                & !tipo.equals("alumno") & !tipo.equals("profesor") & !tipo.equals("administrador")) {
-            System.out.println("El tipo de usuario no es valido. Asegurese de que sea A/alumno, P/profesor o A/administrados");
+                if (u.getEmail().equals(email) || (!fin.equals("alumnos.urjc.es") & !fin.equals("urjc.es"))) { //verificamos el email
+                    throw new RunTimeException("El email introducido  ya esta usado o no es valido, elija otro");
+                }
+            }
+
+            if (!tipo.equals("Alumno") & !tipo.equals("Profesor") & !tipo.equals("Administrador")
+                    & !tipo.equals("alumno") & !tipo.equals("profesor") & !tipo.equals("administrador")) {
+                throw new RunTimeException("El tipo de usuario no es valido. Asegurese de que sea A/alumno, P/profesor o A/administrados");
+            }
+        } catch (Exception e){
             aceptar = false;
         }
+        
         return aceptar;
     }
 
@@ -303,6 +312,12 @@ public class Sistema implements Serializable {
             if (u instanceof Alumno) {
                 u.actualizarPenalizacion(dias);
             }
+        }
+    }
+
+    private static class RunTimeException extends Exception {
+
+        public RunTimeException(String el_nick_introducido__ya_esta_usado_elija_) {
         }
     }
 }
