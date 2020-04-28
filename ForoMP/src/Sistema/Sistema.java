@@ -19,6 +19,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Scanner;
 import users.*;
@@ -223,18 +224,28 @@ public class Sistema implements Serializable {
         return true;
     }
 
-    /*public ArrayList<Entrada> getEntradaMasVotadas(){ //obtengo de cada suforo las entradas mas votadas
-    Entrada[] ent = new Entrada[3];
-    for(Subforo s : subforo)
-    ent = s.getMasVotada();
-    for (int i = 0; i<3; i++){
-    if(ent[i] != null){
-    masVotadas.add(ent[i]);
+    public ArrayList<Entrada> getMasVotadas() {
+        //Lo que haremos sera concatenar todos los arrays de Entradas de cada
+        //subforo en uno. Ese lo ordenamos y extraemos los 3 primeros.
+
+        //Concatenamos
+        ArrayList<Entrada> entradasConcat = new ArrayList<>();
+        for (int i = 0; i < subforo.size(); i++) {
+            entradasConcat.addAll(subforo.get(i).getEntrada());
+
+        }
+        //Ordenamos
+        Collections.sort(entradasConcat);
+
+        //Guardamos en el array de masVotadas las 3 primeras de las ordenadas
+        for (int i = 0; i < 3; i++) {
+            masVotadas.add(entradasConcat.get(i));
+
+        }
+        return masVotadas;
+
     }
-    }
-    return masVotadas;
-    
-    }*/
+
     public boolean guardarSistema() {//asi guardaria la clase sistema entera, mejor guardar por separado usuarios y alumnos?
         try {
             FileOutputStream f = new FileOutputStream("Sistema.obj");
@@ -275,22 +286,24 @@ public class Sistema implements Serializable {
     }
 
     public String ListaUsuario() {
-         String info =  "\t" +"\t"+"\t"+ "Usuarios Registrados " + "\n";
+        String info = "\t" + "\t" + "\t" + "Usuarios Registrados " + "\n";
         if (getConectado() instanceof Administrador || getConectado() instanceof Profesor) {
-           
+
             for (Usuario us : usuario) {
-                info += "\t" +"Nombre: "+us.getNombre()+"  "+us.getApellido1()+" "+ us.getApellido2() 
-                        +" Nick: "+ us.getNick()+ " Email: "+ us.getEmail()+"\n";
+                info += "\t" + "Nombre: " + us.getNombre() + "  " + us.getApellido1() + " " + us.getApellido2()
+                        + " Nick: " + us.getNick() + " Email: " + us.getEmail() + "\n";
             }
         }
         return info;
 
     }
-    
-    public void saltarDias(int dias){
-    for (Usuario u: usuario){
-     if (u instanceof Alumno){
-        u.actualizarPenalizacion(dias);}}
+
+    public void saltarDias(int dias) {
+        for (Usuario u : usuario) {
+            if (u instanceof Alumno) {
+                u.actualizarPenalizacion(dias);
+            }
+        }
     }
 }
 //faltarian mas
