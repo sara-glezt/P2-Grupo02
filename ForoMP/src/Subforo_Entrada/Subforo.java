@@ -24,7 +24,9 @@ public class Subforo implements Serializable, Observable {
     private String nombre;
     private ArrayList<Observer> usuarios;//arrayList de usuario para saber quien se ha susbcrito NECESARIO EN OBSERVABLE
     private ArrayList<Entrada> entradas; //arrayList de entrada para saber que entradas tiene el subforo
-
+    Sistema s = Sistema.getInstance();
+    
+    
     public Subforo(String nombre) {  //constructor de Subforo
         this.nombre = nombre;
         usuarios = new ArrayList<Observer>();
@@ -98,11 +100,28 @@ public class Subforo implements Serializable, Observable {
             
     }
     
-    /*public String mostrarListaEntrada(){
-    
+    public String mostrarListaEntrada(){
+        String info= "";
+        if (s.getConectado() instanceof  Alumno){
+            info = "\t" + "\t" + "\t" + "Usuarios Registrados " + "\n";
+            for (Entrada e : entradas) {
+                if (e.getVerificado()){
+                    info += "\t" + e.getTitulo() + "\n";
+                }
+            }
+        } else {
+            info = "\t" + "\t" + "\t" + "Usuarios Registrados " + "\n";
+            for (Entrada e : entradas) {
+                if (e.getVerificado()){
+                    info += "\t" + e.getTitulo() + "\n";
+                }
+            }
+            
+        }
+        return info;
     }
     
-    public String mostrarEntrada(){
+    /*public String mostrarEntrada(){
     
     }*/
 
