@@ -22,22 +22,22 @@ public class Alumno extends Usuario implements Serializable{
         penalizacion = 0;
     }
 
-    public void penalizar(){
-        penalizacion = 10;
-        
-}
+    /* public void penalizar(){
+    penalizacion = 10;
+    
+    }
     
     public boolean penalizado(){
     if (penalizacion > 0)
-     return true;
+    return true;
     else
-       return false;
-}
+    return false;
+    }
     public void actualizarPenalizacion(int dias){
     int nuevaPena = penalizacion - dias;
     if (nuevaPena <= 0){
     this.penalizacion = 0;}
     else {
     this.penalizacion = nuevaPena;}
-    }
+    }*/
 }

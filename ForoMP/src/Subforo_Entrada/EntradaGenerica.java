@@ -148,7 +148,11 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
         if (s.getConectado() instanceof Administrador) {
             verificado = bool;
             publicada = bool;
-        }}
+        } if(!bool){
+            getCreador().penalizar();
+                 
+        }
+        }
         
         return verificado;
     }

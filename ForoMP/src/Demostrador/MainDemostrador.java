@@ -122,73 +122,111 @@ public class MainDemostrador {
         s.crearSubforo("Deportes");
         System.out.println("");
 
-        System.out.println("4. Creamos una entrada");
+        System.out.println("4. Creamos una entrada con un usuario profesor");
         s.getSubforo().get(0).crearEntrada(s.getConectado(), "Nadal gana al Covid");
         System.out.println("");
 
         System.out.println("5. El mismo creador vota la entrada");
-        s.getSubforo().get(0).getEntrada().get(0).votar(s.getConectado(), 1);
+        if (s.getSubforo().get(0).getEntrada().get(0).getVerificado()) {
+            s.getSubforo().get(0).getEntrada().get(0).votar(s.getConectado(), 1);
+            System.out.println("");
+        } else {
+            System.out.println("La entrada no esta verificada");
+        }
+
         System.out.println("");
 
         System.out.println("6. Comprobamos que la valoracion no cambia");
-        System.out.println(s.getSubforo().get(0).getEntrada().get(0).toString());
+        System.out.println(s.getSubforo().get(0).getEntrada().get(0).getValoracion());
         System.out.println("");
 
+        
         System.out.println("7. Hacemos logout, conectamos a otro usuario y la vota");
         s.logOut();
         s.logIn("ruben@alumnos.urjc.es", "grillos", "1122");
-        s.getSubforo().get(0).getEntrada().get(0).votar(s.getConectado(), 1);
+        if (s.getSubforo().get(0).getEntrada().get(0).getVerificado()) {
+            s.getSubforo().get(0).getEntrada().get(0).votar(s.getConectado(), 1);
+            System.out.println("");
+        } else {
+            System.out.println("La entrada no esta verificada");
+        }
         System.out.println("");
 
+        
         System.out.println("8. Hacemos que el usuario vote lo mismo y vemos como varia");
-        s.getSubforo().get(0).getEntrada().get(0).votar(s.getConectado(), 1);
+        if (s.getSubforo().get(0).getEntrada().get(0).getVerificado()) {
+            s.getSubforo().get(0).getEntrada().get(0).votar(s.getConectado(), 1);
+            System.out.println("");
+        } else {
+            System.out.println("La entrada no esta verificada");
+        }
         System.out.println("");
 
+        
         System.out.println("9. Hacemos que el usuario vote lo contrario");
-        s.getSubforo().get(0).getEntrada().get(0).votar(s.getConectado(), -1);
+        if (s.getSubforo().get(0).getEntrada().get(0).getVerificado()) {
+            s.getSubforo().get(0).getEntrada().get(0).votar(s.getConectado(), -1);
+            System.out.println("");
+        } else {
+            System.out.println("La entrada no esta verificada");
+        }
         System.out.println("");
 
+        
         System.out.println("10. Hacemos que el usuario vote algo no valido");
-        s.getSubforo().get(0).getEntrada().get(0).votar(s.getConectado(), 7);
+        if (s.getSubforo().get(0).getEntrada().get(0).getVerificado()) {
+            s.getSubforo().get(0).getEntrada().get(0).votar(s.getConectado(), 7);
+            System.out.println("");
+        } else {
+            System.out.println("La entrada no esta verificada");
+        }
         System.out.println("");
 
+        
         System.out.println("11. Hacemos que vote otro usuario mas y comprobamos la suma");
         s.logOut();
         s.logIn("gustavo@urjc.es", "Gusyluz", "1122");
-        s.getSubforo().get(0).getEntrada().get(0).votar(s.getConectado(), -1);
+        if (s.getSubforo().get(0).getEntrada().get(0).getVerificado()) {
+            s.getSubforo().get(0).getEntrada().get(0).votar(s.getConectado(), -1);
+            
+        } else {
+            System.out.println("La entrada no esta verificada");
+        }
         System.out.println(s.getSubforo().get(0).getEntrada().get(0).getValoracion());
         s.logOut();
+        System.out.println("");
 
-        //no votas si no verificado (idea) 
-        /*        if(s.getSubforo().get(0).getEntrada().get(0).getVerificado()){
-        s.getSubforo().get(0).getEntrada().get(0).votar(s.getConectado(), -1);
-        System.out.println("");}else System.out.println("La entrada no esta verificada");*/
         //mostar lista si esta publicado
-        //hacer mostrar entradas
+        
         //hacer mostar Subscritos?
         //en verificar(EntradaGenerica) si es de alummno y esta a false entonces penalizar
-        //probar suscribir el mismo usuario al mismo subforo
-        
+       
+        //intentar votar sin haber verificado
+       
         System.out.println("12- Añadimos un subscritor a un subforo");
         s.logIn("ruben@alumnos.urjc.es", "grillos", "1122");
         s.getSubforo().get(0).addSubscriptor(s.getConectado());
         System.out.println("");
+        
+        System.out.println("13- Intentamos subscribir el mismo usuario otra vez a un subforo que ya esta subcrito");
+        s.getSubforo().get(0).addSubscriptor(s.getConectado());
 
-        System.out.println("13-Eliminamos un usario");
+        System.out.println("14-Eliminamos un usario");
         s.eliminarUsuario("grillos");
         System.out.println("Comprobamos que se ha borrado");
         System.out.println(s.ListaUsuario());
         s.logOut();
         System.out.println("");
 
-        System.out.println("14-Iniciamos sesion con otro usuario para subsribirlo");
+        System.out.println("15-Iniciamos sesion con otro usuario para subsribirlo");
         s.logIn("gustavo@urjc.es", "Gusyluz", "1122");
         s.getSubforo().get(0).addSubscriptor(s.getConectado());
         System.out.println("");
 
-        System.out.println("15-Eliminamos el subforo con los subcritos que tiene");// faltaria añadir en el usuario el subforo (esta comentado)
+        System.out.println("16-Eliminamos el subforo");// faltaria añadir en el usuario el subforo (esta comentado)
         s.eliminarSubforo("Deportes");
-
+        System.out.println("");
+        
     }
 
 }

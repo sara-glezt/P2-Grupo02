@@ -25,6 +25,7 @@ public abstract class Usuario implements Serializable, Observer {
     private String contraseña;
     private ArrayList<Subforo> subforos;
     private ArrayList<String> notificaciones;
+    private int penalizacion;
 
     public Usuario(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña) {
         this.nombre = nombre;
@@ -139,6 +140,24 @@ public abstract class Usuario implements Serializable, Observer {
 
     ;
 
-    public void actualizarPenalizacion(int dias) {
+    
+     public void penalizar(){
+        penalizacion = 10;
+        
+}
+    
+    public boolean penalizado(){
+    if (penalizacion > 0)
+     return true;
+    else
+       return false;
+}
+    public void actualizarPenalizacion(int dias){
+    int nuevaPena = penalizacion - dias;
+    if (nuevaPena <= 0){
+    this.penalizacion = 0;}
+    else {
+    this.penalizacion = nuevaPena;}
     }
+    
 }

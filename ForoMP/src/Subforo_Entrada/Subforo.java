@@ -52,7 +52,7 @@ public class Subforo implements Serializable, Observable {
         Sistema s = Sistema.getInstance();
         s.getConectado().darDeAltaSubforo(this);
         System.out.println("Nuevo usuario subscrito al subforo: <<" + this.nombre + " >>");
-    }
+    }else System.out.println("Este usuario ya esta subscrito");
     }
 
     @Override
