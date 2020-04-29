@@ -103,26 +103,23 @@ public class Subforo implements Serializable, Observable {
     public String mostrarListaEntrada(){
         String info= "";
         if (s.getConectado() instanceof  Alumno){
-            info = "\t" + "\t" + "\t" + "Usuarios Registrados " + "\n";
+            info = "\t" + "\t" + "\t" + "Entradas del subforo" + "\n";
             for (Entrada e : entradas) {
                 if (e.getVerificado()){
                     info += "\t" + e.getTitulo() + "\n";
                 }
             }
         } else {
-            info = "\t" + "\t" + "\t" + "Usuarios Registrados " + "\n";
+            info = "\t" + "\t" + "\t" + "Entradas del subforo" + "\n";
             for (Entrada e : entradas) {
-                if (e.getVerificado()){
-                    info += "\t" + e.getTitulo() + "\n";
+                    info += "\t" + e.getTitulo() + " ";
+                    if (e.getVerificado()){
+                        info += "verificada" + "\n";
+                    } else {
+                        info += "no verificada" + "\n";
+                    }
                 }
             }
-            
-        }
         return info;
     }
-    
-    /*public String mostrarEntrada(){
-    
-    }*/
-
 }
