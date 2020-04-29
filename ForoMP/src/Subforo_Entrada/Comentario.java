@@ -12,17 +12,38 @@ import java.util.ArrayList;
  * @author Equipo
  */
 public class Comentario {
+
     private int valoracion;
-    private boolean verificado;
+
     private ArrayList<Comentario> comentarios;
-    
-    public Comentario(){
-        this.valoracion = valoracion;
-        this.verificado = verificado;
+    private String texto;
+
+    public Comentario(String txt) {
+        texto = txt;
+        valoracion = 0;
         this.comentarios = new ArrayList<Comentario>();
-               
+
     }
     
-    //faltan metodos
+    public void responderComentario(String s){
+      Comentario come = new Comentario(s); 
+      this.comentarios.add(come);
+      System.out.println("Comentario comentado");
+    }
     
+    public String respuestaComentarios(){
+        String info=null;
+        for(Comentario comen : comentarios){
+            info = comen.getTexto();
+        }
+       return info; 
+    }
+    
+    
+
+    //faltan metodos
+
+    public String getTexto() {
+        return texto;
+    }
 }

@@ -41,7 +41,7 @@ public class Ejercicio extends EntradaGenerica  {
 
     @Override
     public void mostrar() {
-        System.out.println("Ejercicio creado por"  + getCreador());
+        System.out.println("Ejercicio creado por"  + getCreador().getNick());
         System.out.println("Título " + getTitulo());
         System.out.println("Enunciado: " + getEnunciado());
         System.out.println("Solucion: " + getSolucion());

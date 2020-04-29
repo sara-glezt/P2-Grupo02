@@ -27,7 +27,7 @@ public class TextoPlano extends EntradaGenerica  { // para hacer el patron compo
 
     @Override
     public void mostrar() {
-        System.out.println("Ejercicio creado por"  + getCreador());
+        System.out.println("Texto plano creado por "  + getCreador().getNick());
         System.out.println("Título " + getTitulo());
         System.out.println("Texto: " + getCuerpo());
     }

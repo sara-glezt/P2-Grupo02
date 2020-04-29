@@ -119,7 +119,7 @@ public class Encuesta extends EntradaGenerica {
 
     @Override
     public void mostrar() {
-        System.out.println("Encuesta creada por"  + getCreador());
+        System.out.println("Encuesta creada por"  + getCreador().getNick());
         System.out.println("Título " + getTitulo());
         System.out.println("Preguntas: " + verPreguntas());
         System.out.println("Respuestas: " + verRespuestas());

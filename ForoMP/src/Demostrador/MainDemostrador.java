@@ -122,8 +122,9 @@ public class MainDemostrador {
         s.crearSubforo("Deportes");
         System.out.println("");
 
-        System.out.println("4. Creamos una entrada con un usuario profesor");
-        s.getSubforo().get(0).crearEntrada(s.getConectado(), "Nadal gana al Covid");
+        System.out.println("4. Creamos una entrada con un usuario profesor y vemos si se crea");
+        s.getSubforo().get(0).crearEntrada(s.getConectado(), "Nadal gana al Covid", "De un reves le mando de vuelta");
+        System.out.println(s.getSubforo().get(0).mostrarListaEntrada());
         System.out.println("");
 
         System.out.println("5. El mismo creador vota la entrada");
@@ -210,22 +211,110 @@ public class MainDemostrador {
         
         System.out.println("13- Intentamos subscribir el mismo usuario otra vez a un subforo que ya esta subcrito");
         s.getSubforo().get(0).addSubscriptor(s.getConectado());
-
-        System.out.println("14-Eliminamos un usario");
-        s.eliminarUsuario("grillos");
-        System.out.println("Comprobamos que se ha borrado");
-        System.out.println(s.ListaUsuario());
         s.logOut();
         System.out.println("");
 
-        System.out.println("15-Iniciamos sesion con otro usuario para subsribirlo");
+        System.out.println("14-Iniciamos sesion con otro usuario para subsribirlo");
         s.logIn("gustavo@urjc.es", "Gusyluz", "1122");
         s.getSubforo().get(0).addSubscriptor(s.getConectado());
+        s.logOut();
         System.out.println("");
 
-        System.out.println("16-Eliminamos el subforo");// faltaria añadir en el usuario el subforo (esta comentado)
-        s.eliminarSubforo("Deportes");
+        
+        System.out.println("15-Un alumno crea una entrada ");
+         s.logIn("ruben@alumnos.urjc.es", "grillos", "1122");
+         s.getSubforo().get(0).crearEntrada(s.getConectado(), "Elefante gana atleta", "Dumbo volo y ganó");
+         System.out.println("");
+         
+         System.out.println("16-Como la ha creado un alummno y no esta verificada comprobamos que no se puede ver por el alumnado");
+         System.out.println(s.getSubforo().get(0).mostrarListaEntrada());
+         System.out.println("");
+         
+          
+         System.out.println("17- Intentamos votar la entrada sin ser verificada y vemos que no podemos");
+         if (s.getSubforo().get(0).getEntrada().get(1).getVerificado()) {
+            s.getSubforo().get(0).getEntrada().get(1).votar(s.getConectado(), -1);
+            
+        } else {
+            System.out.println("La entrada no esta verificada");
+        }
         System.out.println("");
+        
+        
+        System.out.println("18- Intentamos comentar la entrada que no esta verificada");
+        s.getSubforo().get(0).getEntrada().get(1).addComentario("Madre Willy, que me cuentas");
+        System.out.println("");
+        
+        System.out.println("19-Añadimos un texto plano a la entrada para ver efectivamente por ser el creador nos deja");
+        s.getSubforo().get(0).getEntrada().get(1).addTextoPlano(s.getConectado(), "Mas de 100 Km/h", "Alcanzo la velocidad del sonido");
+       
+        
+        System.out.println("");
+        
+        System.out.println("20- Intentamos verla, pero como no esta verificada no se puede");
+        s.getSubforo().get(0).getEntrada().get(1).mostrar();
+        
+        
+        System.out.println("");
+        System.out.println("21- Cerramos sesion, y la iniciamos como admin para verficar la entrada");
+        s.logOut();
+        s.logIn("gustavo@urjc.es", "Gusyluz", "1122");
+        s.getSubforo().get(0).getEntrada().get(1).verificar(true);
+        System.out.println("");
+        
+        System.out.println("");
+        System.out.println("22-Una vez verificada, vemos con un Alumno si es asi");
+        s.logOut();
+        s.logIn("ruben@alumnos.urjc.es", "grillos", "1122");
+        s.getSubforo().get(0).getEntrada().get(1).mostrar();
+        System.out.println("");
+        
+        System.out.println("");
+        System.out.println("23- Probamos a comentar la entrada una vez verificada");
+        s.getSubforo().get(0).getEntrada().get(1).addComentario("Madre Willy, que me cuentas");
+        System.out.println("");
+        
+        System.out.println("24- Probamos a comentar el comentario");
+        s.getSubforo().get(0).getEntrada().get(1).getComentarios().get(0).responderComentario("Como lo oyes Veggeta");
+        System.out.println("");
+        
+        System.out.println("25- Vemos que se ha podido comentar la entrada y el propio comentario");
+        System.out.println(s.getSubforo().get(0).getEntrada().get(1).verComentarios());
+        System.out.println("");
+        s.logOut();
+        
+        /*  System.out.println("26- Creamos una encuesta con un alumno");
+        s.getSubforo().get(0).getEntrada().get(1).addEncuesta(s.getConectado(), "Aprobaras?");
+        
+        System.out.println("");
+        
+        System.out.println("27- Creamos la encuesta con un profesor");
+        s.logIn("antonio@urjc.es", "Tony", "1122");
+        s.getSubforo().get(0).getEntrada().get(1).addEncuesta(s.getConectado(), "Aprobaras?");
+        s.getSubforo().get(0).getEntrada().get(1).getComponentes().get(1).añadirPreguntas("De que color es el cielo?");
+        s.getSubforo().get(0).getEntrada().get(1).getComponentes().get(1).reponderPreguntas("Azul", 1);
+        s.getSubforo().get(0).getEntrada().get(1).getComponentes().get(1)
+        
+        s.getSubforo().get(0).getEntrada().get(1).addEjercicio(s.getConectado(), "Matematicas", "2+2", "4");
+        s.getSubforo().get(0).getEntrada().get(1).getComponentes().*/
+            
+        
+        /*     
+        
+        System.out.println(s.getSubforo().get(0).getEntrada().get(1).verComentarios());*/
+        
+        
+        
+        
+         /*     System.out.println("14-Eliminamos un usario");
+         s.eliminarUsuario("grillos");
+         System.out.println("Comprobamos que se ha borrado");
+         System.out.println(s.ListaUsuario());
+         
+         System.out.println("16-Eliminamos el subforo");// faltaria añadir en el usuario el subforo (esta comentado)
+         s.eliminarSubforo("Deportes");
+         System.out.println("");*/
+        
         
     }
 

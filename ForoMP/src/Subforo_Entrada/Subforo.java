@@ -24,9 +24,8 @@ public class Subforo implements Serializable, Observable {
     private String nombre;
     private ArrayList<Observer> usuarios;//arrayList de usuario para saber quien se ha susbcrito NECESARIO EN OBSERVABLE
     private ArrayList<Entrada> entradas; //arrayList de entrada para saber que entradas tiene el subforo
-    Sistema s = Sistema.getInstance();
     
-    
+
     public Subforo(String nombre) {  //constructor de Subforo
         this.nombre = nombre;
         usuarios = new ArrayList<Observer>();
@@ -47,12 +46,14 @@ public class Subforo implements Serializable, Observable {
     //
     @Override
     public void addSubscriptor(Observer o) {
-        if(!usuarios.contains(o)){
-        usuarios.add(o);
-        Sistema s = Sistema.getInstance();
-        s.getConectado().darDeAltaSubforo(this);
-        System.out.println("Nuevo usuario subscrito al subforo: <<" + this.nombre + " >>");
-    }else System.out.println("Este usuario ya esta subscrito");
+        if (!usuarios.contains(o)) {
+            usuarios.add(o);
+            Sistema s = Sistema.getInstance();
+            s.getConectado().darDeAltaSubforo(this);
+            System.out.println("Nuevo usuario subscrito al subforo: <<" + this.nombre + " >>");
+        } else {
+            System.out.println("Este usuario ya esta subscrito");
+        }
     }
 
     @Override
@@ -66,60 +67,62 @@ public class Subforo implements Serializable, Observable {
     @Override
     public void deleteSubscriptor(Observer o) {
         usuarios.remove(o);
-        
+
     }
 
     //
     // COSAS DE OBSERVER (up)
     //
-    public void crearEntrada(Usuario u, String titulo) {
-        
-      
-        boolean encontrado = false;
-        Iterator<Entrada> i = entradas.iterator();
+    public void crearEntrada(Usuario u, String titulo, String txt) {
+        Sistema s = Sistema.getInstance();
+        if (s.getConectado() != null) {
+            boolean encontrado = false;
+            Iterator<Entrada> i = entradas.iterator();
 
-        while (!encontrado && i.hasNext()) {
-            Entrada ent = i.next();
-            if (ent.getTitulo().equals(titulo)) {
-                encontrado = true;
-                System.out.println("El titulo para la entrada ya esta en uso, use otro");
-                      
+            while (!encontrado && i.hasNext()) {
+                Entrada ent = i.next();
+                if (ent.getTitulo().equals(titulo)) {
+                    encontrado = true;
+                    System.out.println("El titulo para la entrada ya esta en uso, use otro");
+
+                }
+
+            }
+            if (!encontrado) {
+                Entrada e = new Entrada(u, titulo, txt);
+                entradas.add(e);
+                System.out.println("Entada creada: " + titulo);
+                notifySubscriptor(e);
+                if (!u.getClass().getSimpleName().equals("Alumno")) {
+                    e.setVerificado(true);
+                    e.setPublicada(true);
+                }
             }
 
         }
-        if (!encontrado) {
-            Entrada e = new Entrada(u, titulo);
-            entradas.add(e);
-            System.out.println("Entada creada: " + titulo);
-            notifySubscriptor(e);
-            if (!u.getClass().getSimpleName().equals("Alumno")  ){
-                e.setVerificado(true);
-                e.setPublicada(true);
-            }
-        }
-            
     }
-    
-    public String mostrarListaEntrada(){
-        String info= "";
-        if (s.getConectado() instanceof  Alumno){
+
+    public String mostrarListaEntrada() {
+        Sistema s = Sistema.getInstance();
+        String info = "";
+        if (s.getConectado() instanceof Alumno) {
             info = "\t" + "\t" + "\t" + "Entradas del subforo" + "\n";
             for (Entrada e : entradas) {
-                if (e.getVerificado()){
+                if (e.getVerificado()) {
                     info += "\t" + e.getTitulo() + "\n";
                 }
             }
         } else {
             info = "\t" + "\t" + "\t" + "Entradas del subforo" + "\n";
             for (Entrada e : entradas) {
-                    info += "\t" + e.getTitulo() + " ";
-                    if (e.getVerificado()){
-                        info += "verificada" + "\n";
-                    } else {
-                        info += "no verificada" + "\n";
-                    }
+                info += "\t" + e.getTitulo() + " ";
+                if (e.getVerificado()) {
+                    info += ":verificada" + "\n";
+                } else {
+                    info += ":no verificada" + "\n";
                 }
             }
+        }
         return info;
     }
 }

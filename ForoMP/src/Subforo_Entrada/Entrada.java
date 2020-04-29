@@ -7,6 +7,7 @@ package Subforo_Entrada;
 
 import Sistema.Sistema;
 import java.util.ArrayList;
+import users.Alumno;
 import users.Profesor;
 import users.Usuario;
 
@@ -20,9 +21,11 @@ public class Entrada extends EntradaGenerica {
     private ArrayList<EntradaGenerica> componentes;
     Sistema s = Sistema.getInstance();
     private int valoracion;
+    private String texto;
     
-    public Entrada(Usuario u, String titulo){ //Debug exactamente que metemos por constructor
+    public Entrada(Usuario u, String titulo, String texto){ //Debug exactamente que metemos por constructor
         super(u, titulo);
+        this.texto =texto;
         comentarios = new ArrayList<Comentario>();
         componentes = new ArrayList<EntradaGenerica>();
         this.valoracion = super.getValoracion();
@@ -36,10 +39,10 @@ public class Entrada extends EntradaGenerica {
   //if(instancia.getConectado() instanceof Profesor) 
     
     public void addTextoPlano(Usuario u, String titulo, String cuerpo){
-        
+        if(getCreador().equals(u)){
             TextoPlano texto = new TextoPlano(u, titulo, cuerpo);
             componentes.add(texto);
-        
+        }
         
     }
     
@@ -48,7 +51,7 @@ public class Entrada extends EntradaGenerica {
         if(s.getConectado() instanceof Profesor){
             Encuesta encuesta = new Encuesta(u, titulo);
             componentes.add(encuesta);
-        }
+        }else System.out.println("Usted no puede crear encuestas");
     }
     
     //Duda, para controlar que es un profesor, esta bien pasarlo como argumento?
@@ -58,18 +61,59 @@ public class Entrada extends EntradaGenerica {
         componentes.add (ejercicio);
         }
     }
+    
+    public void addComentario(String s){
+        if(this.getVerificado()){
+        Comentario comen = new Comentario(s);
+        comentarios.add(comen);
+        System.out.println("Comentario añadido con exito");
+        }else System.out.println("No puedes comentar, pues no esta verificada la entrada");
+    }
+
+    public ArrayList<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    
+    public String verComentarios(){
+        String info= null;
+        for(Comentario comen : comentarios){
+            info = comen.getTexto()+"\n"+
+            "\t"+"-"+comen.respuestaComentarios();
+        }
+       return info;
+    }
+    
+  
 
     @Override
     public void mostrar() {
-        for(int i = 0; i <= componentes.size(); i++){
+        if (s.getConectado() instanceof Alumno) {
+            if (getVerificado()) {
+        for(int i = 0; i < componentes.size(); i++){
             componentes.get(i).mostrar();
         }
-        
+        } else System.out.println("No esta verificado y no puede verlo");}else{
+             for(int i = 0; i < componentes.size(); i++){
+            componentes.get(i).mostrar(); 
+                if (getVerificado()) {
+                    System.out.print(":verificada" + "\n");
+                } else {
+                    System.out.print(": no verificada" + "\n");
+                }
+            }
+    
+    }
     }
 
     @Override
     public String toString() {
         return "Entrada{" + "comentarios=" + comentarios + ", componentes=" + componentes + ", s=" + s + ", valoracion=" + valoracion + '}';
     }
+
+    public ArrayList<EntradaGenerica> getComponentes() {
+        return componentes;
+    }
+    
     
 }

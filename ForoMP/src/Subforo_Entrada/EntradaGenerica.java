@@ -186,6 +186,6 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
         
     }
 
-        
-    
+        public void añadirPreguntas(String prg){};
+       public void reponderPreguntas(String resp, int i){};
 }
