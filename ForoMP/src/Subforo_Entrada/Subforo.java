@@ -105,7 +105,8 @@ public class Subforo implements Serializable, Observable {
     public String mostrarListaEntrada() {
         Sistema s = Sistema.getInstance();
         String info = "";
-        if (s.getConectado() instanceof Alumno) {
+        if(s.getConectado() != null){
+        if (s.getConectado() instanceof Alumno ) {
             info = "\t" + "\t" + "\t" + "Entradas del subforo" + "\n";
             for (Entrada e : entradas) {
                 if (e.getVerificado()) {
@@ -122,7 +123,7 @@ public class Subforo implements Serializable, Observable {
                     info += ":no verificada" + "\n";
                 }
             }
-        }
+        }}
         return info;
     }
 }

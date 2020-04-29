@@ -242,7 +242,7 @@ public class MainDemostrador {
         
         
         System.out.println("18- Intentamos comentar la entrada que no esta verificada");
-        s.getSubforo().get(0).getEntrada().get(1).addComentario("Madre Willy, que me cuentas");
+        s.getSubforo().get(0).getEntrada().get(1).addComentario(s.getConectado(),"Madre Willy, que me cuentas");
         System.out.println("");
         
         System.out.println("19-Añadimos un texto plano a la entrada para ver efectivamente por ser el creador nos deja");
@@ -271,11 +271,11 @@ public class MainDemostrador {
         
         System.out.println("");
         System.out.println("23- Probamos a comentar la entrada una vez verificada");
-        s.getSubforo().get(0).getEntrada().get(1).addComentario("Madre Willy, que me cuentas");
+        s.getSubforo().get(0).getEntrada().get(1).addComentario(s.getConectado(),"Madre Willy, que me cuentas");
         System.out.println("");
         
         System.out.println("24- Probamos a comentar el comentario");
-        s.getSubforo().get(0).getEntrada().get(1).getComentarios().get(0).responderComentario("Como lo oyes Veggeta");
+        s.getSubforo().get(0).getEntrada().get(1).getComentarios().get(0).responderComentario(s.getConectado(),"Como lo oyes Veggeta");
         System.out.println("");
         
         System.out.println("25- Vemos que se ha podido comentar la entrada y el propio comentario");
