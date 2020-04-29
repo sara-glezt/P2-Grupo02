@@ -5,14 +5,15 @@
  */
 package Subforo_Entrada;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Equipo
  */
-public class Comentario {
-
+public class Comentario implements Serializable {
+private static final long serialVersionUID = 1L;
     private int valoracion;
 
     private ArrayList<Comentario> comentarios;

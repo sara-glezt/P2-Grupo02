@@ -18,7 +18,8 @@ import users.Usuario;
  * @author Dani
  */
 public abstract class EntradaGenerica implements Serializable, Comparable <EntradaGenerica> {
-
+    
+    private static final long serialVersionUID = 1L;
     private int valoracion;
     private int numTotalVal; // No añadido en UML. Necesario para le media
     private Date fecha;
