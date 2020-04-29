@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import users.*; //para importar el paquete users
 import Observer.*;//para importar el paquete Observer
+import Sistema.Sistema;
 import java.util.Iterator;
 
 /**
@@ -44,8 +45,12 @@ public class Subforo implements Serializable, Observable {
     //
     @Override
     public void addSubscriptor(Observer o) {
+        if(!usuarios.contains(o)){
         usuarios.add(o);
+        Sistema s = Sistema.getInstance();
+        s.getConectado().darDeAltaSubforo(this);
         System.out.println("Nuevo usuario subscrito al subforo: <<" + this.nombre + " >>");
+    }
     }
 
     @Override
@@ -59,13 +64,15 @@ public class Subforo implements Serializable, Observable {
     @Override
     public void deleteSubscriptor(Observer o) {
         usuarios.remove(o);
-        System.out.println("Hasta luego.");
+        
     }
 
     //
     // COSAS DE OBSERVER (up)
     //
     public void crearEntrada(Usuario u, String titulo) {
+        
+      
         boolean encontrado = false;
         Iterator<Entrada> i = entradas.iterator();
 
@@ -73,6 +80,8 @@ public class Subforo implements Serializable, Observable {
             Entrada ent = i.next();
             if (ent.getTitulo().equals(titulo)) {
                 encontrado = true;
+                System.out.println("El titulo para la entrada ya esta en uso, use otro");
+                      
             }
 
         }
@@ -81,9 +90,20 @@ public class Subforo implements Serializable, Observable {
             entradas.add(e);
             System.out.println("Entada creada: " + titulo);
             notifySubscriptor(e);
-
+            if (!u.getClass().getSimpleName().equals("Alumno")  ){
+                e.setVerificado(true);
+                e.setPublicada(true);
+            }
         }
-
+            
     }
+    
+    /*public String mostrarListaEntrada(){
+    
+    }
+    
+    public String mostrarEntrada(){
+    
+    }*/
 
 }

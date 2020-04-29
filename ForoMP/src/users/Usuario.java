@@ -9,11 +9,13 @@ import Observer.Observer;
 import java.io.Serializable;
 import Subforo_Entrada.Subforo;
 import java.util.ArrayList;
+
 /**
  *
  * @author Sara
  */
 public abstract class Usuario implements Serializable, Observer {
+
     private static final long serialVersionUID = 1L;
     private String nombre;
     private String apellido1;
@@ -31,10 +33,9 @@ public abstract class Usuario implements Serializable, Observer {
         this.nick = nick;
         this.email = email;
         this.contraseña = contraseña;
-        this.subforos = null;
-        this.notificaciones = null;
+        subforos = new ArrayList<>();
+        notificaciones = new ArrayList<>();
     }
-
 
     public String getNombre() {
         return nombre;
@@ -83,29 +84,61 @@ public abstract class Usuario implements Serializable, Observer {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
-    
-    public void darDeBajaSubforo(String nombre){
-        subforos.forEach((subforo) -> {
-            if (subforo.getNombre().equals(nombre)){
-                subforo.deleteSubscriptor(this);
-                subforos.remove(subforo);
+
+    public void darDeBajaSubforo(String nombre) {
+        /*    subforos.forEach((subforo) -> {
+        if (subforo.getNombre().equals(nombre)){
+        subforo.deleteSubscriptor(this);
+        subforos.remove(subforo); //en esta lina esta el problema, hay que sacarlo fuera del bucle
+        
+        }
+        });*/
+
+        Subforo aux = null;
+        boolean valid = false;
+        for (Subforo s : subforos) {
+            if (s.getNombre().equals(nombre)) {
+                s.deleteSubscriptor(this);
+                valid = true;
+                aux = s;
             }
-        });
+        }
+        if (valid) {
+            subforos.remove(aux);
+        }
     }
+
+    public void darDeAltaSubforo(Subforo sub) { //un problema, un usuario se puede suscribir al mismo foro
+        /* subforos.add(sub);
+        sub.addSubscriptor(this);*/
+
+        //sol improvisada
+      boolean aceptar = true;
+        for (Subforo s : subforos) {
+            if (s.getNombre().equals(sub.getNombre())) {
+                aceptar = false;
+            }
+        }
+        if (aceptar) {
+            subforos.add(sub);
+        } else {
+            System.out.println("Este usuario ya esta subscrito al foro");
+        
+
+    }}
     
-    public void darDeAltaSubforo(Subforo sub){
-        subforos.add(sub);
-        sub.addSubscriptor(this);
-    }
     
+
     //
     // COSAS DE OBSERVER (down)
     //
-    
     @Override
-    public void recibirNotificacion(String noti){
-        notificaciones.add(noti); 
-    };
+    public void recibirNotificacion(String noti) {
+        notificaciones.add(noti);
+    }
 
-    public void actualizarPenalizacion(int dias) {}
+    ;
+
+    public void actualizarPenalizacion(int dias) {
+    }
 }

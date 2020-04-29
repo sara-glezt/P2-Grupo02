@@ -36,8 +36,8 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
         this.numTotalVal = numTotalVal;// algo parecico con esto, en todo caso inicializar a 0 o algo asi
         this.fecha = fecha; //como obtener la fecha del new? //this.fecha = new Date();
         this.titulo = titulo;
-        this.publicada = publicada;
-        this.verificado = verificado;
+        this.publicada = false;
+        this.verificado = false;
         this.creador = creador;
         this.usuVoto = new Hashtable<String, Integer>();
 
@@ -65,23 +65,42 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
      * @param val int
      */
     public void votar(Usuario u, int val) {
-
+        
         //Comprobamos que el valor numerico del voto es valido (-1 o 1)        
         if (comprobarVoto(val) && u != creador) {
 
             //Si no ha votado aun y no es el creador almacenamos y procesamos su voto
             if (!usuVoto.containsKey(u.getEmail())) {
                 usuVoto.put(u.getEmail(), val);
+                sumarValoracion(usuVoto);
 
             } //Si ya ha votado, reemplazamos su voto anterior
-            else {
+            else if( !usuVoto.containsValue(val)){
                 usuVoto.replace(u.getEmail(), usuVoto.get(u.getEmail()), val);
-            }
+                sumarValoracion(usuVoto);
+            }else 
+                System.out.println("No puede votar dos veces el mismo valor");
+        }
+    }
+            /* if (comprobarVoto(val) && u != creador) {
+            
+            //Si no ha votado aun y no es el creador almacenamos y procesamos su voto
+            if (!usuVoto.containsKey(u.getEmail())) {
+            usuVoto.put(u.getEmail(), val);
+            
+            
+            } //Si ya ha votado, reemplazamos su voto anterior
+            else (){
+            usuVoto.replace(u.getEmail(), usuVoto.get(u.getEmail()), val);}
+            sumarValoracion(usuVoto);
+            
+            
+
 
             //La valoración será la suma de todas las valoraciones actualizadas
             //Para ello recorremos la tabla hash obteniendo los valores
             //y los sumamos
-            sumarValoracion(usuVoto);
+           // sumarValoracion(usuVoto);
         }
     }
 
@@ -124,11 +143,25 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
         return valoracion;
     }
 
-    public boolean verificar(Usuario u, boolean bool) {
-                
+    public boolean verificar( boolean bool) {
+        if(getCreador().getClass().getSimpleName().equals("Alumno")  ){
         if (s.getConectado() instanceof Administrador) {
             verificado = bool;
-        }
+            publicada = bool;
+        }}
+        
+        return verificado;
+    }
+
+    public void setPublicada(boolean publicada) {
+        this.publicada = publicada;
+    }
+
+    public void setVerificado(boolean verificado) {
+        this.verificado = verificado;
+    }
+    
+    public boolean getVerificado(){
         return verificado;
     }
 

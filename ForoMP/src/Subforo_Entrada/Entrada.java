@@ -72,6 +72,4 @@ public class Entrada extends EntradaGenerica {
         return "Entrada{" + "comentarios=" + comentarios + ", componentes=" + componentes + ", s=" + s + ", valoracion=" + valoracion + '}';
     }
     
-    
-            
 }
