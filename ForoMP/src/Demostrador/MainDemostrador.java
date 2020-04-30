@@ -18,7 +18,7 @@ public class MainDemostrador {
 
     public static void main(String[] args) {
         System.out.println("Empezamos la prueba del foro ");
-        System.out.println("Creamos un sistema");
+        System.out.println("1. Creamos un sistema");
         Sistema s = Sistema.getInstance();
 
         if (s != null) {
@@ -28,7 +28,7 @@ public class MainDemostrador {
         }
 
         //Pruebas registro Usuario
-        System.out.println("Registramos un usuario alumno");
+        System.out.println("2. Registramos un usuario alumno");
         s.registrarse("Ruben", "A1", "A2", "grillos", "ruben@alumnos.urjc.es", "1122", "alumno");
         //System.out.println("Nombre: Ruben", "A1", "A2", "grillos", "ruben@alumnno.urjc.es", "1122", "alumno");
 
@@ -37,7 +37,7 @@ public class MainDemostrador {
         System.out.println(s.ListaUsuario());
         System.out.println("");
 
-        System.out.println("Intentamos registrar el mismo usuario (mismo email)");
+        System.out.println("3. Intentamos registrar el mismo usuario (mismo email)");
         s.registrarse("Ruben", "A1", "A2", "grillos1", "ruben@alumnos.urjc.es", "1122", "alumno");
 
         System.out.println("Comprobamos que NO esta en la lista de Usuarios");
@@ -45,27 +45,27 @@ public class MainDemostrador {
         System.out.println("");
 
         //debug: no devuelve el mensaje de nick igual
-        System.out.println("Intentamos registrar el mismo usuario (mismo nick)");
+        System.out.println("4. Intentamos registrar el mismo usuario (mismo nick)");
         s.registrarse("Ruben", "A1", "A2", "grillos", "ruben12@alumnos.urjc.es", "1122", "alumno");
 
         System.out.println("Comprobamos que NO esta en la lista de Usuarios");
         System.out.println(s.ListaUsuario());
         System.out.println("");
 
-        System.out.println("Intentamos registrar un profesor con un email de alumno");
+        System.out.println("5. Intentamos registrar un profesor con un email de alumno");
         s.registrarse("Ruben", "A1", "A2", "grillos1", "ruben1@alumnos.urjc.es", "1122", "profesor");
 
-        System.out.println("Comprobamos que esta en la lista de Usuarios");
+        System.out.println("Comprobamos que NO esta en la lista de Usuarios");
         System.out.println(s.ListaUsuario());
 
-        System.out.println("Intentamos registrar un usuario con otro tipo (limpiador) ");
+        System.out.println("6. Intentamos registrar un usuario con otro tipo (limpiador) ");
         s.registrarse("Ruben", "A1", "A2", "grillos1", "ruben1@alumnos.urjc.es", "1122", "limpiador");
 
-        System.out.println("Comprobamos que esta en la lista de Usuarios");
+        System.out.println("Comprobamos que NO esta en la lista de Usuarios");
         System.out.println(s.ListaUsuario());
 
         //Metemos profe
-        System.out.println("Intentamos registrar un Profesor ");
+        System.out.println("7. Intentamos registrar un Profesor ");
 
         //debug: se come @urjc.es con tipo alumno y lo mete en la lista
         s.registrarse("Antonio", "A1", "A2", "Tony", "antonio@urjc.es", "1122", "profesor");
@@ -161,6 +161,8 @@ public class MainDemostrador {
         System.out.println("8. Hacemos que el usuario vote lo mismo y vemos como varia");
         if (s.getSubforo().get(0).getEntrada().get(0).getVerificado()) {
             s.getSubforo().get(0).getEntrada().get(0).votar(s.getConectado(), 1);
+            System.out.print("Valoracion: ");
+            System.out.println(s.getSubforo().get(0).getEntrada().get(0).getValoracion());
             System.out.println("");
         } else {
             System.out.println("La entrada no esta verificada");
@@ -279,7 +281,7 @@ public class MainDemostrador {
         System.out.println("");
 
         System.out.println("25- Probamos a comentar el comentario");
-        s.getSubforo().get(0).getEntrada().get(1).getComentarios().get(0).responderComentario(s.getConectado(), "Como lo oyes Veggeta");
+        s.getSubforo().get(0).getEntrada().get(1).getComentarios().get(0).responderComentario(s.getConectado(), "Como lo oyes Vegetta");
         System.out.println("");
 
         System.out.println("26- Vemos que se ha podido comentar la entrada y el propio comentario");
@@ -346,7 +348,7 @@ public class MainDemostrador {
         System.out.println("ENTRADAS MAS VOTADAS");
         System.out.println("");
         
-        System.out.println("1-Para ellos primeros creamos algunas entradas mas");
+        System.out.println("1-Para ello primeros creamos algunas entradas mas");
         s.getSubforo().get(0).crearEntrada(s.getConectado(), "Cristiano le mete un gol al covid", "Tiro libre y por la escuadra!!");
         s.getSubforo().get(0).crearEntrada(s.getConectado(),"Anulacion de la liga", "Con motivo del covid se suspende la ligas hasta septiembre");
         System.out.println("");
