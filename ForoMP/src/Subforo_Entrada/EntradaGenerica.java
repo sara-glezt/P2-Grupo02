@@ -29,6 +29,7 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
     private Usuario creador; //creador no está en el UML La flecha de es creada.
     //deberia ser hacia EntradaGenerica.
     private Hashtable<String, Integer> usuVoto;
+    private Subforo pertenezco;
     Sistema s = Sistema.getInstance();
     
 
@@ -81,7 +82,7 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
                 sumarValoracion(usuVoto);
             }else 
                 System.out.println("No puede votar dos veces el mismo valor");
-        }
+        }else System.out.println("El propio creador no puede votar");
     }
             /* if (comprobarVoto(val) && u != creador) {
             
@@ -136,7 +137,7 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
         Object valor;
         while (e.hasMoreElements()) {
             valor = e.nextElement();
-            System.out.println("Valoracion: " + valor);
+            
             // Hacemos un cast, pero antes nos hemos assegurado de que
             //el valor es numerico
             valoracion = valoracion + (Integer) valor;
@@ -152,7 +153,9 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
         } if(!bool){
             getCreador().penalizar();
                  
-        }
+        }else
+            System.out.println("Entrada <<"+getTitulo()+">> verificada");
+            pertenezco.notifySubscriptor(this);
         }
         
         return verificado;
@@ -173,6 +176,13 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
     public Usuario getCreador() {
         return creador;
     }
+
+ 
+    
+
+    public void setPertenezco(Subforo pertenezco) {
+        this.pertenezco = pertenezco;
+    }
     
     
     
@@ -186,7 +196,7 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
         return  val - this.valoracion;
         
     }
-
-        public void añadirPreguntas(String prg){};
-       public void reponderPreguntas(String resp, int i){};
+    public abstract void modificarEntrada( Usuario u, String s);
+        
+       
 }

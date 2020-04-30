@@ -126,8 +126,7 @@ public class Sistema implements Serializable {
     }
     return aceptar;
     }*/
-    
-     private boolean verificarNuevoUsuario(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña, String tipo) {//preguntar que hace exactamente
+    private boolean verificarNuevoUsuario(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña, String tipo) {//preguntar que hace exactamente
         Iterator<Usuario> i = usuarios.iterator();
 
         Scanner sc = new Scanner(email); //cogemos la parte del @ en adelante del email
@@ -175,27 +174,29 @@ public class Sistema implements Serializable {
     }
 
     public void crearSubforo(String sr) {
-        if (getConectado() instanceof Profesor) {
-            boolean bol = true;
+        if (getConectado() != null) {
+            if (getConectado() instanceof Profesor) {
+                boolean bol = true;
 
-            Iterator<Subforo> i = subforo.iterator();
-            while (i.hasNext() & bol) { //iterator para si lo encuento antes poder salirme
-                Subforo sub = i.next();
-                if (sub.getNombre().equals(sr)) {//compruebo que el nobmre no esta usado
-                    System.out.println("Esta subforo ya existe, elija otro titulo e intentelo de nuevo");
-                    bol = false;
+                Iterator<Subforo> i = subforo.iterator();
+                while (i.hasNext() & bol) { //iterator para si lo encuento antes poder salirme
+                    Subforo sub = i.next();
+                    if (sub.getNombre().equals(sr)) {//compruebo que el nobmre no esta usado
+                        System.out.println("Esta subforo ya existe, elija otro titulo e intentelo de nuevo");
+                        bol = false;
 
+                    }
                 }
-            }
 
-            if (bol) { //si el nombre no esta usado entonces lo creamos
-                Subforo s1 = new Subforo(sr);
-                subforo.add(s1); // lo añadido a la list a de subforos
-                System.out.println("Se ha añadido un nuevo subforo; el subforo: " + s1.getNombre());
+                if (bol) { //si el nombre no esta usado entonces lo creamos
+                    Subforo s1 = new Subforo(sr);
+                    subforo.add(s1); // lo añadido a la list a de subforos
+                    System.out.println("Se ha añadido un nuevo subforo; el subforo: " + s1.getNombre());
+                }
+            } else {
+                System.out.println("Usted no tiene los permisos para crear subforos.");
             }
-        } else {
-            System.out.println("Usted no tiene los permisos para crear subforos.");
-        }
+        }else System.out.println("Inicie sesión para crear el subforo");
     }
 
     public void eliminarSubforo(String s) {
@@ -229,6 +230,7 @@ public class Sistema implements Serializable {
 
                     if (us instanceof Alumno) {   //miro si es un alumno para comprobar si esta penalizado
                         if (((Alumno) us).penalizado()) {
+                            aceptar = false;
                             System.out.println("Este usuario se encuentra baneado");
                         } else {  //si no esta penalizado entonces hace login
                             System.out.println("Usuario Correcto");
@@ -284,6 +286,7 @@ public class Sistema implements Serializable {
         //Guardamos en el array de masVotadas las 3 primeras de las ordenadas
         for (int i = 0; i < 3; i++) {
             masVotadas.add(entradasConcat.get(i));
+            System.out.println(masVotadas.get(i).getTitulo());
 
         }
         return masVotadas;
@@ -333,10 +336,10 @@ public class Sistema implements Serializable {
         String info = "\t" + "\t" + "\t" + "Usuarios Registrados " + "\n";
         //if (getConectado() instanceof Administrador || getConectado() instanceof Profesor) {
 
-            for (Usuario us : usuarios) {
-                info += "\t" + "Nombre: " + us.getNombre() + "  " + us.getApellido1() + " " + us.getApellido2()
-                        + " Nick: " + us.getNick() + " Email: " + us.getEmail() + "\n";
-            }
+        for (Usuario us : usuarios) {
+            info += "\t" + "Nombre: " + us.getNombre() + "  " + us.getApellido1() + " " + us.getApellido2()
+                    + " Nick: " + us.getNick() + " Email: " + us.getEmail() + "\n";
+        }
         //}
         return info;
 
@@ -359,7 +362,6 @@ public class Sistema implements Serializable {
     public ArrayList<Subforo> getSubforo() {
         return subforo;
     }
-    
-    
+
 }
 //faltarian mas

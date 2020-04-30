@@ -6,6 +6,7 @@
 package Subforo_Entrada;
 
 import Sistema.Sistema;
+import java.io.Serializable;
 import java.util.ArrayList;
 import users.Alumno;
 import users.Profesor;
@@ -15,12 +16,15 @@ import users.Usuario;
  *
  * @author Equipo
  */
-public class Entrada extends EntradaGenerica {
+public class Entrada extends EntradaGenerica implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private ArrayList<Comentario> comentarios;
     private ArrayList<EntradaGenerica> componentes;
-    
-    
+    private ArrayList<Encuesta> encuestas = new ArrayList<>();
+    private ArrayList<Ejercicio> ejercicios = new ArrayList<>();
+    private ArrayList<TextoPlano> textos = new ArrayList<>();
+
     Sistema s = Sistema.getInstance();
     private int valoracion;
     private String texto;
@@ -30,26 +34,60 @@ public class Entrada extends EntradaGenerica {
         this.texto = texto;
         comentarios = new ArrayList<Comentario>();
         componentes = new ArrayList<EntradaGenerica>();
-        this.valoracion = super.getValoracion();
-        //metodos crear ejercicios, textoplano, encuesta
+        /*  ejercicios = new ArrayList<>();
+        encuestas = new ArrayList<>();
+        textos = new ArrayList<>();*/
 
+        //metodos crear ejercicios, textoplano, encuesta
     }
 
     //Sistema instancia = Sistema.getInstance(); con esto para controlar quien hace el que, si profe...
     //if(instancia.getConectado() instanceof Profesor) 
     public void addTextoPlano(Usuario u, String titulo, String cuerpo) {
+
         if (getCreador().equals(u)) {
-            TextoPlano texto = new TextoPlano(u, titulo, cuerpo);
-            componentes.add(texto);
+            boolean add = true;
+
+            for (TextoPlano txt : textos) {
+                if (txt.getTitulo().equals(titulo)) {
+                    add = false;
+                }
+            }
+
+            if (add) {
+                TextoPlano texto = new TextoPlano(u, titulo, cuerpo);
+                textos.add(texto);
+                componentes.add(texto);
+                System.out.println("Texto plano añadido con exito");
+            } else {
+                System.out.println("Este titulo ya esta en uso, elija otro");
+
+            }
         }
 
     }
 
-    //Duda, para controlar que es un profesor, esta bien pasarlo como argumento?
+//Duda, para controlar que es un profesor, esta bien pasarlo como argumento?
     public void addEncuesta(Usuario u, String titulo) {
+
         if (s.getConectado() instanceof Profesor) {
-            Encuesta encuesta = new Encuesta(u, titulo);
-            componentes.add(encuesta);
+            boolean add = true;
+
+            for (Encuesta enc : encuestas) {
+                if (enc.getTitulo().equals(titulo)) {
+                    add = false;
+                }
+            }
+            if (add) {
+                Encuesta encuesta = new Encuesta(u, titulo);
+                System.out.println("La encuesta <<" + titulo + ">> ha sido creada con exito");
+                encuestas.add(encuesta);
+                componentes.add(encuesta);
+            } else {
+                System.out.println("Este titulo ya esta en uso, elija otro para la encuesta");
+
+            }
+
         } else {
             System.out.println("Usted no puede crear encuestas");
         }
@@ -58,14 +96,30 @@ public class Entrada extends EntradaGenerica {
     //Duda, para controlar que es un profesor, esta bien pasarlo como argumento?
     public void addEjercicio(Usuario u, String titulo, String p, String r) {
         if (s.getConectado() instanceof Profesor) {
-            Ejercicio ejercicio = new Ejercicio(u, titulo, p, r);
-            componentes.add(ejercicio);
-        }
+            boolean add = true;
+            
+
+            for (Ejercicio ej : ejercicios) {
+                if (ej.getTitulo().equals(titulo)) {
+                    add = false;
+                }
+
+            }
+            if (add) {
+                Ejercicio ejercicio = new Ejercicio(u, titulo, p, r);
+                ejercicios.add(ejercicio);
+                componentes.add(ejercicio);
+            } else {
+                System.out.println("No repita ejercicios, escoja otro enunciado");
+
+            }
+            
+        }else System.out.println("Usted no es un profesor y por tanto no puede crear ejercicos");
     }
 
     public void addComentario(Usuario u, String s) {
         if (this.getVerificado()) {
-            Comentario comen = new Comentario(u,s);
+            Comentario comen = new Comentario(u, s);
             comentarios.add(comen);
             System.out.println("Comentario añadido con exito");
         } else {
@@ -94,6 +148,7 @@ public class Entrada extends EntradaGenerica {
                 if (getVerificado()) {
                     for (int i = 0; i < componentes.size(); i++) {
                         componentes.get(i).mostrar();
+                        
                     }
                 } else {
                     System.out.println("No esta verificado y no puede verlo");
@@ -101,6 +156,7 @@ public class Entrada extends EntradaGenerica {
             } else {
                 for (int i = 0; i < componentes.size(); i++) {
                     componentes.get(i).mostrar();
+                  
                     if (getVerificado()) {
                         System.out.print(":verificada" + "\n");
                     } else {
@@ -110,6 +166,7 @@ public class Entrada extends EntradaGenerica {
 
             }
         }
+        
     }
 
     @Override
@@ -119,6 +176,23 @@ public class Entrada extends EntradaGenerica {
 
     public ArrayList<EntradaGenerica> getComponentes() {
         return componentes;
+    }
+
+    @Override
+    public void modificarEntrada(Usuario u, String s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public ArrayList<Encuesta> getEncuestas() {
+        return encuestas;
+    }
+
+    public ArrayList<Ejercicio> getEjercicios() {
+        return ejercicios;
+    }
+
+    public ArrayList<TextoPlano> getTextos() {
+        return textos;
     }
 
 }

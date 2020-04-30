@@ -66,8 +66,11 @@ public class Subforo implements Serializable, Observable {
 
     @Override
     public void deleteSubscriptor(Observer o) {
+        if(usuarios.contains(o)){
         usuarios.remove(o);
-
+      
+        }
+            
     }
 
     //
@@ -90,10 +93,11 @@ public class Subforo implements Serializable, Observable {
             }
             if (!encontrado) {
                 Entrada e = new Entrada(u, titulo, txt);
+                e.setPertenezco(this);
                 entradas.add(e);
-                System.out.println("Entada creada: " + titulo);
-                notifySubscriptor(e);
+                System.out.println("Entrada creada: " + titulo);                
                 if (!u.getClass().getSimpleName().equals("Alumno")) {
+                    notifySubscriptor(e);
                     e.setVerificado(true);
                     e.setPublicada(true);
                 }

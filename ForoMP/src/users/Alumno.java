@@ -22,8 +22,8 @@ public class Alumno extends Usuario implements Serializable{
         penalizacion = 0;
     }
 
-    /* public void penalizar(){
-    penalizacion = 10;
+    public void penalizar(){
+    penalizacion = 2;
     
     }
     
@@ -39,5 +39,5 @@ public class Alumno extends Usuario implements Serializable{
     this.penalizacion = 0;}
     else {
     this.penalizacion = nuevaPena;}
-    }*/
+    }
 }

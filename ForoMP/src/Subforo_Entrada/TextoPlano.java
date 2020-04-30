@@ -31,6 +31,13 @@ public class TextoPlano extends EntradaGenerica  { // para hacer el patron compo
         System.out.println("Título " + getTitulo());
         System.out.println("Texto: " + getCuerpo());
     }
+
+    @Override
+    public void modificarEntrada( Usuario u, String s) {
+        if( u.equals(getCreador()) ){
+            cuerpo = s;
+        }
+    }
     
     
     

@@ -27,17 +27,20 @@ public class Encuesta extends EntradaGenerica {
     }
 
     public void añadirPreguntas(String prg) {
-        if(!prg.isEmpty()){
+        if(!prg.isEmpty() && !preguntas.contains(prg)){
         preguntas.add(prg);
+        System.out.println("La pregunta <<"+prg+">> ha sido añadida con exito");
     }else{
-            System.out.println("Usted no ha metido ningun usuario");
+            System.out.println("Usted ha metido una pregutna repetida o no ha introducido nada");
         }
     }
 
     public void reponderPreguntas(String resp, int i) { // el numero de la pregunta debe ser mayor que cero
+       
         System.out.println("Ha respondido la pregunta: " + preguntas.get(i - 1) + " con " + "<< " + resp + " >>");
         respuestas.add(resp);
         System.out.println("-------------");
+        
     }
 
     public String verRespuestas() {
@@ -78,53 +81,22 @@ public class Encuesta extends EntradaGenerica {
         return info;
     }
 
-    /* public void añadirPreguntas() {
-    int n = 1;
-    String exit = "in";
-    
-    while (exit.equals("in")) {//mientras que el usuario no quiera salir se pediran instrucciones
-    System.out.println("Escriba la pregunta " + n + " de la encuesta <<" + this.nombre + ">>");
-    
-    Scanner sc = new Scanner(System.in);
-    String ans = sc.nextLine();
-    if (!ans.equals("exit")) {
-    preguntas.add(ans);
-    n++;
-    System.out.println();
-    }else{
-    exit = "out";}
-    
-    }
-    }*/
+   
 
- /*public void responderPreguntas() {
-    System.out.println("ENCUESTA " + nombre );
-    int n = 1;
-    Iterator<String> c = preguntas.iterator();
-    
-    while (c.hasNext()) {//mientas haya pregutnas que reponder estara en el bucle
-    String ans = c.next();
-    System.out.println(n + "-" + ans);
-    
-    Scanner sc = new Scanner(System.in);
-    String pre = sc.nextLine();
-    
-    respuestas.add(pre);
-    n++;
-    
-    }
-    
-    }
-     */
+ 
+     
 
     @Override
     public void mostrar() {
         System.out.println("Encuesta creada por"  + getCreador().getNick());
         System.out.println("Título " + getTitulo());
-        System.out.println("Preguntas: " + verPreguntas());
-        System.out.println("Respuestas: " + verRespuestas());
+        System.out.println(  verPreguntas());
+        System.out.println(  verRespuestas());
     }
 
-
+ @Override
+    public void modificarEntrada( Usuario u, String s) {
+       
+    }
     
 }

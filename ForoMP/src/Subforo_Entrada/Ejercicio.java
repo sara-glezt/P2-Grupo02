@@ -26,14 +26,6 @@ public class Ejercicio extends EntradaGenerica  {
         this.solucion = solucion;
     }
 
-    public String getEnunciado() {
-        return enunciado;
-    }
-
-
-    public String getSolucion() {
-        return solucion;
-    }
 
     public void setSolucion(String solucion) {
         this.solucion = solucion;
@@ -43,10 +35,14 @@ public class Ejercicio extends EntradaGenerica  {
     public void mostrar() {
         System.out.println("Ejercicio creado por"  + getCreador().getNick());
         System.out.println("Título " + getTitulo());
-        System.out.println("Enunciado: " + getEnunciado());
-        System.out.println("Solucion: " + getSolucion());
+        System.out.println("Enunciado: " + enunciado);
+        System.out.println("Solucion: " + solucion);
     }
      
-    
+     @Override
+    public void modificarEntrada( Usuario u, String s) {
+            
+        setSolucion(s);
+    }
     
 }
