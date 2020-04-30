@@ -50,7 +50,7 @@ public class Subforo implements Serializable, Observable {
             usuarios.add(o);
             Sistema s = Sistema.getInstance();
             s.getConectado().darDeAltaSubforo(this);
-            System.out.println("Nuevo usuario subscrito al subforo: <<" + this.nombre + " >>");
+            System.out.println("Nuevo usuario suscrito al subforo: <<" + this.nombre + " >>");
         } else {
             System.out.println("Este usuario ya esta subscrito");
         }
@@ -68,6 +68,7 @@ public class Subforo implements Serializable, Observable {
     public void deleteSubscriptor(Observer o) {
         if(usuarios.contains(o)){
         usuarios.remove(o);
+        System.out.println("Se ha dado de baja.");
       
         }
             

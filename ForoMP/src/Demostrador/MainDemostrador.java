@@ -192,6 +192,7 @@ public class MainDemostrador {
         s.logOut();
         s.logIn("gustavo@urjc.es", "Gusyluz", "1122");
         if (s.getSubforo().get(0).getEntrada().get(0).getVerificado()) {
+            System.out.print("Valoracion: ");
             s.getSubforo().get(0).getEntrada().get(0).votar(s.getConectado(), -1);
 
         } else {
@@ -205,23 +206,23 @@ public class MainDemostrador {
         //hacer mostar Subscritos?
         //en verificar(EntradaGenerica) si es de alummno y esta a false entonces penalizar
         //intentar votar sin haber verificado
-        System.out.println("12- Añadimos un subscritor a un subforo");
+        System.out.println("12- Añadimos un suscriptor a un subforo");
         s.logIn("ruben@alumnos.urjc.es", "grillos", "1122");
         s.getSubforo().get(0).addSubscriptor(s.getConectado());
         System.out.println("");
 
-        System.out.println("13- Intentamos subscribir el mismo usuario otra vez a un subforo que ya esta subcrito");
+        System.out.println("13- Intentamos suscribir el mismo usuario otra vez a un subforo que ya esta sucrito");
         s.getSubforo().get(0).addSubscriptor(s.getConectado());
         s.logOut();
         System.out.println("");
 
-        System.out.println("14-Iniciamos sesion con otro usuario para subsribirlo");
+        System.out.println("14-Iniciamos sesion con otro usuario para susribirlo");
         s.logIn("gustavo@urjc.es", "Gusyluz", "1122");
         s.getSubforo().get(0).addSubscriptor(s.getConectado());
         s.logOut();
         System.out.println("");
 
-        System.out.println("15-Un alumno crea una entrada ");
+        System.out.println("15-Uniciamos sesio con alumno  para crear una entrada ");
         s.logIn("ruben@alumnos.urjc.es", "grillos", "1122");
         s.getSubforo().get(0).crearEntrada(s.getConectado(), "Elefante gana atleta", "Dumbo volo y ganó");
         System.out.println("");
@@ -260,7 +261,7 @@ public class MainDemostrador {
         s.getSubforo().get(0).getEntrada().get(1).verificar(true);
         System.out.println("");
 
-        System.out.println("22Una vez verificada vemos si ha notificado a los subscritores del subforo");
+        System.out.println("22-Una vez verificada vemos si ha notificado a los subscritores del subforo");
         s.getConectado().mostrarNotificaciones();
         System.out.println("");
 
@@ -268,10 +269,11 @@ public class MainDemostrador {
         System.out.println("23-Una vez verificada, vemos con un Alumno si es asi");
         s.logOut();
         s.logIn("ruben@alumnos.urjc.es", "grillos", "1122");
+        System.out.println("Mostramos la entrada");
         s.getSubforo().get(0).getEntrada().get(1).mostrar();
         System.out.println("");
 
-        System.out.println("");
+        
         System.out.println("24- Probamos a comentar la entrada una vez verificada");
         s.getSubforo().get(0).getEntrada().get(1).addComentario(s.getConectado(), "Madre Willy, que me cuentas");
         System.out.println("");
@@ -351,6 +353,7 @@ public class MainDemostrador {
         
         System.out.println("2- Votamos una entrada negativa para que sea la menos votada, para ello cambiamos de usuario");
         s.logOut();
+        System.out.println("");
         
         System.out.println("3- Iniciamos sesion con un usuario para que las vote");
         s.logIn("ruben@alumnos.urjc.es", "grillos", "1122");
@@ -358,46 +361,48 @@ public class MainDemostrador {
         s.getSubforo().get(0).getEntrada().get(3).votar(s.getConectado(), -1);
         System.out.println("");
         
-        System.out.println("4- una vez votada, vemos si nos muestra todas menos la primera. Veamos primero todas las entradas");
+        System.out.println("4-  Veamos primero que nos muestra todas las entradas");
         System.out.println(s.getSubforo().get(0).mostrarListaEntrada());
-        System.out.println("Las entradas mas Votadas son");
+        System.out.println("5- Vemos que las entradas mas Votadas son: ");
         s.getMasVotadas();
         System.out.println("");
         
                
-        
-       s.getMasVotadas();
+       
         System.out.println("");
         s.logOut();
-        System.out.println("Intentamos ver las entradas mas votadas sin hacer login");
+        System.out.println("6-Intentamos ver las entradas mas votadas sin hacer login");
         
         System.out.println("Las entradas mas Votadas son");
         s.getMasVotadas();
+        System.out.println("");
         
         System.out.println("VOTAR COMENTARIOS");
+        System.out.println("");
         
         System.out.println("1.Volvemos a conectarnos para comentar una entrada");
         s.logIn("ruben@alumnos.urjc.es", "grillos", "1122");
         s.getSubforo().get(0).getEntrada().get(1).addComentario(s.getConectado(), "Esto es un comentario para votar");
+        System.out.println("2- Mostramos que se ha añadido el comentario");
         System.out.println(s.getSubforo().get(0).getEntrada().get(1).verComentarios());
         
         System.out.println("");
-        System.out.println("2.Ahora vamos a votar ese comentario con el mismo usuario. NO DEBERIA");
+        System.out.println("3.Ahora vamos a votar ese comentario con el mismo usuario. NO DEBERIA");
         s.getSubforo().get(0).getEntrada().get(1).getComentarios().get(0).votar(s.getConectado(), -1);
         
         System.out.println("Salimos del sistema para conectar a otro que puda votar el comentario");
         s.logOut();
         System.out.println("");
-        System.out.println("3.Entramos con Antonio");
+        System.out.println("4.Entramos con Antonio");
         s.logIn("antonio@urjc.es", "Tony", "1122");
         
         System.out.println("");
-        System.out.println("4.Antonio vota el comentario con -1");
+        System.out.println("5.Antonio vota el comentario con -1");
         s.getSubforo().get(0).getEntrada().get(1).getComentarios().get(0).votar(s.getConectado(), -1);
         s.getSubforo().get(0).getEntrada().get(1).getComentarios().get(0).getValoracion();
         
         System.out.println("");
-        System.out.println("5.Vemos la valoracion del comentario:");
+        System.out.println("6.Vemos la valoracion del comentario:");
         System.out.println(s.getSubforo().get(0).getEntrada().get(1).getComentarios().get(0).getValoracion());
         
 

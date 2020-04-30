@@ -82,7 +82,7 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
                 sumarValoracion(usuVoto);
             }else 
                 System.out.println("No puede votar dos veces el mismo valor");
-        }else System.out.println("El propio creador no puede votar");
+        }else if (u.equals(creador)) System.out.println("El creador no puede votar");
     }
             /* if (comprobarVoto(val) && u != creador) {
             
@@ -135,6 +135,7 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
     private int sumarValoracion(Hashtable usuVoto) {
         Enumeration e = usuVoto.elements();
         Object valor;
+        valoracion = 0;
         while (e.hasMoreElements()) {
             valor = e.nextElement();
             

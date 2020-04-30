@@ -18,7 +18,8 @@ public class MainDemostrador2 {
      */
     public static void main(String[] args) {
         Sistema s = Sistema.getInstance();
-
+        
+        System.out.println("Hacemos logIn con un administrador para ver todos los datos");
         s.logIn("gustavo@urjc.es", "Gusyluz", "1122");
 
         System.out.println("Veamos la persistencia de datos");
@@ -36,18 +37,22 @@ public class MainDemostrador2 {
         System.out.println(s.getSubforo().get(0).mostrarListaEntrada());
         System.out.println("");
 
-        System.out.println("4-Vemos la valoracion del subforo");
+        System.out.println("4-Vemos la valoracion de la primera entrada");
+        System.out.print("Valoracion: ");
         System.out.println(s.getSubforo().get(0).getEntrada().get(0).getValoracion());
         System.out.println("");
 
-        System.out.println("5-Mostramos los elementos de la entrada");//mirar porque lo veo sin hacer login
+        System.out.println("5-Mostramos los componentes que tiene  la entrada");//mirar porque lo veo sin hacer login
         s.getSubforo().get(0).getEntrada().get(1).mostrar();
         System.out.println("");
 
-        System.out.println("6-Mostramos los comentarios de la entrada");
-        System.out.println(s.getSubforo().get(0).getEntrada().get(1).verComentarios());
+        System.out.println("6-Mostramos los comentarios de una entrada");
+       System.out.println(s.getSubforo().get(0).getEntrada().get(1).verComentarios());
         s.logOut();
 
+        
+         System.out.println("");
+         
         System.out.println("1-Un alumno crea una entrada para que no sea verficada ");
         s.logIn("ruben@alumnos.urjc.es", "grillos", "1122");
         s.getSubforo().get(0).crearEntrada(s.getConectado(), "Pito dulce gana salto longuitud", "Menudo salto");
@@ -56,7 +61,7 @@ public class MainDemostrador2 {
 
         System.out.println("2- Inicamos sesion con el admin para banearla");
         s.logIn("gustavo@urjc.es", "Gusyluz", "1122");
-        s.getSubforo().get(0).getEntrada().get(2).verificar(false);
+        s.getSubforo().get(0).getEntrada().get(4).verificar(false);
         s.logOut();
         System.out.println("");
 
@@ -68,12 +73,11 @@ public class MainDemostrador2 {
         s.saltarDias(3);
         System.out.println("");
 
-        System.out.println("5-Iniciamos sesion para ver que se la quitado el baneo");
+        System.out.println("5-Iniciamos sesion para ver que se la ha quitado el baneo");
         s.logIn("ruben@alumnos.urjc.es", "grillos", "1122");
         System.out.println("");
 
-        System.out.println("6- Probamos a dar de baja en el subforo");
-        s.getSubforo().get(0).deleteSubscriptor(s.getConectado());
+       
 
         System.out.println("");
 
@@ -81,31 +85,39 @@ public class MainDemostrador2 {
                 + "simplemente habría que implementar como se quiere modificar cada componente de la entrada, por ejemplo cambiando una \n"
                 + "pregunta o modificando un texto de la encuesta");
         System.out.println("");
-        System.out.println("7, Vamos a modificar el texto plano de la entrada creada por ruben");
+        System.out.println("6, Vamos a modificar el texto plano de la entrada creada por ruben");
         System.out.println("");
-        System.out.println("La entrada antes de la modificación es:");
+        System.out.println("La entrada ANTES de la modificación es:");
 
         s.getSubforo().get(0).getEntrada().get(1).mostrar();
         System.out.println("");
-        System.out.println("La entrada depues de la modificacion es:");
+        System.out.println("La entrada DESPUES de la modificacion es:");
 
-        s.getSubforo().get(0).getEntrada().get(1).getComponentes().get(0).modificarEntrada(s.getConectado(), "Pepe lo bordo");
+        s.getSubforo().get(0).getEntrada().get(1).getComponentes().get(0).modificarEntrada(s.getConectado(), "CAMBIO EN CUERPO");
         s.getSubforo().get(0).getEntrada().get(1).mostrar();
-
+        
+        System.out.println("");
+        
+         System.out.println("ELIMINACIONES");
+        System.out.println("");
+        System.out.println("1- Probamos a  dar a Ruben de baja del subforo");
+        s.getSubforo().get(0).deleteSubscriptor(s.getConectado());
         s.logOut();
+        System.out.println("");
 
-            System.out.println("8-Eliminamos un usario");
+            System.out.println("2-Eliminamos un usario");
          s.eliminarUsuario("grillos");
          System.out.println("");
          
-         System.out.println("9-Comprobamos que se ha borrado");
+         System.out.println("3-Comprobamos que se ha borrado");
          System.out.println(s.ListaUsuario());
          
-         System.out.println("9-Eliminamos el subforo");
+         System.out.println("4-Eliminamos el subforo");
          s.eliminarSubforo("Deportes");
          System.out.println("");
          
          System.out.println(s.ListaSubforo());
+         System.out.println("Como poder ver no hay ninguno");
     }
 
 }
