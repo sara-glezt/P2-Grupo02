@@ -24,7 +24,6 @@ public class Subforo implements Serializable, Observable {
     private String nombre;
     private ArrayList<Observer> usuarios;//arrayList de usuario para saber quien se ha susbcrito NECESARIO EN OBSERVABLE
     private ArrayList<Entrada> entradas; //arrayList de entrada para saber que entradas tiene el subforo
-    
 
     public Subforo(String nombre) {  //constructor de Subforo
         this.nombre = nombre;
@@ -66,12 +65,12 @@ public class Subforo implements Serializable, Observable {
 
     @Override
     public void deleteSubscriptor(Observer o) {
-        if(usuarios.contains(o)){
-        usuarios.remove(o);
-        System.out.println("Se ha dado de baja.");
-      
+        if (usuarios.contains(o)) {
+            usuarios.remove(o);
+            System.out.println("Se ha dado de baja.");
+
         }
-            
+
     }
 
     //
@@ -96,7 +95,7 @@ public class Subforo implements Serializable, Observable {
                 Entrada e = new Entrada(u, titulo, txt);
                 e.setPertenezco(this);
                 entradas.add(e);
-                System.out.println("Entrada creada: " + titulo);                
+                System.out.println("Entrada creada: " + titulo);
                 if (!u.getClass().getSimpleName().equals("Alumno")) {
                     notifySubscriptor(e);
                     e.setVerificado(true);
@@ -110,25 +109,26 @@ public class Subforo implements Serializable, Observable {
     public String mostrarListaEntrada() {
         Sistema s = Sistema.getInstance();
         String info = "";
-        if(s.getConectado() != null){
-        if (s.getConectado() instanceof Alumno ) {
-            info = "\t" + "\t" + "\t" + "Entradas del subforo" + "\n";
-            for (Entrada e : entradas) {
-                if (e.getVerificado()) {
-                    info += "\t" + e.getTitulo() + "\n";
+        if (s.getConectado() != null) {
+            if (s.getConectado() instanceof Alumno) {
+                info = "\t" + "\t" + "\t" + "Entradas del subforo" + "\n";
+                for (Entrada e : entradas) {
+                    if (e.getVerificado()) {
+                        info += "\t" + e.getTitulo() + "\n";
+                    }
+                }
+            } else {
+                info = "\t" + "\t" + "\t" + "Entradas del subforo" + "\n";
+                for (Entrada e : entradas) {
+                    info += "\t" + e.getTitulo() + " ";
+                    if (e.getVerificado()) {
+                        info += ":verificada" + "\n";
+                    } else {
+                        info += ":no verificada" + "\n";
+                    }
                 }
             }
-        } else {
-            info = "\t" + "\t" + "\t" + "Entradas del subforo" + "\n";
-            for (Entrada e : entradas) {
-                info += "\t" + e.getTitulo() + " ";
-                if (e.getVerificado()) {
-                    info += ":verificada" + "\n";
-                } else {
-                    info += ":no verificada" + "\n";
-                }
-            }
-        }}
+        }
         return info;
     }
 }

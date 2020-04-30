@@ -10,7 +10,7 @@ import Subforo_Entrada.EntradaGenerica;
 
 /**
  *
- * @author Miguel Angel
+ * @author Ruben
  */
 public interface Observable {
     public void notifySubscriptor(EntradaGenerica ent);

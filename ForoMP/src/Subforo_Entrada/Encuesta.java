@@ -9,14 +9,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import users.Usuario;
 
-
 /**
  *
  * @author alvarogonzalez
  */
 public class Encuesta extends EntradaGenerica {
 
-    
     private ArrayList<String> preguntas;
     private ArrayList<String> respuestas;
 
@@ -27,20 +25,20 @@ public class Encuesta extends EntradaGenerica {
     }
 
     public void añadirPreguntas(String prg) {
-        if(!prg.isEmpty() && !preguntas.contains(prg)){
-        preguntas.add(prg);
-        System.out.println("La pregunta <<"+prg+">> ha sido añadida con exito");
-    }else{
+        if (!prg.isEmpty() && !preguntas.contains(prg)) {
+            preguntas.add(prg);
+            System.out.println("La pregunta <<" + prg + ">> ha sido añadida con exito");
+        } else {
             System.out.println("Usted ha metido una pregutna repetida o no ha introducido nada");
         }
     }
 
     public void reponderPreguntas(String resp, int i) { // el numero de la pregunta debe ser mayor que cero
-       
+
         System.out.println("Ha respondido la pregunta: " + preguntas.get(i - 1) + " con " + "<< " + resp + " >>");
         respuestas.add(resp);
         System.out.println("-------------");
-        
+
     }
 
     public String verRespuestas() {
@@ -51,7 +49,7 @@ public class Encuesta extends EntradaGenerica {
         Iterator<String> c = preguntas.iterator();
         Iterator<String> r = respuestas.iterator();
 
-        while (c.hasNext() & r.hasNext()) {//mientas haya pregutnas que reponder estara en el bucle
+        while (c.hasNext() & r.hasNext()) {//mientas haya respuestas que ver estara en el bucle
             String ans = c.next();
             String res = r.next();
 
@@ -70,7 +68,7 @@ public class Encuesta extends EntradaGenerica {
 
         Iterator<String> c = preguntas.iterator();
         int n = 1;
-        while (c.hasNext()) {//mientas haya pregutnas que reponder estara en el bucle
+        while (c.hasNext()) {//mientas haya pregutnas que ver estara en el bucle
             String ans = c.next();
 
             System.out.println(n + "-" + ans);
@@ -81,22 +79,17 @@ public class Encuesta extends EntradaGenerica {
         return info;
     }
 
-   
-
- 
-     
-
     @Override
     public void mostrar() {
-        System.out.println("Encuesta creada por"  + getCreador().getNick());
+        System.out.println("Encuesta creada por" + getCreador().getNick());
         System.out.println("Título " + getTitulo());
-        System.out.println(  verPreguntas());
-        System.out.println(  verRespuestas());
+        System.out.println(verPreguntas());
+        System.out.println(verRespuestas());
     }
 
- @Override
-    public void modificarEntrada( Usuario u, String s) {
-       
+    @Override
+    public void modificarEntrada(Usuario u, String s) {
+
     }
-    
+
 }

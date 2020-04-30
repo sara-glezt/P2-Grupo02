@@ -17,26 +17,24 @@ import users.Usuario;
  *
  * @author Dani
  */
-public abstract class EntradaGenerica implements Serializable, Comparable <EntradaGenerica> {
-    
+public abstract class EntradaGenerica implements Serializable, Comparable<EntradaGenerica> {
+
     private static final long serialVersionUID = 1L;
     private int valoracion;
-    private int numTotalVal; // No añadido en UML. Necesario para le media
+    private int numTotalVal;
     private Date fecha;
     private String titulo;
     private boolean publicada;
     private boolean verificado;
-    private Usuario creador; //creador no está en el UML La flecha de es creada.
-    //deberia ser hacia EntradaGenerica.
+    private Usuario creador;
     private Hashtable<String, Integer> usuVoto;
     private Subforo pertenezco;
     Sistema s = Sistema.getInstance();
-    
 
     public EntradaGenerica(Usuario creador, String titulo) {
-        this.valoracion = valoracion; //creo que esto no deberia estar en el constructor pues cuando la creas no la votas
-        this.numTotalVal = numTotalVal;// algo parecico con esto, en todo caso inicializar a 0 o algo asi
-        this.fecha = fecha; //como obtener la fecha del new? //this.fecha = new Date();
+        this.valoracion = valoracion;
+        this.numTotalVal = numTotalVal;
+        this.fecha = fecha;
         this.titulo = titulo;
         this.publicada = false;
         this.verificado = false;
@@ -48,8 +46,8 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
     public String getTitulo() {
         return titulo;
     }
-    
-    public int getValoracion(){
+
+    public int getValoracion() {
         return valoracion;
     }
 
@@ -67,7 +65,7 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
      * @param val int
      */
     public void votar(Usuario u, int val) {
-        
+
         //Comprobamos que el valor numerico del voto es valido (-1 o 1)        
         if (comprobarVoto(val) && u != creador) {
 
@@ -77,14 +75,18 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
                 sumarValoracion(usuVoto);
 
             } //Si ya ha votado, reemplazamos su voto anterior
-            else if( !usuVoto.containsValue(val)){
+            else if (!usuVoto.containsValue(val)) {
                 usuVoto.replace(u.getEmail(), usuVoto.get(u.getEmail()), val);
                 sumarValoracion(usuVoto);
-            }else 
+            } else {
                 System.out.println("No puede votar dos veces el mismo valor");
-        }else if (u.equals(creador)) System.out.println("El creador no puede votar");
+            }
+        } else if (u.equals(creador)) {
+            System.out.println("El creador no puede votar");
+        }
     }
-            /* if (comprobarVoto(val) && u != creador) {
+
+    /* if (comprobarVoto(val) && u != creador) {
             
             //Si no ha votado aun y no es el creador almacenamos y procesamos su voto
             if (!usuVoto.containsKey(u.getEmail())) {
@@ -138,28 +140,30 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
         valoracion = 0;
         while (e.hasMoreElements()) {
             valor = e.nextElement();
-            
+
             // Hacemos un cast, pero antes nos hemos assegurado de que
             //el valor es numerico
             valoracion = valoracion + (Integer) valor;
         }
-        
+
         return valoracion;
     }
 
-    public boolean verificar( boolean bool) {
-        if(getCreador().getClass().getSimpleName().equals("Alumno")  ){
-        if (s.getConectado() instanceof Administrador) {
-            verificado = bool;
-            publicada = bool;
-        } if(!bool){
-            getCreador().penalizar();
-                 
-        }else
-            System.out.println("Entrada <<"+getTitulo()+">> verificada");
+    public boolean verificar(boolean bool) {
+        if (getCreador().getClass().getSimpleName().equals("Alumno")) {
+            if (s.getConectado() instanceof Administrador) {
+                verificado = bool;
+                publicada = bool;
+            }
+            if (!bool) {
+                getCreador().penalizar();
+
+            } else {
+                System.out.println("Entrada <<" + getTitulo() + ">> verificada");
+            }
             pertenezco.notifySubscriptor(this);
         }
-        
+
         return verificado;
     }
 
@@ -170,8 +174,8 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
     public void setVerificado(boolean verificado) {
         this.verificado = verificado;
     }
-    
-    public boolean getVerificado(){
+
+    public boolean getVerificado() {
         return verificado;
     }
 
@@ -179,26 +183,21 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
         return creador;
     }
 
- 
-    
-
     public void setPertenezco(Subforo pertenezco) {
         this.pertenezco = pertenezco;
     }
-    
-    
-    
+
     public abstract void mostrar();
 
     @Override
     public int compareTo(EntradaGenerica e) {
-      int val = e.getValoracion();
-      
-     //Compara para que devuelva en orden descendente
-        return  val - this.valoracion;
-        
+        int val = e.getValoracion();
+
+        //Compara para que devuelva en orden descendente
+        return val - this.valoracion;
+
     }
-    public abstract void modificarEntrada( Usuario u, String s);
-        
-       
+
+    public abstract void modificarEntrada(Usuario u, String s);
+
 }

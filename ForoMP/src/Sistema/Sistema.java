@@ -32,16 +32,13 @@ public class Sistema implements Serializable {
 
     private ArrayList<Usuario> usuarios = new ArrayList<>();
     private ArrayList<Subforo> subforo = new ArrayList<>();
-    private static Sistema instancia = null; //creo que el singleton con esto valdria y el constructor
-    private Usuario conectado;//= null; //para saber que usuaario esta conectado(hacer login y logout con este usuario
+    private static Sistema instancia = null;
+    private Usuario conectado;
     private ArrayList<Entrada> masVotadas = new ArrayList<>();
     private static final long serialVersionUID = 1L;
 
-    private void Sistema() { //declarado de esta forma el constructor hacemos el singleton
-        /* usuario = new ArrayList<>();
-        subforo = new ArrayList<>();
-        masVotadas = new ArrayList<>();
-        conectado = null;*/
+    private void Sistema() {
+
     }
 
     public static Sistema getInstance() {
@@ -66,15 +63,15 @@ public class Sistema implements Serializable {
 
         if (valido) {
             if (tipo.equals("alumno") || tipo.equals("Alumno")) {
-                Usuario us = new Alumno(nombre, apellido1, apellido2, nick, email, contraseña);//poner ifes dependiendo del tipo users
+                Usuario us = new Alumno(nombre, apellido1, apellido2, nick, email, contraseña);
                 usuarios.add(us);
                 System.out.println("Se ha añadido un nuevo alumno.");
             } else if (tipo.equals("profesor") || tipo.equals("Profesor")) {
-                Usuario us = new Profesor(nombre, apellido1, apellido2, nick, email, contraseña);//poner ifes dependiendo del tipo users
+                Usuario us = new Profesor(nombre, apellido1, apellido2, nick, email, contraseña);
                 usuarios.add(us);
                 System.out.println("Se ha añadido un nuevo profesor.");
             } else { //si no es profe ni alummn como he verificado, le queda solo ser admin
-                Usuario us = new Administrador(nombre, apellido1, apellido2, nick, email, contraseña);//poner ifes dependiendo del tipo users
+                Usuario us = new Administrador(nombre, apellido1, apellido2, nick, email, contraseña);
                 usuarios.add(us);
                 System.out.println("Se ha añadido un nuevo Administrador.");
             }
@@ -82,50 +79,6 @@ public class Sistema implements Serializable {
         return valido;
     }
 
-    //creo que verifico todo lo que se deberia, pero echarle un ojo por si acaso
-    /*    private boolean verificarNuevoUsuario(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña, String tipo) {//preguntar que hace exactamente
-    Iterator<Usuario> i = usuarios.iterator();
-    
-    boolean aceptar = true;
-    Scanner sc = new Scanner(email); //cogemos la parte del @ en adelante del email
-    sc.useDelimiter("@");
-    sc.next();
-    try{
-    sc.next();
-    aceptar = false;
-    } catch (Exception e){
-    System.out.println("El email introducido no cumple las condiciones necesarias");
-    }
-    if (aceptar){
-    Scanner sc2 = new Scanner(email);
-    sc2.useDelimiter("@");
-    sc2.next();
-    String fin = sc2.next();
-    try{
-    while (i.hasNext()) { //comprobamos que el nick no se repita (se puede hacer con las demas propiedades)
-    Usuario u = i.next();
-    if (u.getNick().equals(nick)) {
-    System.out.println("El nick introducido  ya esta usado, elija otro");
-    throw new RunTimeException("El nick introducido  ya esta usado, elija otro");
-    }
-    
-    if (u.getEmail().equals(email) || (!fin.equals("alumnos.urjc.es") & !fin.equals("urjc.es"))) { //verificamos el email
-    System.out.println("El email introducido  ya esta usado o no es valido, elija otro");
-    throw new RunTimeException("El email introducido  ya esta usado o no es valido, elija otro");
-    }
-    }
-    
-    if (!tipo.equals("Alumno") & !tipo.equals("Profesor") & !tipo.equals("Administrador")
-    & !tipo.equals("alumno") & !tipo.equals("profesor") & !tipo.equals("administrador")) {
-    System.out.println("El tipo de usuario no es valido. Asegurese de que sea A/alumno, P/profesor o A/administrados");
-    throw new RunTimeException("El tipo de usuario no es valido. Asegurese de que sea A/alumno, P/profesor o A/administrados");
-    }
-    } catch (RunTimeException e){
-    aceptar = false;
-    }
-    }
-    return aceptar;
-    }*/
     private boolean verificarNuevoUsuario(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña, String tipo) {//preguntar que hace exactamente
         Iterator<Usuario> i = usuarios.iterator();
 
@@ -164,7 +117,7 @@ public class Sistema implements Serializable {
             Usuario us = i.next();
             if (us.getNick().equals(nick)) { //miro si existe ese usuario
                 for (Subforo sub : subforo) {  // si existe, entonces voy recorriendo lo subforos
-                    sub.deleteSubscriptor(us);   //voy eliminando ese usuarui de los subforos
+                    sub.deleteSubscriptor(us);   //voy eliminando ese usuario de los subforos
                 }
                 usuarios.remove(us);  //si lo encuenta lo borra
                 System.out.println("El usuario de Nick < " + nick + " > ha sido eliminado");
@@ -181,7 +134,7 @@ public class Sistema implements Serializable {
                 Iterator<Subforo> i = subforo.iterator();
                 while (i.hasNext() & bol) { //iterator para si lo encuento antes poder salirme
                     Subforo sub = i.next();
-                    if (sub.getNombre().equals(sr)) {//compruebo que el nobmre no esta usado
+                    if (sub.getNombre().equals(sr)) {//compruebo que el nombre no esta usado
                         System.out.println("Esta subforo ya existe, elija otro titulo e intentelo de nuevo");
                         bol = false;
 
@@ -196,7 +149,9 @@ public class Sistema implements Serializable {
             } else {
                 System.out.println("Usted no tiene los permisos para crear subforos.");
             }
-        }else System.out.println("Inicie sesión para crear el subforo");
+        } else {
+            System.out.println("Inicie sesión para crear el subforo");
+        }
     }
 
     public void eliminarSubforo(String s) {
@@ -224,7 +179,7 @@ public class Sistema implements Serializable {
         Iterator<Usuario> i = usuarios.iterator();
 
         if (conectado == null) { //miro que no haya ningun usuario conectado
-            while (i.hasNext() & aceptar) { // busco el usuario con su caracterisitcas(cambiar por iterator)
+            while (i.hasNext() & aceptar) { // busco el usuario con su caracterisitcas
                 Usuario us = i.next();
                 if (us.getNick().equals(nick) & us.getEmail().equals(email) & us.getContraseña().equals(password)) {
 
@@ -259,7 +214,7 @@ public class Sistema implements Serializable {
         return bool;
     }
 
-    public boolean logOut() {//que es exactamente lo que debe hacer?? osea, como oriento la programacion
+    public boolean logOut() {//cerramos la sesion actual y guardamos
         if (conectado != null) {
             conectado = null;
             System.out.println("Hasta luego; fin de la conexion"); // hacer el guardar sistema
@@ -293,7 +248,7 @@ public class Sistema implements Serializable {
 
     }
 
-    public boolean guardarSistema() {//asi guardaria la clase sistema entera, mejor guardar por separado usuarios y alumnos?
+    public boolean guardarSistema() {//asi guardaria la clase sistema entera
         try {
             FileOutputStream f = new FileOutputStream("Sistema.obj");
             ObjectOutputStream finalFile = new ObjectOutputStream(f);
@@ -334,11 +289,11 @@ public class Sistema implements Serializable {
 
     public String ListaUsuario() {
         String info = "\t" + "\t" + "\t" + "Usuarios Registrados " + "\n";
-        //if (getConectado() instanceof Administrador || getConectado() instanceof Profesor) {
+        //if (getConectado() instanceof Administrador || getConectado() instanceof Profesor) { //esto es lo correcto, pero para la prueba lo habilitamos
 
         for (Usuario us : usuarios) {
             info += "\t" + "Nombre: " + us.getNombre() + "  " + us.getApellido1() + " " + us.getApellido2()
-                    + " Nick: " + us.getNick() + " Email: " + us.getEmail() + " " +   us.getClass().getSimpleName()+"\n";
+                    + " Nick: " + us.getNick() + " Email: " + us.getEmail() + " " + us.getClass().getSimpleName() + "\n";
         }
         //}
         return info;
@@ -353,15 +308,8 @@ public class Sistema implements Serializable {
         }
     }
 
-    private static class RunTimeException extends Exception {
-
-        public RunTimeException(String el_nick_introducido__ya_esta_usado_elija_) {
-        }
-    }
-
     public ArrayList<Subforo> getSubforo() {
         return subforo;
     }
 
 }
-//faltarian mas

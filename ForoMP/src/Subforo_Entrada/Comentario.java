@@ -13,17 +13,18 @@ import users.Usuario;
 
 /**
  *
- * @author Equipo
+ * @author Dani
  */
 public class Comentario implements Serializable {
-private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1L;
     private int valoracion;
     private Hashtable<String, Integer> usuVoto;
     private Usuario creador;
     private ArrayList<Comentario> comentarios;
     private String texto;
 
-    public Comentario(Usuario u,String txt) {
+    public Comentario(Usuario u, String txt) {
         texto = txt;
         valoracion = 0;
         creador = u;
@@ -31,23 +32,23 @@ private static final long serialVersionUID = 1L;
         this.usuVoto = new Hashtable<String, Integer>();
 
     }
-    
-    public void responderComentario(Usuario u,String s){
-      Comentario come = new Comentario(u,s); 
-      this.comentarios.add(come);
-      System.out.println("Comentario comentado");
+
+    public void responderComentario(Usuario u, String s) {
+        Comentario come = new Comentario(u, s);
+        this.comentarios.add(come);
+        System.out.println("Comentario comentado");
     }
-    
-    public String respuestaComentarios(){
-        String info=null;
-        for(Comentario comen : comentarios){
+
+    public String respuestaComentarios() {
+        String info = null;
+        for (Comentario comen : comentarios) {
             info = comen.getTexto();
         }
-       return info; 
+        return info;
     }
-    
+
     public void votar(Usuario u, int val) {
-        
+
         //Comprobamos que el valor numerico del voto es valido (-1 o 1)        
         if (comprobarVoto(val) && u != creador) {
 
@@ -57,17 +58,18 @@ private static final long serialVersionUID = 1L;
                 sumarValoracion(usuVoto);
 
             } //Si ya ha votado, reemplazamos su voto anterior
-            else if( !usuVoto.containsValue(val)){
+            else if (!usuVoto.containsValue(val)) {
                 usuVoto.replace(u.getEmail(), usuVoto.get(u.getEmail()), val);
                 sumarValoracion(usuVoto);
-            }else 
+            } else {
                 System.out.println("No puede votar dos veces el mismo valor");
-        }else{
+            }
+        } else {
             System.out.println("El creador no puede votar");
         }
     }
 
-      private boolean comprobarVoto(int val) {
+    private boolean comprobarVoto(int val) {
         if (val == 1 || val == -1) {
             return true;
         } else {
@@ -76,8 +78,8 @@ private static final long serialVersionUID = 1L;
         }
 
     }
-      
-      private int sumarValoracion(Hashtable usuVoto) {
+
+    private int sumarValoracion(Hashtable usuVoto) {
         Enumeration e = usuVoto.elements();
         Object valor;
         while (e.hasMoreElements()) {
@@ -90,8 +92,6 @@ private static final long serialVersionUID = 1L;
         return valoracion;
     }
 
-    //faltan metodos
-
     public String getTexto() {
         return texto;
     }
@@ -99,5 +99,5 @@ private static final long serialVersionUID = 1L;
     public int getValoracion() {
         return valoracion;
     }
-    
+
 }

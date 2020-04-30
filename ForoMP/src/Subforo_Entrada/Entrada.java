@@ -14,7 +14,7 @@ import users.Usuario;
 
 /**
  *
- * @author Equipo
+ * @author DAni
  */
 public class Entrada extends EntradaGenerica implements Serializable {
 
@@ -34,15 +34,9 @@ public class Entrada extends EntradaGenerica implements Serializable {
         this.texto = texto;
         comentarios = new ArrayList<Comentario>();
         componentes = new ArrayList<EntradaGenerica>();
-        /*  ejercicios = new ArrayList<>();
-        encuestas = new ArrayList<>();
-        textos = new ArrayList<>();*/
-
-        //metodos crear ejercicios, textoplano, encuesta
     }
 
-    //Sistema instancia = Sistema.getInstance(); con esto para controlar quien hace el que, si profe...
-    //if(instancia.getConectado() instanceof Profesor) 
+    
     public void addTextoPlano(Usuario u, String titulo, String cuerpo) {
 
         if (getCreador().equals(u)) {
@@ -67,7 +61,7 @@ public class Entrada extends EntradaGenerica implements Serializable {
 
     }
 
-//Duda, para controlar que es un profesor, esta bien pasarlo como argumento?
+
     public void addEncuesta(Usuario u, String titulo) {
 
         if (s.getConectado() instanceof Profesor) {
@@ -93,7 +87,6 @@ public class Entrada extends EntradaGenerica implements Serializable {
         }
     }
 
-    //Duda, para controlar que es un profesor, esta bien pasarlo como argumento?
     public void addEjercicio(Usuario u, String titulo, String p, String r) {
         if (s.getConectado() instanceof Profesor) {
             boolean add = true;

@@ -87,13 +87,6 @@ public abstract class Usuario implements Serializable, Observer {
     }
 
     public void darDeBajaSubforo(String nombre) {
-        /*    subforos.forEach((subforo) -> {
-        if (subforo.getNombre().equals(nombre)){
-        subforo.deleteSubscriptor(this);
-        subforos.remove(subforo); //en esta lina esta el problema, hay que sacarlo fuera del bucle
-        
-        }
-        });*/
 
         Subforo aux = null;
         boolean valid = false;
@@ -109,9 +102,7 @@ public abstract class Usuario implements Serializable, Observer {
         }
     }
 
-    public void darDeAltaSubforo(Subforo sub) { //un problema, un usuario se puede suscribir al mismo foro
-        /* subforos.add(sub);
-        sub.addSubscriptor(this);*/
+    public void darDeAltaSubforo(Subforo sub) { 
 
         //sol improvisada
       boolean aceptar = true;

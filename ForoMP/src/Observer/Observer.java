@@ -7,7 +7,7 @@ package Observer;
 
 /**
  *
- * @author Miguel Angel
+ * @author Ruben
  */
 public interface Observer {
     public void recibirNotificacion(String noti);
