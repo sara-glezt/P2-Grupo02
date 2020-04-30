@@ -86,28 +86,6 @@ public abstract class EntradaGenerica implements Serializable, Comparable<Entrad
         }
     }
 
-    /* if (comprobarVoto(val) && u != creador) {
-            
-            //Si no ha votado aun y no es el creador almacenamos y procesamos su voto
-            if (!usuVoto.containsKey(u.getEmail())) {
-            usuVoto.put(u.getEmail(), val);
-            
-            
-            } //Si ya ha votado, reemplazamos su voto anterior
-            else (){
-            usuVoto.replace(u.getEmail(), usuVoto.get(u.getEmail()), val);}
-            sumarValoracion(usuVoto);
-            
-            
-
-
-            //La valoración será la suma de todas las valoraciones actualizadas
-            //Para ello recorremos la tabla hash obteniendo los valores
-            //y los sumamos
-           // sumarValoracion(usuVoto);
-        }
-    }
-
     /**
      * ComprobarUsuarioVoto es un metodo privado que comprueba si el valor de
      * voto es valido, para no sumar cosas extrañas en la valoracion de la
