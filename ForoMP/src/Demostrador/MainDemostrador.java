@@ -33,6 +33,7 @@ public class MainDemostrador {
         //System.out.println("Nombre: Ruben", "A1", "A2", "grillos", "ruben@alumnno.urjc.es", "1122", "alumno");
 
         System.out.println("Comprobamos que esta en la lista de Usuarios");
+        System.out.println("Esta lista solo la deberían ver los Admin, pero aquí la vemos todos para la prueba");
         System.out.println(s.ListaUsuario());
         System.out.println("");
 
@@ -51,7 +52,7 @@ public class MainDemostrador {
         System.out.println(s.ListaUsuario());
         System.out.println("");
 
-        System.out.println("Intentamos registrar un usuario con otro tipo (profesor) ");
+        System.out.println("Intentamos registrar un profesor con un email de alumno");
         s.registrarse("Ruben", "A1", "A2", "grillos1", "ruben1@alumnos.urjc.es", "1122", "profesor");
 
         System.out.println("Comprobamos que esta en la lista de Usuarios");
@@ -117,6 +118,7 @@ public class MainDemostrador {
         System.out.println("");
 
         System.out.println("3.Intentamos crear un subforo con un profesor");
+        System.out.println("Para ello hacemos logOut del alumno y logIn del profesor");
         s.logOut();
         s.logIn("antonio@urjc.es", "Tony", "1122");
         s.crearSubforo("Deportes");
@@ -128,7 +130,7 @@ public class MainDemostrador {
         System.out.println(s.getSubforo().get(0).mostrarListaEntrada());
         System.out.println("");
 
-        System.out.println("5. El mismo creador vota la entrada");
+        System.out.println("5. El mismo creador vota la entrada con 1");
         if (s.getSubforo().get(0).getEntrada().get(0).getVerificado()) {
             s.getSubforo().get(0).getEntrada().get(0).votar(s.getConectado(), 1);
             System.out.println("");
@@ -142,11 +144,14 @@ public class MainDemostrador {
         System.out.println(s.getSubforo().get(0).getEntrada().get(0).getValoracion());
         System.out.println("");
 
-        System.out.println("7. Hacemos logout, conectamos a otro usuario y la vota");
+        System.out.println("7. Hacemos logout, conectamos a otro usuario y la vota con 1");
         s.logOut();
         s.logIn("ruben@alumnos.urjc.es", "grillos", "1122");
         if (s.getSubforo().get(0).getEntrada().get(0).getVerificado()) {
             s.getSubforo().get(0).getEntrada().get(0).votar(s.getConectado(), 1);
+            System.out.print("Valoracion: ");
+            System.out.println(s.getSubforo().get(0).getEntrada().get(0).getValoracion());
+           
             System.out.println("");
         } else {
             System.out.println("La entrada no esta verificada");
@@ -162,9 +167,12 @@ public class MainDemostrador {
         }
         System.out.println("");
 
-        System.out.println("9. Hacemos que el usuario vote lo contrario");
+        System.out.println("9. Hacemos que el usuario vote lo contrario, un -1");
         if (s.getSubforo().get(0).getEntrada().get(0).getVerificado()) {
             s.getSubforo().get(0).getEntrada().get(0).votar(s.getConectado(), -1);
+            System.out.print("Valoracion: ");
+            System.out.println(s.getSubforo().get(0).getEntrada().get(0).getValoracion());
+
             System.out.println("");
         } else {
             System.out.println("La entrada no esta verificada");
@@ -180,7 +188,7 @@ public class MainDemostrador {
         }
         System.out.println("");
 
-        System.out.println("11. Hacemos que vote otro usuario mas y comprobamos la suma");
+        System.out.println("11. Hacemos que vote otro usuario mas con -1 y comprobamos la suma");
         s.logOut();
         s.logIn("gustavo@urjc.es", "Gusyluz", "1122");
         if (s.getSubforo().get(0).getEntrada().get(0).getVerificado()) {
@@ -356,12 +364,49 @@ public class MainDemostrador {
         s.getMasVotadas();
         System.out.println("");
         
+               
         
-        
-        
-       
+       s.getMasVotadas();
         System.out.println("");
         s.logOut();
+        System.out.println("Intentamos ver las entradas mas votadas sin hacer login");
+        
+        System.out.println("Las entradas mas Votadas son");
+        s.getMasVotadas();
+        
+        System.out.println("VOTAR COMENTARIOS");
+        
+        System.out.println("1.Volvemos a conectarnos para comentar una entrada");
+        s.logIn("ruben@alumnos.urjc.es", "grillos", "1122");
+        s.getSubforo().get(0).getEntrada().get(1).addComentario(s.getConectado(), "Esto es un comentario para votar");
+        System.out.println(s.getSubforo().get(0).getEntrada().get(1).verComentarios());
+        
+        System.out.println("");
+        System.out.println("2.Ahora vamos a votar ese comentario con el mismo usuario. NO DEBERIA");
+        s.getSubforo().get(0).getEntrada().get(1).getComentarios().get(0).votar(s.getConectado(), -1);
+        
+        System.out.println("Salimos del sistema para conectar a otro que puda votar el comentario");
+        s.logOut();
+        System.out.println("");
+        System.out.println("3.Entramos con Antonio");
+        s.logIn("antonio@urjc.es", "Tony", "1122");
+        
+        System.out.println("");
+        System.out.println("4.Antonio vota el comentario con -1");
+        s.getSubforo().get(0).getEntrada().get(1).getComentarios().get(0).votar(s.getConectado(), -1);
+        s.getSubforo().get(0).getEntrada().get(1).getComentarios().get(0).getValoracion();
+        
+        System.out.println("");
+        System.out.println("5.Vemos la valoracion del comentario:");
+        System.out.println(s.getSubforo().get(0).getEntrada().get(1).getComentarios().get(0).getValoracion());
+        
+
+        
+        
+        
+
+        
+        
     }
 
 }

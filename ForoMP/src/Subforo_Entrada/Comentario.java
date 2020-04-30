@@ -62,6 +62,8 @@ private static final long serialVersionUID = 1L;
                 sumarValoracion(usuVoto);
             }else 
                 System.out.println("No puede votar dos veces el mismo valor");
+        }else{
+            System.out.println("El creador no puede votar");
         }
     }
 
@@ -80,7 +82,7 @@ private static final long serialVersionUID = 1L;
         Object valor;
         while (e.hasMoreElements()) {
             valor = e.nextElement();
-            System.out.println("Valoracion: " + valor);
+            //System.out.println("Valoracion: " + valor);
             // Hacemos un cast, pero antes nos hemos assegurado de que
             //el valor es numerico
             valoracion = valoracion + (Integer) valor;
@@ -93,4 +95,9 @@ private static final long serialVersionUID = 1L;
     public String getTexto() {
         return texto;
     }
+
+    public int getValoracion() {
+        return valoracion;
+    }
+    
 }

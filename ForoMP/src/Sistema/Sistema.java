@@ -338,7 +338,7 @@ public class Sistema implements Serializable {
 
         for (Usuario us : usuarios) {
             info += "\t" + "Nombre: " + us.getNombre() + "  " + us.getApellido1() + " " + us.getApellido2()
-                    + " Nick: " + us.getNick() + " Email: " + us.getEmail() + "\n";
+                    + " Nick: " + us.getNick() + " Email: " + us.getEmail() + " " +   us.getClass().getSimpleName()+"\n";
         }
         //}
         return info;

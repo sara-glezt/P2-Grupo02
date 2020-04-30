@@ -33,7 +33,7 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
     Sistema s = Sistema.getInstance();
     
 
-    public EntradaGenerica(Usuario creador, String titulo) {//faltarias los parametros no?
+    public EntradaGenerica(Usuario creador, String titulo) {
         this.valoracion = valoracion; //creo que esto no deberia estar en el constructor pues cuando la creas no la votas
         this.numTotalVal = numTotalVal;// algo parecico con esto, en todo caso inicializar a 0 o algo asi
         this.fecha = fecha; //como obtener la fecha del new? //this.fecha = new Date();
@@ -142,6 +142,7 @@ public abstract class EntradaGenerica implements Serializable, Comparable <Entra
             //el valor es numerico
             valoracion = valoracion + (Integer) valor;
         }
+        
         return valoracion;
     }
 

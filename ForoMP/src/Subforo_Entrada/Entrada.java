@@ -133,9 +133,12 @@ public class Entrada extends EntradaGenerica implements Serializable {
 
     public String verComentarios() {
         String info = null;
-        for (Comentario comen : comentarios) {
+        for (Comentario comen : comentarios) {            
             info = comen.getTexto() + "\n"
-                    + "\t" + "-" + comen.respuestaComentarios();
+                    + "\t";
+            if(comen.respuestaComentarios() != null){
+               info = info + comen.respuestaComentarios();  
+            }
         }
         return info;
     }
