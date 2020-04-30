@@ -25,6 +25,10 @@ public class Subforo implements Serializable, Observable {
     private ArrayList<Observer> usuarios;//arrayList de usuario para saber quien se ha susbcrito NECESARIO EN OBSERVABLE
     private ArrayList<Entrada> entradas; //arrayList de entrada para saber que entradas tiene el subforo
 
+    /**
+     * Constructor de Subforo
+     * @param nombre 
+     */
     public Subforo(String nombre) {  //constructor de Subforo
         this.nombre = nombre;
         usuarios = new ArrayList<Observer>();
@@ -43,6 +47,10 @@ public class Subforo implements Serializable, Observable {
     //
     // COSAS DE OBSERVER (down)
     //
+    /**
+     * añade un suscritos al subforo en el que estamos
+     * @param o 
+     */
     @Override
     public void addSubscriptor(Observer o) {
         if (!usuarios.contains(o)) {
@@ -55,6 +63,10 @@ public class Subforo implements Serializable, Observable {
         }
     }
 
+    /**
+     * Añade las notificaciones a los usuarios que esta suscritos
+     * @param ent 
+     */
     @Override
     public void notifySubscriptor(EntradaGenerica ent) {
         String noti = "Se ha creado una nueva entrada " + ent.getTitulo() + " en el Subforo " + this.nombre;
@@ -62,7 +74,10 @@ public class Subforo implements Serializable, Observable {
             usuario.recibirNotificacion(noti);
         });
     }
-
+/**
+ * Elimna al suscritos del subforo
+ * @param o 
+ */
     @Override
     public void deleteSubscriptor(Observer o) {
         if (usuarios.contains(o)) {
@@ -76,6 +91,12 @@ public class Subforo implements Serializable, Observable {
     //
     // COSAS DE OBSERVER (up)
     //
+    /**
+     * Crea una entrada
+     * @param u
+     * @param titulo
+     * @param txt 
+     */
     public void crearEntrada(Usuario u, String titulo, String txt) {
         Sistema s = Sistema.getInstance();
         if (s.getConectado() != null) {
@@ -105,7 +126,10 @@ public class Subforo implements Serializable, Observable {
 
         }
     }
-
+/**
+ * Me da una lista de entradas
+ * @return 
+ */
     public String mostrarListaEntrada() {
         Sistema s = Sistema.getInstance();
         String info = "";

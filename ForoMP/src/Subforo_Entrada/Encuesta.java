@@ -23,7 +23,10 @@ public class Encuesta extends EntradaGenerica {
         preguntas = new ArrayList<String>();
         respuestas = new ArrayList<String>();
     }
-
+/**
+ * Añade la pregunta que le introduzca
+ * @param prg 
+ */
     public void añadirPreguntas(String prg) {
         if (!prg.isEmpty() && !preguntas.contains(prg)) {
             preguntas.add(prg);
@@ -32,7 +35,11 @@ public class Encuesta extends EntradaGenerica {
             System.out.println("Usted ha metido una pregutna repetida o no ha introducido nada");
         }
     }
-
+/**
+ * Responde la pregunta i con la repuesta resp
+ * @param resp
+ * @param i 
+ */
     public void reponderPreguntas(String resp, int i) { // el numero de la pregunta debe ser mayor que cero
 
         System.out.println("Ha respondido la pregunta: " + preguntas.get(i - 1) + " con " + "<< " + resp + " >>");
@@ -40,7 +47,10 @@ public class Encuesta extends EntradaGenerica {
         System.out.println("-------------");
 
     }
-
+/**
+ * Me muestra las respuestas
+ * @return 
+ */
     public String verRespuestas() {
         System.out.println("RESPUESTAS DE LA ENCUESTA ");
         System.out.println();
@@ -62,7 +72,10 @@ public class Encuesta extends EntradaGenerica {
         return info;
 
     }
-
+/**
+ * Me muestra las preguntas
+ * @return 
+ */
     public String verPreguntas() {
         String info = "\n";
 

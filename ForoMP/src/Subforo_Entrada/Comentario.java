@@ -23,7 +23,11 @@ public class Comentario implements Serializable {
     private Usuario creador;
     private ArrayList<Comentario> comentarios;
     private String texto;
-
+/**
+ * constructor de la clase Comentario
+ * @param u
+ * @param txt 
+ */
     public Comentario(Usuario u, String txt) {
         texto = txt;
         valoracion = 0;
@@ -32,13 +36,20 @@ public class Comentario implements Serializable {
         this.usuVoto = new Hashtable<String, Integer>();
 
     }
-
+/**
+ * reponde el comentario con la respuesta que se quiera
+ * @param u
+ * @param s 
+ */
     public void responderComentario(Usuario u, String s) {
         Comentario come = new Comentario(u, s);
         this.comentarios.add(come);
         System.out.println("Comentario comentado");
     }
-
+/**
+ * me duvuel el comentario
+ * @return 
+ */
     public String respuestaComentarios() {
         String info = null;
         for (Comentario comen : comentarios) {
@@ -46,7 +57,11 @@ public class Comentario implements Serializable {
         }
         return info;
     }
-
+/**
+ * Sirve para vota el comentario con la valoracion indicada
+ * @param u
+ * @param val 
+ */
     public void votar(Usuario u, int val) {
 
         //Comprobamos que el valor numerico del voto es valido (-1 o 1)        
@@ -68,7 +83,11 @@ public class Comentario implements Serializable {
             System.out.println("El creador no puede votar");
         }
     }
-
+/**
+ * Comprueba que el voto es valido
+ * @param val
+ * @return 
+ */
     private boolean comprobarVoto(int val) {
         if (val == 1 || val == -1) {
             return true;
@@ -78,7 +97,11 @@ public class Comentario implements Serializable {
         }
 
     }
-
+/**
+ * Suma la valoracion del comentario
+ * @param usuVoto
+ * @return 
+ */
     private int sumarValoracion(Hashtable usuVoto) {
         Enumeration e = usuVoto.elements();
         Object valor;

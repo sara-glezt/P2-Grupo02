@@ -85,7 +85,10 @@ public abstract class Usuario implements Serializable, Observer {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
-
+/**
+ * Se usa para darse de baja de un subforo al que este suscrito
+ * @param nombre 
+ */
     public void darDeBajaSubforo(String nombre) {
 
         Subforo aux = null;
@@ -101,7 +104,10 @@ public abstract class Usuario implements Serializable, Observer {
             subforos.remove(aux);
         }
     }
-
+/**
+ * Se usa para suscribirse al subforo que se desee
+ * @param sub 
+ */
     public void darDeAltaSubforo(Subforo sub) { 
 
         //sol improvisada
@@ -124,29 +130,43 @@ public abstract class Usuario implements Serializable, Observer {
     //
     // COSAS DE OBSERVER (down)
     //
+    /**
+     * Me da las notificaciones pendientes
+     * @param noti 
+     */
     @Override
     public void recibirNotificacion(String noti) {
         notificaciones.add(noti);
     }
-
+/**
+ * Me muestaras las notificaciones que tengo
+ */
     public void mostrarNotificaciones(){
         for (int i =0; i<notificaciones.size();i++)
             System.out.println(notificaciones.get(i));
     }
 
-    
+   /**
+    * sirve para penalizar dos dias
+    */ 
       public void penalizar(){
        penalizacion = 2;
       
       }
-    
+    /**
+     * Me devuelve si esta penaliazao el usuario
+     * @return 
+     */
     public boolean penalizado(){
     if (penalizacion > 0)
     return true;
     else
     return false;
 }
-
+/**
+ * Actualiza las penalizaciones
+ * @param dias 
+ */
     public void actualizarPenalizacion(int dias){
           int nuevaPena = penalizacion - dias;
         if (nuevaPena <= 0){

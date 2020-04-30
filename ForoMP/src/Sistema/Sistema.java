@@ -41,6 +41,10 @@ public class Sistema implements Serializable {
 
     }
 
+    /**
+    * getInstance() me da una instancia de Sistema
+    * 
+    */
     public static Sistema getInstance() {
         if (instancia == null) {
             File bbdd = new File("Sistema.obj");
@@ -54,10 +58,23 @@ public class Sistema implements Serializable {
         return instancia;
     }
 
+    /**
+ *
+ * getConectado() me devulve el usuario conectado
+ */
     public Usuario getConectado() {
         return conectado;
     }
-
+/**
+ * registrarse() registra el usuario con los parametros introducidos y se guardan sus datos en Sistema
+ * @param nombre String
+ * @param apellido1 String
+ * @param apellido2 String
+ * @param nick String
+ * @param email String
+ * @param contraseña String
+ * @param tipo String
+ */
     public boolean registrarse(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña, String tipo) {
         boolean valido = verificarNuevoUsuario(nombre, apellido1, apellido2, nick, email, contraseña, tipo);
 
@@ -78,7 +95,16 @@ public class Sistema implements Serializable {
         }
         return valido;
     }
-
+/**
+ *verificarNuevoUsuario() comprube si el usuario que se quiere introducir es valido
+ * @param nombre String
+ * @param apellido1 String
+ * @param apellido2 String
+ * @param nick String
+ * @param email String
+ * @param contraseña String
+ * @param tipo String
+ */
     private boolean verificarNuevoUsuario(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña, String tipo) {//preguntar que hace exactamente
         Iterator<Usuario> i = usuarios.iterator();
 
@@ -107,7 +133,11 @@ public class Sistema implements Serializable {
         }
         return aceptar;
     }
-
+/**
+ *
+ * eliminarUsuario() elimina el usuario con el nick introducido
+ * @param nick String
+ */
     public void eliminarUsuario(String nick) {
 
         Iterator<Usuario> i = usuarios.iterator();
@@ -125,7 +155,11 @@ public class Sistema implements Serializable {
             }
         }
     }
-
+/**
+ *
+ * crearSubforo()  me crea el subforo
+ * @param sr String
+ */
     public void crearSubforo(String sr) {
         if (getConectado() != null) {
             if (getConectado() instanceof Profesor) {
@@ -153,7 +187,10 @@ public class Sistema implements Serializable {
             System.out.println("Inicie sesión para crear el subforo");
         }
     }
-
+/**
+ * eliminarSubforo() elimina el subforo que le indique
+ * @param s  String
+ */
     public void eliminarSubforo(String s) {
         boolean bol = true;
         Subforo aux = null;
@@ -172,7 +209,13 @@ public class Sistema implements Serializable {
             System.out.println("El subforo " + aux.getNombre() + " ha sido borrado.");
         }
     }
-
+/**
+ * login() inicia sesion el usuario que se indique
+ * @param email
+ * @param nick
+ * @param password
+ * @return 
+ */
     public boolean logIn(String email, String nick, String password) {
         boolean bool = false;
         boolean aceptar = true;
@@ -213,7 +256,10 @@ public class Sistema implements Serializable {
 
         return bool;
     }
-
+/**
+ * logOut() cierra sesion
+ * @return 
+ */
     public boolean logOut() {//cerramos la sesion actual y guardamos
         if (conectado != null) {
             conectado = null;
@@ -224,7 +270,10 @@ public class Sistema implements Serializable {
         }
         return true;
     }
-
+/**
+ * gatMasVotadas() me devulve el array con las entradas mas votadas
+ * @return 
+ */
     public ArrayList<Entrada> getMasVotadas() {
         //Lo que haremos sera concatenar todos los arrays de Entradas de cada
         //subforo en uno. Ese lo ordenamos y extraemos los 3 primeros.
@@ -248,6 +297,10 @@ public class Sistema implements Serializable {
 
     }
 
+    /**
+     * guardasSistema() guarda el sistema
+     * @return 
+     */
     public boolean guardarSistema() {//asi guardaria la clase sistema entera
         try {
             FileOutputStream f = new FileOutputStream("Sistema.obj");
@@ -262,7 +315,10 @@ public class Sistema implements Serializable {
             return false;
         }
     }
-
+/**
+ * cargarSistema() carga el sistema
+ * @return 
+ */
     public static Sistema cargarSistema() {
         Sistema u = null;
         try {
@@ -278,7 +334,10 @@ public class Sistema implements Serializable {
         }
         return u;
     }
-
+/**
+ * muestra una lista de subforos
+ * @return 
+ */
     public String ListaSubforo() {
         String info = "Subforos " + "\n";
         for (Subforo s : subforo) {
@@ -286,7 +345,10 @@ public class Sistema implements Serializable {
         }
         return info;
     }
-
+/**
+ * muestra la lista de usuarios
+ * @return 
+ */
     public String ListaUsuario() {
         String info = "\t" + "\t" + "\t" + "Usuarios Registrados " + "\n";
         //if (getConectado() instanceof Administrador || getConectado() instanceof Profesor) { //esto es lo correcto, pero para la prueba lo habilitamos
@@ -299,7 +361,10 @@ public class Sistema implements Serializable {
         return info;
 
     }
-
+/**
+ * Salta los dias para pasar la penalizacion
+ * @param dias 
+ */
     public void saltarDias(int dias) {
         for (Usuario u : usuarios) {
             if (u instanceof Alumno) {
@@ -307,7 +372,10 @@ public class Sistema implements Serializable {
             }
         }
     }
-
+/**
+ * me duevuelve una ArrayLsit de subforos
+ * @return 
+ */
     public ArrayList<Subforo> getSubforo() {
         return subforo;
     }

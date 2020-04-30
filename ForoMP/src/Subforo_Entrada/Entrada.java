@@ -28,7 +28,12 @@ public class Entrada extends EntradaGenerica implements Serializable {
     Sistema s = Sistema.getInstance();
     private int valoracion;
     private String texto;
-
+/***
+ * Constructor de entrada 
+ * @param u
+ * @param titulo
+ * @param texto 
+ */
     public Entrada(Usuario u, String titulo, String texto) { //Debug exactamente que metemos por constructor
         super(u, titulo);
         this.texto = texto;
@@ -36,7 +41,12 @@ public class Entrada extends EntradaGenerica implements Serializable {
         componentes = new ArrayList<EntradaGenerica>();
     }
 
-    
+    /**
+     * Añade un texto plano a la entrada
+     * @param u
+     * @param titulo
+     * @param cuerpo 
+     */
     public void addTextoPlano(Usuario u, String titulo, String cuerpo) {
 
         if (getCreador().equals(u)) {
@@ -61,7 +71,11 @@ public class Entrada extends EntradaGenerica implements Serializable {
 
     }
 
-
+/**
+ * Añade una encuesta a la entrada
+ * @param u
+ * @param titulo 
+ */
     public void addEncuesta(Usuario u, String titulo) {
 
         if (s.getConectado() instanceof Profesor) {
@@ -86,7 +100,13 @@ public class Entrada extends EntradaGenerica implements Serializable {
             System.out.println("Usted no puede crear encuestas");
         }
     }
-
+/**
+ * Añade un ejercicio a la entrada
+ * @param u
+ * @param titulo
+ * @param p
+ * @param r 
+ */
     public void addEjercicio(Usuario u, String titulo, String p, String r) {
         if (s.getConectado() instanceof Profesor) {
             boolean add = true;
@@ -110,6 +130,11 @@ public class Entrada extends EntradaGenerica implements Serializable {
         }else System.out.println("Usted no es un profesor y por tanto no puede crear ejercicos");
     }
 
+    /**
+     * Añade un comentario a la entrada
+     * @param u
+     * @param s 
+     */
     public void addComentario(Usuario u, String s) {
         if (this.getVerificado()) {
             Comentario comen = new Comentario(u, s);
@@ -124,6 +149,10 @@ public class Entrada extends EntradaGenerica implements Serializable {
         return comentarios;
     }
 
+    /**
+     * Me muestra los comentarios de la entrada
+     * @return 
+     */
     public String verComentarios() {
         String info = null;
         for (Comentario comen : comentarios) {            

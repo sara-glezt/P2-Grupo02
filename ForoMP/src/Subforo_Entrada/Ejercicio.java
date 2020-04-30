@@ -18,7 +18,13 @@ public class Ejercicio extends EntradaGenerica  {
     private String enunciado;
     private String solucion;
     
-
+/**
+ * Constructor de ejercico
+ * @param u
+ * @param titulo
+ * @param enunciado
+ * @param solucion 
+ */
     public Ejercicio(Usuario u, String titulo, String enunciado, String solucion) {
         super(u, titulo);
         
@@ -31,6 +37,7 @@ public class Ejercicio extends EntradaGenerica  {
         this.solucion = solucion;
     }
 
+    
     @Override
     public void mostrar() {
         System.out.println("Ejercicio creado por"  + getCreador().getNick());

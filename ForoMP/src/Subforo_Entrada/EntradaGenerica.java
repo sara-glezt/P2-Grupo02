@@ -31,6 +31,11 @@ public abstract class EntradaGenerica implements Serializable, Comparable<Entrad
     private Subforo pertenezco;
     Sistema s = Sistema.getInstance();
 
+    /**
+     * Constructor de entrada Generica
+     * @param creador
+     * @param titulo 
+     */
     public EntradaGenerica(Usuario creador, String titulo) {
         this.valoracion = valoracion;
         this.numTotalVal = numTotalVal;
@@ -46,7 +51,10 @@ public abstract class EntradaGenerica implements Serializable, Comparable<Entrad
     public String getTitulo() {
         return titulo;
     }
-
+/**
+ * Me duvuelve la valoracio de la entrada
+ * @return 
+ */
     public int getValoracion() {
         return valoracion;
     }
@@ -127,6 +135,11 @@ public abstract class EntradaGenerica implements Serializable, Comparable<Entrad
         return valoracion;
     }
 
+    /**
+     * Verifica la entrada si la ha creado un alumno, dicho metodo solo lo puede invocar un admin
+     * @param bool
+     * @return 
+     */
     public boolean verificar(boolean bool) {
         if (getCreador().getClass().getSimpleName().equals("Alumno")) {
             if (s.getConectado() instanceof Administrador) {
@@ -145,10 +158,17 @@ public abstract class EntradaGenerica implements Serializable, Comparable<Entrad
         return verificado;
     }
 
+    /**
+     * Actualiza el publicada
+     * @param publicada 
+     */
     public void setPublicada(boolean publicada) {
         this.publicada = publicada;
     }
-
+/**
+ * Actualiza el verificado
+ * @param verificado 
+ */
     public void setVerificado(boolean verificado) {
         this.verificado = verificado;
     }
@@ -164,9 +184,15 @@ public abstract class EntradaGenerica implements Serializable, Comparable<Entrad
     public void setPertenezco(Subforo pertenezco) {
         this.pertenezco = pertenezco;
     }
-
+/**
+ * Muestra los elementos que tiene
+ */
     public abstract void mostrar();
-
+/**
+ * me compara lo elementos del tipo EntradaGenerica
+ * @param e
+ * @return 
+ */
     @Override
     public int compareTo(EntradaGenerica e) {
         int val = e.getValoracion();
@@ -175,7 +201,11 @@ public abstract class EntradaGenerica implements Serializable, Comparable<Entrad
         return val - this.valoracion;
 
     }
-
+/**
+ * Me modifica la entrada
+ * @param u
+ * @param s 
+ */
     public abstract void modificarEntrada(Usuario u, String s);
 
 }

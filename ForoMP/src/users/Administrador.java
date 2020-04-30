@@ -13,7 +13,15 @@ import java.io.Serializable;
  */
 public class Administrador extends Usuario implements Serializable{
     private static final long serialVersionUID = 1L;
-    
+   /**
+    * Constructor de Administrador
+    * @param nombre
+    * @param apellido1
+    * @param apellido2
+    * @param nick
+    * @param email
+    * @param contraseña 
+    */ 
     public Administrador(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña) {
         super(nombre, apellido1, apellido2, nick, email, contraseña);
     }

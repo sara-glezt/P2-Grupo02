@@ -14,7 +14,12 @@ import users.Usuario;
 public class TextoPlano extends EntradaGenerica {
 
     private String cuerpo;
-
+/**
+ * Cosntructor de TextoPlanos
+ * @param u
+ * @param titulo
+ * @param cuerpo 
+ */
     public TextoPlano(Usuario u, String titulo, String cuerpo) {
         super(u, titulo);
         this.cuerpo = cuerpo;
