@@ -204,10 +204,7 @@ public class MainDemostrador {
         s.logOut();
         System.out.println("");
 
-        //mostar lista si esta publicado
-        //hacer mostar Subscritos?
-        //en verificar(EntradaGenerica) si es de alummno y esta a false entonces penalizar
-        //intentar votar sin haber verificado
+ 
         System.out.println("12- Añadimos un suscriptor a un subforo");
         s.logIn("ruben@alumnos.urjc.es", "grillos", "1122");
         s.getSubforo().get(0).addSubscriptor(s.getConectado());
@@ -407,13 +404,7 @@ public class MainDemostrador {
         System.out.println("6.Vemos la valoracion del comentario:");
         System.out.println(s.getSubforo().get(0).getEntrada().get(1).getComentarios().get(0).getValoracion());
         
-
-        
-        
-        
-
-        
-        
+            
     }
 
 }
