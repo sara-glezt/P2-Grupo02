@@ -78,18 +78,28 @@ Sistema sistema = Sistema.getInstance();
     
     @Test
     public void testCrearSubforo2() {//ceamos subforos
-        sistema.registrarse("Felipe", "badillo", "Lopez", "pipe", "pipe@urjc.es", "123", "Profesor");
         sistema.logIn("pipe@urjc.es", "pipe", "123");
         int i =sistema.getSubforo().size();//obtemos el tamaño del array antes de crear un suboforo
       sistema.crearSubforo("Tecnologia"); //intentamos crear el subforo
       assertEquals(sistema.getSubforo().size(),i+1);//Como no podemos, el valor es el mismo despues de itentar crearlo
+        
     }
 
     /**
      * Test of eliminarSubforo method, of class Sistema.
      */
     @Test
-    public void testEliminarSubforo() {
+    public void testEliminarSubforo1() {
+
+        int i =sistema.getSubforo().size();//obtemos el tamaño del array despues de crear un suboforo
+        sistema.eliminarSubforo("Tecnologia");
+        assertEquals(i-1,sistema.getSubforo().size());//comprobamos que ahora tenemos un subforo menos
+    }
+    
+     @Test
+    public void testEliminarSubforo2() {//un profe distitno al creador borra un subforo que no es suyo
+
+        
     }
 
     /**
