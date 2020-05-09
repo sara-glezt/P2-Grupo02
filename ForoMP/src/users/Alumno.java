@@ -58,4 +58,9 @@ public class Alumno extends Usuario implements Serializable{
     else {
     this.penalizacion = nuevaPena;}
     }
+
+    public int getPenalizacion() {
+        return penalizacion;
+    }
+    
 }

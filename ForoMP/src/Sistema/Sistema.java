@@ -380,4 +380,8 @@ public class Sistema implements Serializable {
         return subforo;
     }
 
+    public ArrayList<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
 }
