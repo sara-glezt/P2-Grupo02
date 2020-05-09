@@ -176,4 +176,9 @@ public abstract class Usuario implements Serializable, Observer {
     
     
 }
+
+    public ArrayList<Subforo> getSubforos() {
+        return subforos;
+    }
+    
 }
