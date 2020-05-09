@@ -55,6 +55,21 @@ public class ComentarioTest {
         assertEquals(votos-1,c.getValoracion());
     }
 
+     /**
+     * Test of comprobarVoto method, of class Comentario.
+     */
+    @Test
+    public void comprobarVoto() {
+        
+    }
+    
+     /**
+     * Test of sumarValoracion method, of class Comentario.
+     */
+    @Test
+    public void sumarValoracion() {
+    }
+    
     /**
      * Test of getTexto method, of class Comentario.
      */
