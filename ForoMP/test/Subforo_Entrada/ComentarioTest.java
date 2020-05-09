@@ -41,6 +41,10 @@ public class ComentarioTest {
         assertEquals(votos,c.getValoracion());
         
         Alumno us2 = new Alumno("Paco","Garcia", "Garcia", "paquito", "paquito@alumnos.urjc.es","123");
+        c.votar(us2, +2);
+        //probamos a votar con otro usuario una valoracion no valida
+        assertEquals(votos,c.getValoracion());
+        
         c.votar(us2, +1);
         //probamos a votar con otro usuario
         assertEquals(votos+1,c.getValoracion());
@@ -53,35 +57,6 @@ public class ComentarioTest {
         c.votar(us2, -1);
         //probamos a votar con el mismo usuario de antes, la puntuacion contraria
         assertEquals(votos-1,c.getValoracion());
-    }
-
-     /**
-     * Test of comprobarVoto method, of class Comentario.
-     */
-    @Test
-    public void comprobarVoto() {
-        
-    }
-    
-     /**
-     * Test of sumarValoracion method, of class Comentario.
-     */
-    @Test
-    public void sumarValoracion() {
-    }
-    
-    /**
-     * Test of getTexto method, of class Comentario.
-     */
-    @Test
-    public void testGetTexto() {
-    }
-
-    /**
-     * Test of getValoracion method, of class Comentario.
-     */
-    @Test
-    public void testGetValoracion() {
     }
     
 }
