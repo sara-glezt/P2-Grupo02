@@ -50,11 +50,22 @@ public class AlumnoTest {
         us.actualizarPenalizacion(1); //quitamos 1
         assertEquals(1, us.getPenalizacion());//vemos que todavia está 1 dia penalizado
         assertTrue(us.penalizado());//miramos que sigue penalizado
-        
-        us.actualizarPenalizacion(1);//le quitamos otro dia
+
+    }
+     @Test
+    public void testActualizarPenalizacion1() {
+       Alumno us = new Alumno("Pedro","Jimenez", "Garcia", "peter", "peter@alumnos.urjc.es","123");
+        us.penalizar();//penaliza con 2 dias
+        us.actualizarPenalizacion(2);//le quitamos otro dia
         assertFalse(us.penalizado());//vemos que ya no esta penalizado
         
-        us.actualizarPenalizacion(7);  
+
+    }
+     @Test
+    public void testActualizarPenalizacion2() {
+       Alumno us = new Alumno("Pedro","Jimenez", "Garcia", "peter", "peter@alumnos.urjc.es","123");
+        us.penalizar();//penaliza con 2 dias
+      us.actualizarPenalizacion(7);  
         assertEquals(0,us.getPenalizacion());//vemos que que el limite inferior es 0
     }
     
