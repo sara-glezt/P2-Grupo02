@@ -110,6 +110,7 @@ public class Comentario implements Serializable {
     private int sumarValoracion(Hashtable usuVoto) {
         Enumeration e = usuVoto.elements();
         Object valor;
+        valoracion = 0;
         while (e.hasMoreElements()) {
             valor = e.nextElement();
             //System.out.println("Valoracion: " + valor);
