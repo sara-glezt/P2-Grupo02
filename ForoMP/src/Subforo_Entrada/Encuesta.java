@@ -23,6 +23,14 @@ public class Encuesta extends EntradaGenerica {
         preguntas = new ArrayList<String>();
         respuestas = new ArrayList<String>();
     }
+
+    public ArrayList<String> getPreguntas() {
+        return preguntas;
+    }
+
+    public ArrayList<String> getRespuestas() {
+        return respuestas;
+    }
 /**
  * Añade la pregunta que le introduzca
  * @param prg 

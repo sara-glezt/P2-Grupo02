@@ -5,23 +5,32 @@
  */
 package Subforo_Entrada;
 
+import Sistema.Sistema;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import users.Alumno;
+import users.Profesor;
 
 /**
  *
  * @author Ruben
  */
 public class EncuestaTest {
-    
-    public EncuestaTest() {
-    }
-
     /**
      * Test of añadirPreguntas method, of class Encuesta.
      */
     @Test
     public void testAñadirPreguntas() {
+        Sistema s = new Sistema();
+        String titulo = "Test1";
+        Profesor us = new Profesor("Pedro","Jimenez", "Garcia", "peter", "peter@urjc.es","123");
+        Encuesta e = new Encuesta(us,titulo); //salta error aqui por hacer Sistema.getInstance()
+        int i = e.getPreguntas().size();
+        e.añadirPreguntas(titulo);
+        //miramos si se ha añadido la pregunta
+        assertEquals(i+1,e.getPreguntas().size());
+        
+        
     }
 
     /**
