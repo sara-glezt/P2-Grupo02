@@ -36,6 +36,11 @@ public class Comentario implements Serializable {
         this.usuVoto = new Hashtable<String, Integer>();
 
     }
+
+    public ArrayList<Comentario> getComentarios() {
+        return comentarios;
+    }
+    
 /**
  * reponde el comentario con la respuesta que se quiera
  * @param u
