@@ -7,6 +7,8 @@ package Subforo_Entrada;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import users.Alumno;
+import users.Usuario;
 
 /**
  *
@@ -22,6 +24,18 @@ public class EntradaTest {
      */
     @Test
     public void testAddTextoPlano() {
+        String titulo = "TITULO PRUEBA";
+        String texto = "Esto es una prueba de entrada.";
+        Alumno us = new Alumno("Pedro","Jimenez", "Garcia", "peter", "peter@alumnos.urjc.es","123");
+        Entrada post = new Entrada(us, titulo, texto);
+        int i = post.getComponentes().size();
+        String tituloPlano = "Titulo texto plano";
+        String texto2 = "Esto es la prueba del tecto plano";    
+        post.addTextoPlano(us, tituloPlano, texto2);
+        //miramos si se ha añadido el texto plano
+        assertEquals(i+1,post.getComponentes().size());
+        
+        
     }
 
     /**
@@ -29,6 +43,15 @@ public class EntradaTest {
      */
     @Test
     public void testAddEncuesta() {
+        String titulo = "TITULO PRUEBA 2";
+        String texto = "Esto es una segunda prueba de entrada.";
+        Alumno us = new Alumno("Pedro","Jimenez", "Garcia", "peter", "peter@alumnos.urjc.es","123");
+        Entrada post = new Entrada(us, titulo, texto);
+        int i = post.getComponentes().size();
+        String tituloE = "Titulo encuesta";   
+        post.addEncuesta(us, tituloE);
+        //miramos si se ha añadido el texto plano
+        assertEquals(i+1,post.getComponentes().size());
     }
 
     /**
@@ -36,6 +59,17 @@ public class EntradaTest {
      */
     @Test
     public void testAddEjercicio() {
+        String titulo = "TITULO PRUEBA 3";
+        String texto = "Esto es una tercera prueba de entrada.";
+        Alumno us = new Alumno("Pedro","Jimenez", "Garcia", "peter", "peter@alumnos.urjc.es","123");
+        Entrada post = new Entrada(us, titulo, texto);
+        int i = post.getComponentes().size();
+        String tituloEj = "Titulo Ejercicios";
+        String p = "Pregunta 1";  
+        String r = "Respuesta 1";
+        post.addEjercicio(us, tituloEj, p, r);
+        //miramos si se ha añadido el texto plano
+        assertEquals(i+1,post.getComponentes().size());
     }
 
     /**
@@ -43,6 +77,15 @@ public class EntradaTest {
      */
     @Test
     public void testAddComentario() {
+        String titulo = "TITULO PRUEBA 4";
+        String texto = "Esto es una cuarta prueba de entrada.";
+        Alumno us = new Alumno("Pedro","Jimenez", "Garcia", "peter", "peter@alumnos.urjc.es","123");
+        Entrada post = new Entrada(us, titulo, texto);
+        int i = post.getComponentes().size();
+        String com = "Comentario a añadir"; 
+        post.addComentario(us, com);
+        //miramos si se ha añadido el texto plano
+        assertEquals(i+1,post.getComponentes().size());
     }
 
     /**
