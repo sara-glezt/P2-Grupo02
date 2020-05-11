@@ -77,9 +77,7 @@ public class Sistema implements Serializable {
  */
     public boolean registrarse(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña, String tipo) {
         boolean valido = verificarNuevoUsuario(nombre, apellido1, apellido2, nick, email, contraseña, tipo);
-        
-        
-          
+  
         if (valido) {
             if (tipo.equals("alumno") || tipo.equals("Alumno")) {
                 Usuario us = new Alumno(nombre, apellido1, apellido2, nick, email, contraseña);
@@ -94,10 +92,6 @@ public class Sistema implements Serializable {
                 usuarios.add(us);
                 System.out.println("Se ha añadido un nuevo Administrador.");
             }
-        }else
-          for (Usuario us : usuarios){
-            if (us.getNick().equals(nick))
-                valido = true;
         }
       
         return valido;
@@ -301,12 +295,26 @@ public class Sistema implements Serializable {
         //Ordenamos
         Collections.sort(entradasConcat);
 
-        //Guardamos en el array de masVotadas las 3 primeras de las ordenadas
-        for (int i = 0; i < 3; i++) {
-            masVotadas.add(entradasConcat.get(i));
-            System.out.println(masVotadas.get(i).getTitulo());
-
+        //Guardamos en el array de masVotadas las 3 primeras de las ordenadas   
+        
+        while (masVotadas.size() > 0) {
+            masVotadas.remove(masVotadas.size() - 1);
         }
+
+        int i=0;
+        boolean aceptar = true;
+        
+        while (i<3 && aceptar){
+           masVotadas.add(entradasConcat.get(i));
+            System.out.println(masVotadas.get(i).getTitulo());
+           
+            if((entradasConcat.size()-1)== i){
+                aceptar= false;
+                
+            }
+             i++;
+        }
+       
         return masVotadas;
 
     }
