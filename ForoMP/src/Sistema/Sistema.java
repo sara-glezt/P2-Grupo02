@@ -77,7 +77,9 @@ public class Sistema implements Serializable {
  */
     public boolean registrarse(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña, String tipo) {
         boolean valido = verificarNuevoUsuario(nombre, apellido1, apellido2, nick, email, contraseña, tipo);
-
+        
+        
+          
         if (valido) {
             if (tipo.equals("alumno") || tipo.equals("Alumno")) {
                 Usuario us = new Alumno(nombre, apellido1, apellido2, nick, email, contraseña);
@@ -92,7 +94,12 @@ public class Sistema implements Serializable {
                 usuarios.add(us);
                 System.out.println("Se ha añadido un nuevo Administrador.");
             }
+        }else
+          for (Usuario us : usuarios){
+            if (us.getNick().equals(nick))
+                valido = true;
         }
+      
         return valido;
     }
 /**
@@ -192,14 +199,17 @@ public class Sistema implements Serializable {
  * @param s  String
  */
     public void eliminarSubforo(String s) {
+   
         boolean bol = true;
         Subforo aux = null;
         Iterator<Subforo> i = subforo.iterator();
         while (i.hasNext() & bol) {
             aux = i.next();
             if (aux.getNombre().equals(s)) {
+                 if(getConectado().getNombre().equals(aux.getCreador().getNombre())){ 
                 bol = false;
-            }
+                 
+            }else System.out.println("Solo el creador puede borrar el subforo");
         }
         if (!bol) {
             for (Usuario us : usuarios) { //recorro los usuarios y lo voy dando de baja del subforo que quiero eliminar
@@ -207,8 +217,9 @@ public class Sistema implements Serializable {
             }
             subforo.remove(aux); //borro el subforo  s 
             System.out.println("El subforo " + aux.getNombre() + " ha sido borrado.");
-        }
+        
     }
+    }}
 /**
  * login() inicia sesion el usuario que se indique
  * @param email
@@ -261,14 +272,17 @@ public class Sistema implements Serializable {
  * @return 
  */
     public boolean logOut() {//cerramos la sesion actual y guardamos
+       boolean aceptar = false;
         if (conectado != null) {
             conectado = null;
             System.out.println("Hasta luego; fin de la conexion"); // hacer el guardar sistema
             guardarSistema();
+            aceptar = true;
         } else {
             System.out.println("No hay ningun usuario conectado");
+            
         }
-        return true;
+        return aceptar;
     }
 /**
  * gatMasVotadas() me devulve el array con las entradas mas votadas

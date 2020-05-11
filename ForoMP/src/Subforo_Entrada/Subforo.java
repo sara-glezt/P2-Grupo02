@@ -24,13 +24,15 @@ public class Subforo implements Serializable, Observable {
     private String nombre;
     private ArrayList<Observer> usuarios;//arrayList de usuario para saber quien se ha susbcrito NECESARIO EN OBSERVABLE
     private ArrayList<Entrada> entradas; //arrayList de entrada para saber que entradas tiene el subforo
-
+    private Usuario creador;
+    private Sistema sist = Sistema.getInstance();
     /**
      * Constructor de Subforo
      * @param nombre 
      */
     public Subforo(String nombre) {  //constructor de Subforo
         this.nombre = nombre;
+        creador = sist.getConectado();
         usuarios = new ArrayList<Observer>();
         entradas = new ArrayList<Entrada>();
 
@@ -155,4 +157,9 @@ public class Subforo implements Serializable, Observable {
         }
         return info;
     }
+
+    public Usuario getCreador() {
+        return creador;
+    }
+    
 }
