@@ -6,6 +6,7 @@
 package Subforo_Entrada;
 
 import Sistema.Sistema;
+import java.io.File;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import users.Alumno;
@@ -21,16 +22,18 @@ public class EncuestaTest {
      */
     @Test
     public void testAñadirPreguntas() {
-        Sistema s = new Sistema();
-        String titulo = "Test1";
+        File bbdd = new File("Sistema.obj");
+        if (bbdd.exists()) {
+            bbdd.delete();
+        }
+        String titulo = "Test";
         Profesor us = new Profesor("Pedro","Jimenez", "Garcia", "peter", "peter@urjc.es","123");
-        Encuesta e = new Encuesta(us,titulo); //salta error aqui por hacer Sistema.getInstance()
+        Encuesta e = new Encuesta(us,titulo);
         int i = e.getPreguntas().size();
         e.añadirPreguntas(titulo);
+        
         //miramos si se ha añadido la pregunta
         assertEquals(i+1,e.getPreguntas().size());
-        
-        
     }
 
     /**
@@ -38,34 +41,27 @@ public class EncuestaTest {
      */
     @Test
     public void testReponderPreguntas() {
-    }
-
-    /**
-     * Test of verRespuestas method, of class Encuesta.
-     */
-    @Test
-    public void testVerRespuestas() {
-    }
-
-    /**
-     * Test of verPreguntas method, of class Encuesta.
-     */
-    @Test
-    public void testVerPreguntas() {
-    }
-
-    /**
-     * Test of mostrar method, of class Encuesta.
-     */
-    @Test
-    public void testMostrar() {
-    }
-
-    /**
-     * Test of modificarEntrada method, of class Encuesta.
-     */
-    @Test
-    public void testModificarEntrada() {
-    }
-    
+        String titulo = "Test";
+        Profesor us = new Profesor("Pedro","Jimenez", "Garcia", "peter", "peter@urjc.es","123");
+        Encuesta e = new Encuesta(us,titulo);
+        e.añadirPreguntas(titulo);
+        titulo = "Respuesta";
+        int i = e.getRespuestas().size();
+        e.reponderPreguntas(titulo, 0);
+        
+        //miramos si se añade la respuesta a una pregunta fuera del rango del array
+        assertEquals(i,e.getRespuestas().size());
+        
+        i = e.getRespuestas().size();
+        e.reponderPreguntas(titulo, 2);
+        
+        //probamos a responder la segunda pregunta habiendo solo una
+        assertEquals(i,e.getRespuestas().size());
+        
+        i = e.getRespuestas().size();
+        e.reponderPreguntas(titulo, 1);
+        
+        //probamos a responder la pregunta previamente añadida
+        assertEquals(i+1,e.getRespuestas().size());
+    }    
 }

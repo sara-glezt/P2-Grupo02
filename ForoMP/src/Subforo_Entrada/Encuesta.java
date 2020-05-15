@@ -49,11 +49,11 @@ public class Encuesta extends EntradaGenerica {
  * @param i 
  */
     public void reponderPreguntas(String resp, int i) { // el numero de la pregunta debe ser mayor que cero
-
-        System.out.println("Ha respondido la pregunta: " + preguntas.get(i - 1) + " con " + "<< " + resp + " >>");
-        respuestas.add(resp);
-        System.out.println("-------------");
-
+        if (i>0 && i<=preguntas.size()){
+            System.out.println("Ha respondido la pregunta: " + preguntas.get(i - 1) + " con " + "<< " + resp + " >>");
+            respuestas.add(resp);
+            System.out.println("-------------");
+        }
     }
 /**
  * Me muestra las respuestas
