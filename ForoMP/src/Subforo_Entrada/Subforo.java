@@ -161,5 +161,10 @@ public class Subforo implements Serializable, Observable {
     public Usuario getCreador() {
         return creador;
     }
+
+    public ArrayList<Observer> getUsuariosSuscritos() {
+        return usuarios;
+    }
     
 }
+

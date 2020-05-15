@@ -180,5 +180,11 @@ public abstract class Usuario implements Serializable, Observer {
     public ArrayList<Subforo> getSubforos() {
         return subforos;
     }
+
+    public ArrayList<String> getNotificaciones() {
+        return notificaciones;
+    }
+    
+    
     
 }
