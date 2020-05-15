@@ -16,7 +16,7 @@ import org.junit.Before;
  * @author alvarogonzalez
  */
 public class UsuarioTest {
-   Sistema sistema = Sistema.getInstance(); 
+   
   
    //Usuario u = new Alumno("Pedro","Jimenez", "Garcia", "peter", "peter@alumnos.urjc.es","123");
    /* public void sistema(){
@@ -31,6 +31,7 @@ public class UsuarioTest {
      */
     @Test
     public void testDarDeBajaSubforo() {
+        Sistema sistema = Sistema.getInstance(); 
         sistema.registrarse("Pedro","Jimenez", "Garcia", "peter", "peter@urjc.es","123","Profesor");
         sistema.logIn("peter@urjc.es", "peter", "123");
         sistema.crearSubforo("Ciencia");
@@ -42,8 +43,10 @@ public class UsuarioTest {
         sistema.getConectado().darDeAltaSubforo(sistema.getSubforo().get(0));
         
         sistema.getConectado().darDeBajaSubforo("Ciencia");
-        assertEquals(0,sistema.getConectado().getSubforos().size()); //vemos que efictavemente ya no esta suscrito al subforo
+        assertEquals(0,sistema.getConectado().getSubforos().size()); //vemos que efictavamente ya no esta suscrito al subforo
         sistema.logOut();
+        sistema.deleteBD();
+        
     }
 
     /**
@@ -51,14 +54,17 @@ public class UsuarioTest {
      */
     @Test
     public void testDarDeAltaSubforo() {
+        Sistema sistema = Sistema.getInstance(); 
+        sistema.registrarse("Pedro","Jimenez", "Garcia", "peter", "peter@urjc.es","123","Profesor");
+          sistema.registrarse("Juan","Jimenez", "Garcia", "juanxo", "juan@alumnos.urjc.es","123","Alumno");
              sistema.logIn("peter@urjc.es", "peter", "123");
              sistema.crearSubforo("Noticias");
              sistema.logOut();
              sistema.logIn("juan@alumnos.urjc.es", "juanxo", "123");
-        sistema.getConectado().darDeAltaSubforo(sistema.getSubforo().get(1));
+             sistema.getConectado().darDeAltaSubforo(sistema.getSubforo().get(0));
 
         assertEquals(sistema.getConectado().getSubforos().size(),1);//miramos que el el subforo coincide
-        
+        sistema.deleteBD();
         
     }
 

@@ -22,10 +22,7 @@ public class EncuestaTest {
      */
     @Test
     public void testAñadirPreguntas() {
-        File bbdd = new File("Sistema.obj");
-        if (bbdd.exists()) {
-            bbdd.delete();
-        }
+        Sistema s = Sistema.getInstance();
         String titulo = "Test";
         Profesor us = new Profesor("Pedro","Jimenez", "Garcia", "peter", "peter@urjc.es","123");
         Encuesta e = new Encuesta(us,titulo);
@@ -34,6 +31,7 @@ public class EncuestaTest {
         
         //miramos si se ha añadido la pregunta
         assertEquals(i+1,e.getPreguntas().size());
+        s.deleteBD();
     }
 
     /**
@@ -41,6 +39,7 @@ public class EncuestaTest {
      */
     @Test
     public void testReponderPreguntas() {
+        Sistema s = Sistema.getInstance();
         String titulo = "Test";
         Profesor us = new Profesor("Pedro","Jimenez", "Garcia", "peter", "peter@urjc.es","123");
         Encuesta e = new Encuesta(us,titulo);
@@ -63,5 +62,6 @@ public class EncuestaTest {
         
         //probamos a responder la pregunta previamente añadida
         assertEquals(i+1,e.getRespuestas().size());
+        s.deleteBD();
     }    
 }

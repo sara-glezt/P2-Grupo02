@@ -27,10 +27,7 @@ public class EntradaTest {
      */
     @Test
     public void testAddTextoPlano() {
-        File bbdd = new File("Sistema.obj");
-        if (bbdd.exists()) {
-            bbdd.delete();
-        }
+        Sistema s = Sistema.getInstance();
         String titulo = "TITULO PRUEBA";
         String texto = "Esto es una prueba de entrada.";
         Alumno us = new Alumno("Pedro", "Jimenez", "Garcia", "peter", "peter@alumnos.urjc.es", "123");
@@ -41,7 +38,7 @@ public class EntradaTest {
         post.addTextoPlano(us, tituloPlano, texto2);
         //miramos si se ha añadido el texto plano
         assertEquals(i + 1, post.getComponentes().size());
-
+        s.deleteBD();
     }
 
     /**
@@ -49,10 +46,7 @@ public class EntradaTest {
      */
     @Test
     public void testAddEncuesta() {
-        File bbdd = new File("Sistema.obj");
-        if (bbdd.exists()) {
-            bbdd.delete();
-        }
+        
         Sistema s = Sistema.getInstance();
         s.registrarse("Pedro", "Jiménez", "García", "peter", "peter@urjc.es", "123", "profesor");
         s.logIn("peter@urjc.es", "peter", "123");
@@ -71,6 +65,7 @@ public class EntradaTest {
         e.addEncuesta(us, tituloE);
         //miramos si se ha añadido el texto plano
         assertEquals(i + 1, e.getComponentes().size());
+        s.deleteBD();
     }
 
     /**
@@ -78,10 +73,27 @@ public class EntradaTest {
      */
     @Test
     public void testAddEjercicio() {
-        File bbdd = new File("Sistema.obj");
-        if (bbdd.exists()) {
-            bbdd.delete();
-        }
+        
+        Sistema s = Sistema.getInstance();
+        s.registrarse("Pedro", "Jiménez", "García", "peter", "peter@urjc.es", "123", "profesor");
+        s.logIn("peter@urjc.es", "peter", "123");
+        Usuario us = s.getConectado();
+        
+        s.crearSubforo("Subforo de prueba");
+        Subforo sf = s.getSubforo().get(0);
+        
+        String titulo = "TITULO PRUEBA";
+        String texto = "Esto es una prueba de entrada.";
+        sf.crearEntrada(us, titulo, texto);
+        Entrada e = sf.getEntrada().get(0);
+        
+        int i = s.getSubforo().get(0).getEntrada().get(0).getEjercicios().size();
+        s.getSubforo().get(0).getEntrada().get(0).addEjercicio(us, "Ejer Prueba", "Esto furula", "yuuupi");
+        assertEquals(i+1,s.getSubforo().get(0).getEntrada().get(0).getEjercicios().size());
+        s.logOut();
+        s.deleteBD();
+                
+        /* Sistema s = Sistema.getInstance();
         String titulo = "TITULO PRUEBA 3";
         String texto = "Esto es una tercera prueba de entrada.";
         Alumno us = new Alumno("Pedro", "Jimenez", "Garcia", "peter", "peter@alumnos.urjc.es", "123");
@@ -93,6 +105,7 @@ public class EntradaTest {
         post.addEjercicio(us, tituloEj, p, r);
         //miramos si se ha añadido el texto plano
         assertEquals(i + 1, post.getComponentes().size());
+        s.deleteBD();*/
     }
 
     /**
@@ -100,10 +113,7 @@ public class EntradaTest {
      */
     @Test
     public void testAddComentario() {
-        File bbdd = new File("Sistema.obj");
-        if (bbdd.exists()) {
-            bbdd.delete();
-        }
+        
         Sistema s = Sistema.getInstance();
         s.registrarse("Pedro", "Jiménez", "García", "peter", "peter@urjc.es", "123", "profesor");
         s.logIn("peter@urjc.es", "peter", "123");
@@ -122,69 +132,7 @@ public class EntradaTest {
         e.addComentario(us, com);
         //miramos si se ha añadido el texto plano
         assertEquals(i + 1, e.getComentarios().size());
-    }
-
-    /**
-     * Test of getComentarios method, of class Entrada.
-     */
-    @Test
-    public void testGetComentarios() {
-    }
-
-    /**
-     * Test of verComentarios method, of class Entrada.
-     */
-    @Test
-    public void testVerComentarios() {
-    }
-
-    /**
-     * Test of mostrar method, of class Entrada.
-     */
-    @Test
-    public void testMostrar() {
-    }
-
-    /**
-     * Test of toString method, of class Entrada.
-     */
-    @Test
-    public void testToString() {
-    }
-
-    /**
-     * Test of getComponentes method, of class Entrada.
-     */
-    @Test
-    public void testGetComponentes() {
-    }
-
-    /**
-     * Test of modificarEntrada method, of class Entrada.
-     */
-    @Test
-    public void testModificarEntrada() {
-    }
-
-    /**
-     * Test of getEncuestas method, of class Entrada.
-     */
-    @Test
-    public void testGetEncuestas() {
-    }
-
-    /**
-     * Test of getEjercicios method, of class Entrada.
-     */
-    @Test
-    public void testGetEjercicios() {
-    }
-
-    /**
-     * Test of getTextos method, of class Entrada.
-     */
-    @Test
-    public void testGetTextos() {
+        s.deleteBD();
     }
 
 }

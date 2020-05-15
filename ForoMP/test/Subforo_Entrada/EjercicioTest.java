@@ -14,28 +14,11 @@ import static org.junit.Assert.*;
  */
 public class EjercicioTest {
     
-    public EjercicioTest() {
-    }
 
-    /**
-     * Test of setSolucion method, of class Ejercicio.
-     */
-    @Test
-    public void testSetSolucion() {
-    }
 
-    /**
-     * Test of mostrar method, of class Ejercicio.
-     */
     @Test
-    public void testMostrar() {
-    }
-
-    /**
-     * Test of modificarEntrada method, of class Ejercicio.
-     */
-    @Test
-    public void testModificarEntrada() {
+    public void testModificarEntrada() {//solo se hace en TextoPlano
+        
     }
     
 }

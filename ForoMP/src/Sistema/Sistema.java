@@ -115,17 +115,25 @@ public class Sistema implements Serializable {
         String e = sc.next();
 
         boolean aceptar = true;
-        while (i.hasNext() & aceptar) { //comprobamos que el nick no se repita (se puede hacer con las demas propiedades)
+        
+        if (usuarios.size()>0){
+        while ((i.hasNext() && aceptar)) { //comprobamos que el nick no se repita (se puede hacer con las demas propiedades)
             Usuario u = i.next();
             if (u.getNick().equals(nick)) {
                 System.out.println("El nick introducido  ya esta usado, elija otro");
                 aceptar = false;
             }
-            if (u.getEmail().equals(email) || (!e.equals("alumnos.urjc.es") & !e.equals("urjc.es")) || (e.equals("alumnos.urjc.es") & tipo.equals("profesor")) || (e.equals(".urjc.es") & tipo.equals("alumno"))) { //verificamos el email
+            if (u.getEmail().equals(email)){
                 System.out.println("El email introducido  ya esta usado o no es valido, elija otro");
                 aceptar = false;
             }
-        }
+        }}
+        
+        if ((!e.equals("alumnos.urjc.es") & !e.equals("urjc.es")) || (e.equals("alumnos.urjc.es") & tipo.equals("profesor")) || (e.equals(".urjc.es") & tipo.equals("alumno"))) { //verificamos el email
+                System.out.println("El email introducido   no es valido, elija otro");
+                aceptar = false;}
+        
+        
 
         if (!tipo.equals("Alumno") & !tipo.equals("Profesor") & !tipo.equals("Administrador")
                 & !tipo.equals("alumno") & !tipo.equals("profesor") & !tipo.equals("administrador")) {
@@ -406,4 +414,15 @@ public class Sistema implements Serializable {
         return usuarios;
     }
 
+    public void deleteBD(){
+        File bbdd = new File("Sistema.obj");
+       if (bbdd.exists()) {
+            bbdd.delete();
+        }
+        
+        if (instancia != null){
+      instancia = null;}
+      
+       
+    }
 }

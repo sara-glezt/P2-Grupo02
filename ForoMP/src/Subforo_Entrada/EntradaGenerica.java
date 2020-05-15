@@ -140,19 +140,23 @@ public abstract class EntradaGenerica implements Serializable, Comparable<Entrad
      * @param bool
      * @return 
      */
-    public boolean verificar(boolean bool) {
+   public boolean verificar(boolean bool) {
         if (getCreador().getClass().getSimpleName().equals("Alumno")) {
             if (s.getConectado() instanceof Administrador) {
                 verificado = bool;
                 publicada = bool;
-            }
-            if (!bool) {
-                getCreador().penalizar();
+                if (!bool) {
+                    getCreador().penalizar();
 
             } else {
                 System.out.println("Entrada <<" + getTitulo() + ">> verificada");
+                pertenezco.notifySubscriptor(this);                
             }
-            pertenezco.notifySubscriptor(this);
+                
+            }else{
+                verificado = false;
+            }          
+            
         }
 
         return verificado;

@@ -21,36 +21,27 @@ public class SistemaTest {
      */
     @Test
     public void testRegistrarse1() {//registramos un aummno
-        File bbdd = new File("Sistema.obj");//lo borro para que no entre en conflicto la segunda vez que se ejecuta
-        if (bbdd.exists()) {
-            bbdd.delete();
-        }
+        
         Sistema sistema = Sistema.getInstance();
         
         assertTrue(sistema.registrarse("Javier", "Arcos", "Lopez", "xavi", "xavi@alumnos.urjc.es", "123", "Alumno"));
-
+        sistema.deleteBD();
     }
 
     @Test
     public void testRegistrarse2() {//registramos un profe
-        File bbdd = new File("Sistema.obj");
-        if (bbdd.exists()) {
-            bbdd.delete();
-        }
+        
         Sistema sistema = Sistema.getInstance();
         assertTrue(sistema.registrarse("Felipe", "badillo", "Lopez", "pipe", "pipe@urjc.es", "123", "Profesor"));
-
+sistema.deleteBD();
     }
 
     @Test
     public void testRegistrarse3() {//registramos un admin
-        File bbdd = new File("Sistema.obj");
-        if (bbdd.exists()) {
-            bbdd.delete();
-        }
+        
         Sistema sistema = Sistema.getInstance();
         assertTrue(sistema.registrarse("Angel", "Garcia", "Lopez", "angel", "angel@urjc.es", "123", "Administrador"));
-
+sistema.deleteBD();
     }
 
     /*   @Test
@@ -60,24 +51,18 @@ public class SistemaTest {
     }*/
     @Test
     public void testRegistrarse5() {//registramos un usuario con un email no valido
-        File bbdd = new File("Sistema.obj");
-        if (bbdd.exists()) {
-            bbdd.delete();
-        }
+       
         Sistema sistema = Sistema.getInstance();
-        assertFalse(sistema.registrarse("Angel", "Garcia", "Lopez", "angel2", "angelperez@po.urjc.es", "123", "Administrador"));
-
+        assertFalse(sistema.registrarse("Angel", "Garcia", "Lopez", "angel2", "angelperez@pojzbñxvckz.urjc.es", "123", "Administrador"));
+        sistema.deleteBD();
     }
 
     @Test
     public void testRegistrarse6() {//registramos un usuario que no es del tipo adecuado
-        File bbdd = new File("Sistema.obj");
-        if (bbdd.exists()) {
-            bbdd.delete();
-        }
+        
         Sistema sistema = Sistema.getInstance();
         assertFalse(sistema.registrarse("Angel", "Garcia", "Lopez", "angellus", "angel@urjc.es", "123", "Furbolista"));
-
+sistema.deleteBD();
     }
     
       /**
@@ -85,9 +70,12 @@ public class SistemaTest {
      */
     @Test
     public void testLogIn1() {//vamos a intentar hacer login
+         
         Sistema sistema = Sistema.getInstance();
+        sistema.registrarse("Angel", "Garcia", "Lopez", "angel", "angel@urjc.es", "123", "Administrador");
         assertTrue(sistema.logIn("angel@urjc.es", "angel", "123"));
         sistema.logOut();
+        sistema.deleteBD();
 
     }
 
@@ -95,10 +83,12 @@ public class SistemaTest {
     public void testLogIn2() {//vamos a intentar hacer login sin haber echo logOut
         
         Sistema sistema = Sistema.getInstance();
+        sistema.registrarse("Angel", "Garcia", "Lopez", "angel", "angel@urjc.es", "123", "Administrador");
+        sistema.registrarse("Felipe", "Garcia", "Lopez", "pipe", "pipe@urjc.es", "123", "Administrador");
         sistema.logIn("angel@urjc.es", "angel", "123");//hacemos login con un usuario
         assertFalse(sistema.logIn("pipe@urjc.es", "pipe", "123"));//hacemos login sin hacer logOut
         sistema.logOut(); //cerramos sesion para dejarla libre para la proxima prueba
-
+        sistema.deleteBD();
     }
 
     /**
@@ -106,22 +96,29 @@ public class SistemaTest {
      */
     @Test
     public void testCrearSubforo1() {//ceamos subforos sin estar logeado
-        
+       
         Sistema sistema = Sistema.getInstance();
+        sistema.registrarse("Angel", "Garcia", "Lopez", "angel", "angel@urjc.es", "123", "Administrador");
+         sistema.logIn("angel@urjc.es", "angel", "123");//hacemos login con un usuario
         int i = sistema.getSubforo().size();//obtemos el tamaño del array antes de crear un suboforo
         sistema.crearSubforo("Tecnologia"); //intentamos crear el subforo
-        assertEquals(sistema.getSubforo().size(), i);//Como no podemos, el valor es el mismo despues de itentar crearlo
+        assertEquals(i,sistema.getSubforo().size());//Como no podemos, el valor es el mismo despues de itentar crearlo
+        sistema.logOut();
+        sistema.deleteBD();
     }
 
     @Test
     public void testCrearSubforo2() {//ceamos subforos
-       
+      
+        
         Sistema sistema = Sistema.getInstance();
+        sistema.registrarse("Felipe", "badillo", "Lopez", "pipe", "pipe@urjc.es", "123", "Profesor");
         sistema.logIn("pipe@urjc.es", "pipe", "123");
         int i = sistema.getSubforo().size();//obtemos el tamaño del array antes de crear un suboforo
         sistema.crearSubforo("Tecnologia"); //intentamos crear el subforo
-        assertEquals(sistema.getSubforo().size(), i + 1);//Como no podemos, el valor es el mismo despues de itentar crearlo
+        assertEquals(i + 1, sistema.getSubforo().size());//Como no podemos, el valor es el mismo despues de itentar crearlo
         sistema.logOut();
+        sistema.deleteBD();
     }
 
     /**
@@ -130,16 +127,22 @@ public class SistemaTest {
     @Test
     public void testEliminarSubforo1() {
        
+        
         Sistema sistema = Sistema.getInstance();
+        sistema.registrarse("Felipe", "badillo", "Lopez", "pipe", "pipe@urjc.es", "123", "Profesor");
         sistema.logIn("pipe@urjc.es", "pipe", "123");
+        sistema.crearSubforo("Tecnologia");
         int i = sistema.getSubforo().size();//obtemos el tamaño del array despues de crear un suboforo
         sistema.eliminarSubforo("Tecnologia");
-        assertEquals(i - 1, sistema.getSubforo().size());//comprobamos que ahora tenemos un subforo menos
+        assertEquals(i-1 , sistema.getSubforo().size());//comprobamos que ahora tenemos un subforo menos
         sistema.logOut();
+        sistema.deleteBD();
     }
 
     @Test
     public void testEliminarSubforo2() {//un profe distitno al creador borra un subforo que no es suyo
+        
+       
         
         Sistema sistema = Sistema.getInstance();
         sistema.logIn("pipe@urjc.es", "pipe", "123");
@@ -150,6 +153,7 @@ public class SistemaTest {
         sistema.eliminarSubforo("Comida");//intentamos borrarlo con alguien que no es su creador
         assertEquals(i, sistema.getSubforo().size());//comprobamos que el tamaño no ha variado
         sistema.logOut();
+        sistema.deleteBD();
     }
 
   
@@ -159,17 +163,22 @@ public class SistemaTest {
      */
     @Test
     public void testLogOut1() { //hacemos logOut del usuairo conectado
+       
         
         Sistema sistema = Sistema.getInstance();
+        sistema.registrarse("Felipe", "badillo", "Lopez", "pipe", "pipe@urjc.es", "123", "Profesor");
+        
         sistema.logIn("pipe@urjc.es", "pipe", "123");
         assertTrue(sistema.logOut());
+        sistema.deleteBD();
     }
 
     @Test
     public void testLogOut2() { //hacemos logOut sin ningun usuario conectado
-       
+        
         Sistema sistema = Sistema.getInstance();
         assertFalse(sistema.logOut());
+        sistema.deleteBD();
     }
 
     /**
@@ -177,10 +186,7 @@ public class SistemaTest {
      */
     @Test
     public void testGetMasVotadas1() {//como solo hay una entrada, me cogerá la que hay, aunque tenga un valor negativo
-           File bbdd = new File("Sistema.obj");
-        if (bbdd.exists()) {
-            bbdd.delete();
-        }
+        
         Sistema sistema = Sistema.getInstance();
     sistema.registrarse("Antonio", "a1", "a2", "anton", "anton@urjc.es", "123", "Profesor");
     sistema.registrarse("xavi", "a1", "a2", "xavi22", "xavi22@alumnos.urjc.es", "123", "Alumno");
@@ -192,14 +198,12 @@ public class SistemaTest {
     sistema.getSubforo().get(0).getEntrada().get(0).votar(sistema.getConectado(), -1);
     assertEquals(1,sistema.getMasVotadas().size());
     sistema.logOut();
+    sistema.deleteBD();
     }
     
     @Test
     public void testGetMasVotadas2() {//Creamos 4 entradas, pero solo tenemos que obtener las tres mas votadas
-           File bbdd = new File("Sistema.obj");
-        if (bbdd.exists()) {
-            bbdd.delete();
-        }
+         
         
     Sistema sistema = Sistema.getInstance();
     sistema.registrarse("Antonio", "a1", "a2", "anton", "anton@urjc.es", "123", "Profesor");
@@ -218,6 +222,7 @@ public class SistemaTest {
     sistema.getSubforo().get(0).getEntrada().get(3).votar(sistema.getConectado(), 1);
     assertEquals(3,sistema.getMasVotadas().size());//como solo cojo las 3 mas votadas, tiene que haber 3 y no 4 que es el total
     sistema.logOut();
+    sistema.deleteBD();
     }
 
     
@@ -241,6 +246,7 @@ public class SistemaTest {
         int i = sistema.getUsuarios().size(); // cogemos el tamaño del array de usuarios antes de borrar uno
         sistema.eliminarUsuario("mikel"); //borramos al usuario
         assertEquals(i - 1, sistema.getUsuarios().size());//miramos que el tamaño de ahora es igual al de antes de borrar -1
+        sistema.deleteBD();
     }
 
     @Test
@@ -251,6 +257,7 @@ public class SistemaTest {
         int i = sistema.getUsuarios().size(); // cogemos el tamaño del array de usuarios antes de borrar uno
         sistema.eliminarUsuario("mikel"); //borramos al usuario
         assertEquals(i - 1, sistema.getUsuarios().size());//miramos que el tamaño de ahora es igual al de antes de borrar -1
+        sistema.deleteBD();
     }
 
     @Test
@@ -261,6 +268,7 @@ public class SistemaTest {
         int i = sistema.getUsuarios().size(); // cogemos el tamaño del array de usuarios antes de borrar uno
         sistema.eliminarUsuario("mikel"); //borramos al usuario
         assertEquals(i - 1, sistema.getUsuarios().size());//miramos que el tamaño de ahora es igual al de antes de borrar -1
+        sistema.deleteBD();
     }
 
     @Test
@@ -270,6 +278,7 @@ public class SistemaTest {
         int i = sistema.getUsuarios().size(); // cogemos el tamaño del array de usuarios antes de borrar uno
         sistema.eliminarUsuario("perico"); //borramos al usuario
         assertEquals(i, sistema.getUsuarios().size());//miramos que el tamaño del array es el mismo antes y despues de "eliminar" el usuario
+    sistema.deleteBD();
     }
 
     /**
@@ -277,12 +286,10 @@ public class SistemaTest {
      */
     @Test
     public void testGuardarSistema() {//comprobamos que podemos guardar el sistema
-        File bbdd = new File("Sistema.obj");
-        if (bbdd.exists()) {
-            bbdd.delete();
-        }
+        
         Sistema sistema = Sistema.getInstance();
         assertTrue(sistema.guardarSistema());
+        sistema.deleteBD();
     }
 
 }

@@ -21,12 +21,12 @@ public class TextoPlanoTest {
      */
     @Test
     public void testModificarEntrada() {
-        Sistema s = new Sistema();
+        Sistema s = Sistema.getInstance();
         Profesor us = new Profesor("Pedro","Jimenez", "Garcia", "peter", "peter@urjc.es","123");
         TextoPlano txt = new TextoPlano(us,"Esto es la prueba", " no esta modificada todavia");
         txt.modificarEntrada(us, "Ahora si esta modificada");
         assertNotEquals(txt.getCuerpo()," no esta modificada todavia" );
-        
+        s.deleteBD();
     }
     
 }

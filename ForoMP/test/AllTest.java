@@ -8,22 +8,19 @@
  *
  * @author alvarogonzalez
  */
-import Sistema.Sistema;
-import org.junit.Before;
+
 import users.*;
+import Subforo_Entrada.*;
+import Sistema.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({UsuarioTest.class})
+@SuiteClasses({SistemaTest.class, UsuarioTest.class,
+               ProfesorTest.class, UsuarioTest.class, ComentarioTest.class, EjercicioTest.class, EncuestaTest.class, EntradaTest.class,
+               SubforoTest.class, EntradaGenericaTest.class})
 public class AllTest {
-    /*  @Before
-    public void metodoBefore(){
-    Sistema sist = Sistema.getInstance();
-    Alumno us = new Alumno("Pedro","Jimenez", "Garcia", "peter", "peter@alumnos.urjc.es","123");
-    sist.logIn("peter@alumnos.urjc.es", "peter", "123");
-    }
-    */
+   
     
 }

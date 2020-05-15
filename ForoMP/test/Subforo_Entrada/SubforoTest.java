@@ -23,10 +23,6 @@ public class SubforoTest {
      */
     @Test
     public void testAddSubscriptor() {
-        File bbdd = new File("Sistema.obj");
-        if (bbdd.exists()) {
-            bbdd.delete();
-        }
 
         Sistema s = Sistema.getInstance();
         s.registrarse("Pepe", "a1", "a2", "pepe", "pepe@urjc.es", "123", "Profesor");
@@ -39,15 +35,11 @@ public class SubforoTest {
         s.getSubforo().get(0).addSubscriptor(s.getConectado());
         s.logOut();
         assertEquals(i + 1, s.getSubforo().get(0).getUsuariosSuscritos().size());//comporbamos que efectivamente se ha suscrito
-
+        s.deleteBD();
     }
-    
-     @Test
+
+    @Test
     public void testAddSubscriptor2() {//intentamos suscribir un usuario ya suscrito al subforo
-        File bbdd = new File("Sistema.obj");
-        if (bbdd.exists()) {
-            bbdd.delete();
-        }
 
         Sistema s = Sistema.getInstance();
         s.registrarse("Pepe", "a1", "a2", "pepe", "pepe@urjc.es", "123", "Profesor");
@@ -61,19 +53,14 @@ public class SubforoTest {
         s.getSubforo().get(0).addSubscriptor(s.getConectado());//suscribimos de nuevo al usuario
         s.logOut();
         assertEquals(i + 1, s.getSubforo().get(0).getUsuariosSuscritos().size());//comporbamos que efectivamente solo se suscribe una vez
-
+        s.deleteBD();
     }
-    
 
     /**
      * Test of notifySubscriptor method, of class Subforo.
      */
     @Test
     public void testNotifySubscriptor() {
-        File bbdd = new File("Sistema.obj");
-        if (bbdd.exists()) {
-            bbdd.delete();
-        }
 
         Sistema s = Sistema.getInstance();//obtenemos el sistema y creamos un par de usuarios
         s.registrarse("Pepe", "a1", "a2", "pepe", "pepe@urjc.es", "123", "Profesor");
@@ -92,6 +79,7 @@ public class SubforoTest {
 
         assertEquals(s.getConectado().getNotificaciones().size(), 1);//comprobamos que al suscritor se le ha notificado
         s.logOut();
+        s.deleteBD();
     }
 
     /**
@@ -99,10 +87,6 @@ public class SubforoTest {
      */
     @Test
     public void testDeleteSubscriptor() {
-        File bbdd = new File("Sistema.obj");
-        if (bbdd.exists()) {
-            bbdd.delete();
-        }
 
         Sistema s = Sistema.getInstance();//creamos un par de usuarios
         s.registrarse("Pepe", "a1", "a2", "pepe", "pepe@urjc.es", "123", "Profesor");
@@ -117,6 +101,7 @@ public class SubforoTest {
         s.getSubforo().get(0).deleteSubscriptor(s.getConectado());//borramos el suscritos
         s.logOut();
         assertEquals(i - 1, s.getSubforo().get(0).getUsuariosSuscritos().size());//comprobamso que hay un suscritor menos
+        s.deleteBD();
     }
 
     /**
@@ -124,10 +109,6 @@ public class SubforoTest {
      */
     @Test
     public void testCrearEntrada() {
-        File bbdd = new File("Sistema.obj");
-        if (bbdd.exists()) {
-            bbdd.delete();
-        }
 
         Sistema s = Sistema.getInstance();
         s.registrarse("Pepe", "a1", "a2", "pepe", "pepe@urjc.es", "123", "Profesor");
@@ -139,7 +120,7 @@ public class SubforoTest {
 
         s.logOut();
         assertEquals(i + 1, s.getSubforo().get(0).getEntrada().size());//comprobamos que se ha creado la entrada
-
+        s.deleteBD();
     }
 
 }
