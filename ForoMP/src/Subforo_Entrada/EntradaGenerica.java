@@ -96,7 +96,7 @@ public abstract class EntradaGenerica implements Serializable, Comparable<Entrad
 
     /**
      * ComprobarUsuarioVoto es un metodo privado que comprueba si el valor de
-     * voto es valido, para no sumar cosas extrañas en la valoracion de la
+     * voto es valido, para no sumar cosas raras en la valoracion de la
      * entrada
      *
      * @param u

@@ -36,7 +36,7 @@ public class EntradaTest {
         String tituloPlano = "Titulo texto plano";
         String texto2 = "Esto es la prueba del tecto plano";
         post.addTextoPlano(us, tituloPlano, texto2);
-        //miramos si se ha añadido el texto plano
+        //miramos si se ha agregada el texto plano
         assertEquals(i + 1, post.getComponentes().size());
         s.deleteBD();
     }
@@ -63,7 +63,7 @@ public class EntradaTest {
         int i = e.getComponentes().size();
         String tituloE = "Titulo encuesta";
         e.addEncuesta(us, tituloE);
-        //miramos si se ha añadido el texto plano
+        //miramos si se ha agregado el texto plano
         assertEquals(i + 1, e.getComponentes().size());
         s.deleteBD();
     }
@@ -92,20 +92,6 @@ public class EntradaTest {
         assertEquals(i+1,s.getSubforo().get(0).getEntrada().get(0).getEjercicios().size());
         s.logOut();
         s.deleteBD();
-                
-        /* Sistema s = Sistema.getInstance();
-        String titulo = "TITULO PRUEBA 3";
-        String texto = "Esto es una tercera prueba de entrada.";
-        Alumno us = new Alumno("Pedro", "Jimenez", "Garcia", "peter", "peter@alumnos.urjc.es", "123");
-        Entrada post = new Entrada(us, titulo, texto);
-        int i = post.getComponentes().size();
-        String tituloEj = "Titulo Ejercicios";
-        String p = "Pregunta 1";
-        String r = "Respuesta 1";
-        post.addEjercicio(us, tituloEj, p, r);
-        //miramos si se ha añadido el texto plano
-        assertEquals(i + 1, post.getComponentes().size());
-        s.deleteBD();*/
     }
 
     /**
@@ -128,9 +114,9 @@ public class EntradaTest {
         Entrada e = sf.getEntrada().get(0);
         
         int i = e.getComentarios().size();
-        String com = "Comentario a añadir";
+        String com = "Comentario a agregar";
         e.addComentario(us, com);
-        //miramos si se ha añadido el texto plano
+        //miramos si se ha agregado el texto plano
         assertEquals(i + 1, e.getComentarios().size());
         s.deleteBD();
     }

@@ -18,18 +18,18 @@ import users.Profesor;
  */
 public class EncuestaTest {
     /**
-     * Test of añadirPreguntas method, of class Encuesta.
+     * Test of addPreguntas method, of class Encuesta.
      */
     @Test
-    public void testAñadirPreguntas() {
+    public void testAddPreguntas() {
         Sistema s = Sistema.getInstance();
         String titulo = "Test";
         Profesor us = new Profesor("Pedro","Jimenez", "Garcia", "peter", "peter@urjc.es","123");
         Encuesta e = new Encuesta(us,titulo);
         int i = e.getPreguntas().size();
-        e.añadirPreguntas(titulo);
+        e.addPreguntas(titulo);
         
-        //miramos si se ha añadido la pregunta
+        //miramos si se ha agregado la pregunta
         assertEquals(i+1,e.getPreguntas().size());
         s.deleteBD();
     }
@@ -43,12 +43,12 @@ public class EncuestaTest {
         String titulo = "Test";
         Profesor us = new Profesor("Pedro","Jimenez", "Garcia", "peter", "peter@urjc.es","123");
         Encuesta e = new Encuesta(us,titulo);
-        e.añadirPreguntas(titulo);
+        e.addPreguntas(titulo);
         titulo = "Respuesta";
         int i = e.getRespuestas().size();
         e.reponderPreguntas(titulo, 0);
         
-        //miramos si se añade la respuesta a una pregunta fuera del rango del array
+        //miramos si se agrega la respuesta a una pregunta fuera del rango del array
         assertEquals(i,e.getRespuestas().size());
         
         i = e.getRespuestas().size();
@@ -60,7 +60,7 @@ public class EncuestaTest {
         i = e.getRespuestas().size();
         e.reponderPreguntas(titulo, 1);
         
-        //probamos a responder la pregunta previamente añadida
+        //probamos a responder la pregunta previamente agregada
         assertEquals(i+1,e.getRespuestas().size());
         s.deleteBD();
     }    

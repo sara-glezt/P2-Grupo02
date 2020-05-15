@@ -32,13 +32,13 @@ public class Encuesta extends EntradaGenerica {
         return respuestas;
     }
 /**
- * Añade la pregunta que le introduzca
+ * Agrega la pregunta que le introduzca
  * @param prg 
  */
-    public void añadirPreguntas(String prg) {
+    public void addPreguntas(String prg) {
         if (!prg.isEmpty() && !preguntas.contains(prg)) {
             preguntas.add(prg);
-            System.out.println("La pregunta <<" + prg + ">> ha sido añadida con exito");
+            System.out.println("La pregunta <<" + prg + ">> ha sido agregado con exito");
         } else {
             System.out.println("Usted ha metido una pregutna repetida o no ha introducido nada");
         }

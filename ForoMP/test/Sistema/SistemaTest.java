@@ -53,7 +53,7 @@ sistema.deleteBD();
     public void testRegistrarse5() {//registramos un usuario con un email no valido
        
         Sistema sistema = Sistema.getInstance();
-        assertFalse(sistema.registrarse("Angel", "Garcia", "Lopez", "angel2", "angelperez@pojzbñxvckz.urjc.es", "123", "Administrador"));
+        assertFalse(sistema.registrarse("Angel", "Garcia", "Lopez", "angel2", "angelperez@pojzbxvckz.urjc.es", "123", "Administrador"));
         sistema.deleteBD();
     }
 
@@ -100,7 +100,7 @@ sistema.deleteBD();
         Sistema sistema = Sistema.getInstance();
         sistema.registrarse("Angel", "Garcia", "Lopez", "angel", "angel@urjc.es", "123", "Administrador");
          sistema.logIn("angel@urjc.es", "angel", "123");//hacemos login con un usuario
-        int i = sistema.getSubforo().size();//obtemos el tamaño del array antes de crear un suboforo
+        int i = sistema.getSubforo().size();//obtemos el v del array antes de crear un suboforo
         sistema.crearSubforo("Tecnologia"); //intentamos crear el subforo
         assertEquals(i,sistema.getSubforo().size());//Como no podemos, el valor es el mismo despues de itentar crearlo
         sistema.logOut();
@@ -114,7 +114,7 @@ sistema.deleteBD();
         Sistema sistema = Sistema.getInstance();
         sistema.registrarse("Felipe", "badillo", "Lopez", "pipe", "pipe@urjc.es", "123", "Profesor");
         sistema.logIn("pipe@urjc.es", "pipe", "123");
-        int i = sistema.getSubforo().size();//obtemos el tamaño del array antes de crear un suboforo
+        int i = sistema.getSubforo().size();//obtemos el tamanios del array antes de crear un suboforo
         sistema.crearSubforo("Tecnologia"); //intentamos crear el subforo
         assertEquals(i + 1, sistema.getSubforo().size());//Como no podemos, el valor es el mismo despues de itentar crearlo
         sistema.logOut();
@@ -132,7 +132,7 @@ sistema.deleteBD();
         sistema.registrarse("Felipe", "badillo", "Lopez", "pipe", "pipe@urjc.es", "123", "Profesor");
         sistema.logIn("pipe@urjc.es", "pipe", "123");
         sistema.crearSubforo("Tecnologia");
-        int i = sistema.getSubforo().size();//obtemos el tamaño del array despues de crear un suboforo
+        int i = sistema.getSubforo().size();//obtemos el tamanios del array despues de crear un suboforo
         sistema.eliminarSubforo("Tecnologia");
         assertEquals(i-1 , sistema.getSubforo().size());//comprobamos que ahora tenemos un subforo menos
         sistema.logOut();
@@ -149,9 +149,9 @@ sistema.deleteBD();
         sistema.crearSubforo("Comida"); //lo creamos con pipe
         sistema.logOut(); //cambiamos de usuario para borrarlo
         sistema.logIn("angel@urjc.es", "angel", "123"); //cambiamos de usuario para borrarlo
-        int i = sistema.getSubforo().size(); // antes de intentar borrarlo cogemos el tamaño que tiene
+        int i = sistema.getSubforo().size(); // antes de intentar borrarlo cogemos el tamanios que tiene
         sistema.eliminarSubforo("Comida");//intentamos borrarlo con alguien que no es su creador
-        assertEquals(i, sistema.getSubforo().size());//comprobamos que el tamaño no ha variado
+        assertEquals(i, sistema.getSubforo().size());//comprobamos que el tamanios no ha variado
         sistema.logOut();
         sistema.deleteBD();
     }
@@ -191,7 +191,7 @@ sistema.deleteBD();
     sistema.registrarse("Antonio", "a1", "a2", "anton", "anton@urjc.es", "123", "Profesor");
     sistema.registrarse("xavi", "a1", "a2", "xavi22", "xavi22@alumnos.urjc.es", "123", "Alumno");
     sistema.logIn("anton@urjc.es", "anton", "123");
-    sistema.crearSubforo("Nutricion");//cremos el subofor para añadirle las entrada y votarlas
+    sistema.crearSubforo("Nutricion");//cremos el subofor para agregarle las entrada y votarlas
     sistema.getSubforo().get(0).crearEntrada(sistema.getConectado(), "Mi prueba", "El test no da error");
     sistema.logOut();
     sistema.logIn("xavi22@alumnos.urjc.es", "xavi22", "123");//votamos todas la entradas menos una, que sera la que tenga menos valoracion(0)
@@ -209,7 +209,7 @@ sistema.deleteBD();
     sistema.registrarse("Antonio", "a1", "a2", "anton", "anton@urjc.es", "123", "Profesor");
     sistema.registrarse("xavi", "a1", "a2", "xavi22", "xavi22@alumnos.urjc.es", "123", "Alumno");
     sistema.logIn("anton@urjc.es", "anton", "123");
-    sistema.crearSubforo("Nutricion");//cremos el subofor para añadirle las entrada y votarlas
+    sistema.crearSubforo("Nutricion");//cremos el subofor para agregarle las entrada y votarlas
     sistema.getSubforo().get(0).crearEntrada(sistema.getConectado(), "Mi prueba", "El test no da error");
     sistema.getSubforo().get(0).crearEntrada(sistema.getConectado(), "Mi prueba1", "El test no da error");
     sistema.getSubforo().get(0).crearEntrada(sistema.getConectado(), "Mi prueba2", "El test no da error");
@@ -243,9 +243,9 @@ sistema.deleteBD();
        
         Sistema sistema = Sistema.getInstance();
         sistema.registrarse("Miguel", "Lopez", "Arriba", "mikel", "mikel@alumnos.urjc.es", "123", "Alumno"); //lo creamaos
-        int i = sistema.getUsuarios().size(); // cogemos el tamaño del array de usuarios antes de borrar uno
+        int i = sistema.getUsuarios().size(); // cogemos el tamanios del array de usuarios antes de borrar uno
         sistema.eliminarUsuario("mikel"); //borramos al usuario
-        assertEquals(i - 1, sistema.getUsuarios().size());//miramos que el tamaño de ahora es igual al de antes de borrar -1
+        assertEquals(i - 1, sistema.getUsuarios().size());//miramos que el tamanios de ahora es igual al de antes de borrar -1
         sistema.deleteBD();
     }
 
@@ -254,9 +254,9 @@ sistema.deleteBD();
         
         Sistema sistema = Sistema.getInstance();
         sistema.registrarse("Miguel", "Lopez", "Arriba", "mikel", "mikel@urjc.es", "123", "Profesor"); //lo creamaos
-        int i = sistema.getUsuarios().size(); // cogemos el tamaño del array de usuarios antes de borrar uno
+        int i = sistema.getUsuarios().size(); // cogemos el tamanios del array de usuarios antes de borrar uno
         sistema.eliminarUsuario("mikel"); //borramos al usuario
-        assertEquals(i - 1, sistema.getUsuarios().size());//miramos que el tamaño de ahora es igual al de antes de borrar -1
+        assertEquals(i - 1, sistema.getUsuarios().size());//miramos que el tamanios de ahora es igual al de antes de borrar -1
         sistema.deleteBD();
     }
 
@@ -265,9 +265,9 @@ sistema.deleteBD();
         
         Sistema sistema = Sistema.getInstance();
         sistema.registrarse("Miguel", "Lopez", "Arriba", "mikel", "mikel@urjc.es", "123", "Administrador"); //lo creamaos
-        int i = sistema.getUsuarios().size(); // cogemos el tamaño del array de usuarios antes de borrar uno
+        int i = sistema.getUsuarios().size(); // cogemos el tamanios del array de usuarios antes de borrar uno
         sistema.eliminarUsuario("mikel"); //borramos al usuario
-        assertEquals(i - 1, sistema.getUsuarios().size());//miramos que el tamaño de ahora es igual al de antes de borrar -1
+        assertEquals(i - 1, sistema.getUsuarios().size());//miramos que el tamanios de ahora es igual al de antes de borrar -1
         sistema.deleteBD();
     }
 
@@ -275,9 +275,9 @@ sistema.deleteBD();
     public void testEliminarUsuario4() {//intentamos borrar un usuario que no esta registrado
         
         Sistema sistema = Sistema.getInstance();
-        int i = sistema.getUsuarios().size(); // cogemos el tamaño del array de usuarios antes de borrar uno
+        int i = sistema.getUsuarios().size(); // cogemos el tamanios del array de usuarios antes de borrar uno
         sistema.eliminarUsuario("perico"); //borramos al usuario
-        assertEquals(i, sistema.getUsuarios().size());//miramos que el tamaño del array es el mismo antes y despues de "eliminar" el usuario
+        assertEquals(i, sistema.getUsuarios().size());//miramos que el tamanios del array es el mismo antes y despues de "eliminar" el usuario
     sistema.deleteBD();
     }
 

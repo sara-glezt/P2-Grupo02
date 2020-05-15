@@ -42,7 +42,7 @@ public class Entrada extends EntradaGenerica implements Serializable {
     }
 
     /**
-     * Añade un texto plano a la entrada
+     * Agrega un texto plano a la entrada
      * @param u
      * @param titulo
      * @param cuerpo 
@@ -62,7 +62,7 @@ public class Entrada extends EntradaGenerica implements Serializable {
                 TextoPlano texto = new TextoPlano(u, titulo, cuerpo);
                 textos.add(texto);
                 componentes.add(texto);
-                System.out.println("Texto plano añadido con exito");
+                System.out.println("Texto plano agregado con exito");
             } else {
                 System.out.println("Este titulo ya esta en uso, elija otro");
 
@@ -72,7 +72,7 @@ public class Entrada extends EntradaGenerica implements Serializable {
     }
 
 /**
- * Añade una encuesta a la entrada
+ * Agrega una encuesta a la entrada
  * @param u
  * @param titulo 
  */
@@ -101,7 +101,7 @@ public class Entrada extends EntradaGenerica implements Serializable {
         }
     }
 /**
- * Añade un ejercicio a la entrada
+ * Agrega un ejercicio a la entrada
  * @param u
  * @param titulo
  * @param p
@@ -131,7 +131,7 @@ public class Entrada extends EntradaGenerica implements Serializable {
     }
 
     /**
-     * Añade un comentario a la entrada
+     * Agrega un comentario a la entrada
      * @param u
      * @param s 
      */
@@ -139,7 +139,7 @@ public class Entrada extends EntradaGenerica implements Serializable {
         if (this.getVerificado()) {
             Comentario comen = new Comentario(u, s);
             comentarios.add(comen);
-            System.out.println("Comentario añadido con exito");
+            System.out.println("Comentario agregado con exito");
         } else {
             System.out.println("No puedes comentar, pues no esta verificada la entrada");
         }

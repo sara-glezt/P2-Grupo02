@@ -22,18 +22,18 @@ public abstract class Usuario implements Serializable, Observer {
     private String apellido2;
     private String nick;
     private String email;
-    private String contraseña;
+    private String password;
     private ArrayList<Subforo> subforos;
     private ArrayList<String> notificaciones;
     private int penalizacion;
 
-    public Usuario(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña) {
+    public Usuario(String nombre, String apellido1, String apellido2, String nick, String email, String password) {
         this.nombre = nombre;
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;
         this.nick = nick;
         this.email = email;
-        this.contraseña = contraseña;
+        this.password = password;
         subforos = new ArrayList<>();
         notificaciones = new ArrayList<>();
     }
@@ -58,8 +58,8 @@ public abstract class Usuario implements Serializable, Observer {
         return email;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getPassword() {
+        return password;
     }
 
     public void setNombre(String nombre) {
@@ -82,8 +82,8 @@ public abstract class Usuario implements Serializable, Observer {
         this.email = email;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setPassword(String password) {
+        this.password = password;
     }
 /**
  * Se usa para darse de baja de un subforo al que este suscrito

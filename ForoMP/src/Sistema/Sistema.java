@@ -72,25 +72,25 @@ public class Sistema implements Serializable {
  * @param apellido2 String
  * @param nick String
  * @param email String
- * @param contraseña String
+ * @param password String
  * @param tipo String
  */
-    public boolean registrarse(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña, String tipo) {
-        boolean valido = verificarNuevoUsuario(nombre, apellido1, apellido2, nick, email, contraseña, tipo);
+    public boolean registrarse(String nombre, String apellido1, String apellido2, String nick, String email, String password, String tipo) {
+        boolean valido = verificarNuevoUsuario(nombre, apellido1, apellido2, nick, email, password, tipo);
   
         if (valido) {
             if (tipo.equals("alumno") || tipo.equals("Alumno")) {
-                Usuario us = new Alumno(nombre, apellido1, apellido2, nick, email, contraseña);
+                Usuario us = new Alumno(nombre, apellido1, apellido2, nick, email, password);
                 usuarios.add(us);
-                System.out.println("Se ha añadido un nuevo alumno.");
+                System.out.println("Se ha agregado un nuevo alumno.");
             } else if (tipo.equals("profesor") || tipo.equals("Profesor")) {
-                Usuario us = new Profesor(nombre, apellido1, apellido2, nick, email, contraseña);
+                Usuario us = new Profesor(nombre, apellido1, apellido2, nick, email, password);
                 usuarios.add(us);
-                System.out.println("Se ha añadido un nuevo profesor.");
+                System.out.println("Se ha agregado un nuevo profesor.");
             } else { //si no es profe ni alummn como he verificado, le queda solo ser admin
-                Usuario us = new Administrador(nombre, apellido1, apellido2, nick, email, contraseña);
+                Usuario us = new Administrador(nombre, apellido1, apellido2, nick, email, password);
                 usuarios.add(us);
-                System.out.println("Se ha añadido un nuevo Administrador.");
+                System.out.println("Se ha agregado un nuevo Administrador.");
             }
         }
       
@@ -103,10 +103,10 @@ public class Sistema implements Serializable {
  * @param apellido2 String
  * @param nick String
  * @param email String
- * @param contraseña String
+ * @param password String
  * @param tipo String
  */
-    private boolean verificarNuevoUsuario(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña, String tipo) {//preguntar que hace exactamente
+    private boolean verificarNuevoUsuario(String nombre, String apellido1, String apellido2, String nick, String email, String password, String tipo) {//preguntar que hace exactamente
         Iterator<Usuario> i = usuarios.iterator();
 
         Scanner sc = new Scanner(email); //cogemos la parte del @ en adelante del email
@@ -186,8 +186,8 @@ public class Sistema implements Serializable {
 
                 if (bol) { //si el nombre no esta usado entonces lo creamos
                     Subforo s1 = new Subforo(sr);
-                    subforo.add(s1); // lo añadido a la list a de subforos
-                    System.out.println("Se ha añadido un nuevo subforo; el subforo: " + s1.getNombre());
+                    subforo.add(s1); // lo agregamos a la list a de subforos
+                    System.out.println("Se ha agregado un nuevo subforo; el subforo: " + s1.getNombre());
                 }
             } else {
                 System.out.println("Usted no tiene los permisos para crear subforos.");
@@ -237,7 +237,7 @@ public class Sistema implements Serializable {
         if (conectado == null) { //miro que no haya ningun usuario conectado
             while (i.hasNext() & aceptar) { // busco el usuario con su caracterisitcas
                 Usuario us = i.next();
-                if (us.getNick().equals(nick) & us.getEmail().equals(email) & us.getContraseña().equals(password)) {
+                if (us.getNick().equals(nick) & us.getEmail().equals(email) & us.getPassword().equals(password)) {
 
                     if (us instanceof Alumno) {   //miro si es un alumno para comprobar si esta penalizado
                         if (((Alumno) us).penalizado()) {

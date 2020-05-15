@@ -23,10 +23,10 @@ public class Alumno extends Usuario implements Serializable{
      * @param apellido2
      * @param nick
      * @param email
-     * @param contraseña 
+     * @param password 
      */
-    public Alumno(String nombre, String apellido1, String apellido2, String nick, String email, String contraseña) {
-        super(nombre, apellido1, apellido2, nick, email, contraseña);
+    public Alumno(String nombre, String apellido1, String apellido2, String nick, String email, String password) {
+        super(nombre, apellido1, apellido2, nick, email, password);
         penalizacion = 0;
     }
 /**

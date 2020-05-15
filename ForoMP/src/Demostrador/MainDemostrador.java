@@ -205,7 +205,7 @@ public class MainDemostrador {
         System.out.println("");
 
  
-        System.out.println("12- Añadimos un suscriptor a un subforo");
+        System.out.println("12- suscribimos un suscriptor a un subforo");
         s.logIn("ruben@alumnos.urjc.es", "grillos", "1122");
         s.getSubforo().get(0).addSubscriptor(s.getConectado());
         System.out.println("");
@@ -245,7 +245,7 @@ public class MainDemostrador {
         s.getSubforo().get(0).getEntrada().get(1).addComentario(s.getConectado(), "Madre Willy, que me cuentas");
         System.out.println("");
 
-        System.out.println("19-Añadimos un texto plano a la entrada para ver efectivamente por ser el creador nos deja");
+        System.out.println("19-Agregamos un texto plano a la entrada para ver efectivamente por ser el creador nos deja");
         s.getSubforo().get(0).getEntrada().get(1).addTextoPlano(s.getConectado(), "Mas de 100 Km/h", "Alcanzo la velocidad del sonido");
 
         System.out.println("");
@@ -296,13 +296,13 @@ public class MainDemostrador {
         s.getSubforo().get(0).getEntrada().get(1).addEncuesta(s.getConectado(), "Comparte tu opinion");
         System.out.println("");
 
-        System.out.println("29- Añadimos un par de preguntas a la encuesta.");
-        s.getSubforo().get(0).getEntrada().get(1).getEncuestas().get(0).añadirPreguntas("De que color es el cielo");
-        s.getSubforo().get(0).getEntrada().get(1).getEncuestas().get(0).añadirPreguntas("Como crees que esta saliendo la practica");
+        System.out.println("29- Agregamos un par de preguntas a la encuesta.");
+        s.getSubforo().get(0).getEntrada().get(1).getEncuestas().get(0).addPreguntas("De que color es el cielo");
+        s.getSubforo().get(0).getEntrada().get(1).getEncuestas().get(0).addPreguntas("Como crees que esta saliendo la practica");
         System.out.println("");
         
         System.out.println("30- Intentamos meter una pregunta repetida y vemos que no podemos");
-        s.getSubforo().get(0).getEntrada().get(1).getEncuestas().get(0).añadirPreguntas("De que color es el cielo");
+        s.getSubforo().get(0).getEntrada().get(1).getEncuestas().get(0).addPreguntas("De que color es el cielo");
         System.out.println("");
 
         System.out.println("31- Vemos las preguntas que tiene nuestra encuesta");
@@ -382,7 +382,7 @@ public class MainDemostrador {
         System.out.println("1.Volvemos a conectarnos para comentar una entrada");
         s.logIn("ruben@alumnos.urjc.es", "grillos", "1122");
         s.getSubforo().get(0).getEntrada().get(1).addComentario(s.getConectado(), "Esto es un comentario para votar");
-        System.out.println("2- Mostramos que se ha añadido el comentario");
+        System.out.println("2- Mostramos que se ha Agregamos el comentario");
         System.out.println(s.getSubforo().get(0).getEntrada().get(1).verComentarios());
         
         System.out.println("");

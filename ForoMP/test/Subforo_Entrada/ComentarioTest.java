@@ -24,7 +24,7 @@ public class ComentarioTest {
         Comentario c = new Comentario(us,s);
         int i = c.getComentarios().size();
         c.responderComentario(us, s);
-        //miramos si se ha añadido el comentario
+        //miramos si se ha agragado el comentario
         assertEquals(i+1,c.getComentarios().size());
     }
     /**

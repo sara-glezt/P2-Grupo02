@@ -29,7 +29,7 @@ public class SubforoTest {
         s.registrarse("Juan", "a1", "a2", "juan", "juan@alumnos.urjc.es", "123", "Alumno");
         s.logIn("pepe@urjc.es", "pepe", "123");
         s.crearSubforo("Alimentacion");//creamos el subforo
-        int i = s.getSubforo().get(0).getUsuariosSuscritos().size(); //obtenemos el tamaño del array de suscritos
+        int i = s.getSubforo().get(0).getUsuariosSuscritos().size(); //obtenemos el tamanio del array de suscritos
         s.logOut();
         s.logIn("juan@alumnos.urjc.es", "juan", "123"); //cambiamos de usuaario para suscribirlo
         s.getSubforo().get(0).addSubscriptor(s.getConectado());
@@ -46,7 +46,7 @@ public class SubforoTest {
         s.registrarse("Juan", "a1", "a2", "juan", "juan@alumnos.urjc.es", "123", "Alumno");
         s.logIn("pepe@urjc.es", "pepe", "123");
         s.crearSubforo("Alimentacion");//creamos el subforo
-        int i = s.getSubforo().get(0).getUsuariosSuscritos().size(); //obtenemos el tamaño del array de suscritos
+        int i = s.getSubforo().get(0).getUsuariosSuscritos().size(); //obtenemos el tamanio del array de suscritos
         s.logOut();
         s.logIn("juan@alumnos.urjc.es", "juan", "123"); //cambiamos de usuaario para suscribirlo
         s.getSubforo().get(0).addSubscriptor(s.getConectado());//suscribimos al usuario
@@ -69,7 +69,7 @@ public class SubforoTest {
         s.crearSubforo("Alimentacion");//creamos el subforo
         s.logOut();
         s.logIn("juan@alumnos.urjc.es", "juan", "123");
-        s.getSubforo().get(0).addSubscriptor(s.getConectado());//añadimos el suscritor
+        s.getSubforo().get(0).addSubscriptor(s.getConectado());//agregamos el suscritor
         s.logOut();
 
         s.logIn("pepe@urjc.es", "pepe", "123");
@@ -96,8 +96,8 @@ public class SubforoTest {
 
         s.logOut();
         s.logIn("juan@alumnos.urjc.es", "juan", "123");
-        s.getSubforo().get(0).addSubscriptor(s.getConectado());//añadimos el suscritor
-        int i = s.getSubforo().get(0).getUsuariosSuscritos().size();//nos quedamos con el tamaño del array
+        s.getSubforo().get(0).addSubscriptor(s.getConectado());//agragamos el suscritor
+        int i = s.getSubforo().get(0).getUsuariosSuscritos().size();//nos quedamos con el tamanio del array
         s.getSubforo().get(0).deleteSubscriptor(s.getConectado());//borramos el suscritos
         s.logOut();
         assertEquals(i - 1, s.getSubforo().get(0).getUsuariosSuscritos().size());//comprobamso que hay un suscritor menos

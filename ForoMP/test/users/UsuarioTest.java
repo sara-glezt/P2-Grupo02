@@ -68,55 +68,6 @@ public class UsuarioTest {
         
     }
 
-    /**
-     * Test of recibirNotificacion method, of class Usuario.
-     */
-    @Test
-    public void testRecibirNotificacion() {
-        
-        /*Subforo s = new Subforo("Ciencia");
-        //Usuario u = new Alumno("Pedro","Jimenez", "Garcia", "peter", "peter@alumnos.urjc.es","123");
-        
-        sistema.getConectado().darDeAltaSubforo(s);
-        s.addSubscriptor(sistema.getConectado());
-        //int i = u.getNotificaciones().size();
-        
-        
-        Usuario u1 = new Profesor("Juan","Jimenez", "Garcia", "juanxo", "juan@urjc.es","123");
-        s.crearEntrada(u1, "Prueba", "Texto 1");
-        
-        //assertTrue(u.getNotificaciones().size()==i+1);//miramos que se ha añadido una notificacion
-        assertEquals(sistema.getConectado().getNotificaciones().size(),1);*/
-    }
-
-    /**
-     * Test of mostrarNotificaciones method, of class Usuario.
-     */
-    @Test
-    public void testMostrarNotificaciones() {
-    }
-
-    /**
-     * Test of penalizar method, of class Usuario.
-     */
-    @Test
-    public void testPenalizar() {
-    }
-
-    /**
-     * Test of penalizado method, of class Usuario.
-     */
-    @Test
-    public void testPenalizado() {
-    }
-
-    /**
-     * Test of actualizarPenalizacion method, of class Usuario.
-     */
-    @Test
-    public void testActualizarPenalizacion() {
-    }
-
     public class UsuarioImpl extends Usuario {
 
         public UsuarioImpl() {

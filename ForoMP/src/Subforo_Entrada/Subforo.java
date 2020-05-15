@@ -50,7 +50,7 @@ public class Subforo implements Serializable, Observable {
     // COSAS DE OBSERVER (down)
     //
     /**
-     * añade un suscritos al subforo en el que estamos
+     * Agrega un suscritos al subforo en el que estamos
      * @param o 
      */
     @Override
@@ -66,7 +66,7 @@ public class Subforo implements Serializable, Observable {
     }
 
     /**
-     * Añade las notificaciones a los usuarios que esta suscritos
+     * Agrega las notificaciones a los usuarios que esta suscritos
      * @param ent 
      */
     @Override
