@@ -230,30 +230,6 @@ public class SistemaTest {
     }
 
     /**
-     * Test of ListaSubforo method, of class Sistema.
-     */
-    @Test
-    public void testListaSubforo() {//este test devuelve un String, no se haria no?
-
-    }
-
-    /**
-     * Test of ListaUsuario method, of class Sistema.
-     */
-    @Test
-    public void testListaUsuario() {//este test devuelve un String, no se haria no?
-
-    }
-
-    /**
-     * Test of saltarDias method, of class Sistema.
-     */
-    @Test
-    public void testSaltarDias() {//este metodo se creo por no esperar lo dias, no conseidera que sea testeable
-
-    }
-
-    /**
      * Test of eliminarUsuario method, of class Sistema.
      */
     //en los de eliminar usuario, la primera vez que borrama daba falla, al ejecutar otra vez bien, por eso los creo y los borro, para que no de fallo
